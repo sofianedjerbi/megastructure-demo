@@ -1,0 +1,134 @@
+/* The windows drawn in the recipe book's manner (they were in style.css, which outgrew its 300 lines): the book
+   itself (craft.js), the goals' card (goals.js), what Tab shows (who.js) and the inventory (bag.js). One pixel size
+   each, a number of them for every length; a face, a bevel and an edge that are shadows of a box. */
+  /* ---- crafting, a recipe book (craft.js) ----
+     One pixel size for all of it, --q (the land's: ui.js): every length is a number of them, and the text is the font
+     at that pixel (9 to a line). A window, a cell, a button: a face, a bevel inside it (a light edge up and left, a dark
+     one down and right) and an edge outside it one pixel wide that leaves the corners out. All of it is shadows of the
+     box: no picture, so nothing to stretch or to show joints. The colours are the panel's own.
+     The window is 252 by 155 of them whatever it shows, and so is each part of a page: a name of two lines at most,
+     a line about it of two, a place of four lines for what it takes (more than four go two and three abreast). */
+  #craft { position:fixed; left:0; right:0; top:0; bottom:10vh; margin:auto; width:calc(252 * var(--q)); height:calc(155 * var(--q)); padding:calc(5 * var(--q)); display:none; z-index:4;
+    color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(60,40,30,.22); }
+  :is(#craft, #bag) canvas { display:block; width:calc(16 * var(--q)); height:calc(16 * var(--q)); image-rendering:pixelated; }
+  :is(#craft, #bag) .cell { position:relative; flex:none; width:calc(18 * var(--q)); height:calc(18 * var(--q)); padding:var(--q); background:#cfad84; box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }   /* a sunk slot: 18 px round a 16 px icon */
+  :is(#craft, #bag) .cell.res { background:#f1dfb8; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #fffaf0; }                                  /* (what comes out: a lighter one) */
+  :is(#craft, #bag) .cell span { position:absolute; right:0; bottom:calc(-1 * var(--q)); color:#fff8e8; text-shadow:var(--q) var(--q) 0 var(--ink); }
+  :is(#craft, #bag) .well { background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; padding:calc(3 * var(--q)); display:flex; flex-direction:column; gap:calc(2 * var(--q)); }   /* a sunk place: a list lies in it */
+  :is(#craft, #bag) .b { flex:none; display:flex; align-items:center; justify-content:center; height:calc(16 * var(--q)); padding:0 calc(5 * var(--q)) var(--q); cursor:pointer; white-space:nowrap;
+    color:#fff8e8; text-shadow:var(--q) var(--q) 0 #2f5a3b; background:#5aa264; box-shadow:inset var(--q) var(--q) 0 #8fcc97, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #3f7a4f, calc(-1 * var(--q)) 0 #2f5a3b, var(--q) 0 #2f5a3b, 0 calc(-1 * var(--q)) #2f5a3b, 0 var(--q) #2f5a3b; }
+  :is(#craft, #bag) .b:hover { background:#68b272; } :is(#craft, #bag) .b:active { box-shadow:inset var(--q) var(--q) 0 #3f7a4f, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #8fcc97, calc(-1 * var(--q)) 0 #2f5a3b, var(--q) 0 #2f5a3b, 0 calc(-1 * var(--q)) #2f5a3b, 0 var(--q) #2f5a3b; }
+  :is(#craft, #bag) .b.off { cursor:default; color:var(--ink2); text-shadow:none; background:#d6bd92; box-shadow:inset var(--q) var(--q) 0 #e6d2ac, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #bf9f74, calc(-1 * var(--q)) 0 #aa7959, var(--q) 0 #aa7959, 0 calc(-1 * var(--q)) #aa7959, 0 var(--q) #aa7959; }
+  :is(#craft, #bag) .b.paper { color:var(--ink); text-shadow:none; background:#f3e5c2; box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #aa7959, var(--q) 0 #aa7959, 0 calc(-1 * var(--q)) #aa7959, 0 var(--q) #aa7959; } :is(#craft, #bag) .b.paper:hover { background:#fbf0d6; }
+  :is(#craft, #bag) .b.on { color:#fff6e2; text-shadow:var(--q) var(--q) 0 #6b4a3a; background:#aa7959; box-shadow:inset var(--q) var(--q) 0 #8a5f4b, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }     /* (a switch that is on: pressed in) */
+  /* a key's cap on what it does, while you play by keys (keyboard.js): on a button, after its word */
+  :is(#craft, #bag) kbd { display:none; flex:none; align-items:center; height:calc(9 * var(--q)); padding:0 calc(2 * var(--q)); font:inherit; font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink); text-shadow:none;
+    background:#f3e5c2; box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  body.bykeys:not(.touch) :is(#craft, #bag) kbd { display:flex; }
+  :is(#craft, #bag) .b > kbd { margin:var(--q) 0 0 calc(4 * var(--q)); }                                        /* (beside the word: the two are centred together) */
+  #crafttabs .ckeys { display:flex; gap:calc(3 * var(--q)); margin:var(--q) 0 0 calc(-1 * var(--q)); }
+  /* the bookmarks, down the side: the one you are on is of the window's own paper and runs into it */
+  #crafttabs { position:absolute; left:calc(-19 * var(--q)); top:calc(4 * var(--q)); display:flex; flex-direction:column; gap:calc(3 * var(--q)); }
+  .ctab { width:calc(20 * var(--q)); height:calc(20 * var(--q)); padding:calc(2 * var(--q)); cursor:pointer; background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #ecd9b4, calc(-1 * var(--q)) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  .ctab.on { width:calc(21 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, calc(-1 * var(--q)) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; position:relative; z-index:1; }
+  #craftclose { position:absolute; right:calc(5 * var(--q)); top:calc(5 * var(--q)); width:calc(16 * var(--q)); padding:0 0 var(--q); }
+  #craft .cbook { display:flex; gap:calc(6 * var(--q)); height:100%; }
+  #craft .cleft { flex:none; width:calc(110 * var(--q)); }
+  #craft .ctools { display:flex; gap:calc(3 * var(--q)); margin:0 var(--q) calc(4 * var(--q)); } #craftonly { flex:1 !important; } #craftprev, #craftnext { width:calc(16 * var(--q)); padding:0 0 var(--q) !important; }
+  #recipes { height:calc(114 * var(--q)); }
+  #craft .line { flex:none; display:flex; align-items:center; gap:calc(4 * var(--q)); height:calc(20 * var(--q)); padding:var(--q) calc(4 * var(--q)) var(--q) var(--q); cursor:pointer; white-space:nowrap; overflow:hidden; }
+  #craft .line.no { color:var(--ink2); } #craft .line.no canvas { opacity:.35; }                    /* (not yet: quieter, and still read) */
+  #craft .line.cur { color:#fff6e2; text-shadow:var(--q) var(--q) 0 #6b4a3a; background:#aa7959; box-shadow:inset var(--q) var(--q) 0 #c49a6c, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #8a5f4b, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  #craft .line.cur canvas { opacity:1; }
+  #craft .cnone { font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); padding:calc(4 * var(--q)); }
+  #craftmore { height:calc(8 * var(--q)); margin-top:calc(3 * var(--q)); font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); text-align:center; }
+  #craftdetail { flex:1; min-width:0; display:flex; flex-direction:column; gap:calc(3 * var(--q)); }
+  #craft .chead { display:flex; align-items:center; gap:calc(5 * var(--q)); margin:0 calc(20 * var(--q)) 0 var(--q); height:calc(18 * var(--q)); }
+  #craft .cname { min-width:0; max-height:calc(18 * var(--q)); overflow:hidden; }
+  #craft .cname i { font-style:normal; color:var(--ink2); }
+  #craft .cblurb { flex:none; height:calc(16 * var(--q)); overflow:hidden; margin:0 calc(2 * var(--q)); font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); }       /* (a line about it: two lines at most) */
+  #craft .cneeds { flex:1; min-height:0; gap:var(--q); overflow:hidden; }                         /* (four lines of 18, and it is full) */
+  #craft .cneeds:is(.c2, .c3) { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); grid-auto-rows:calc(18 * var(--q)); align-content:start; gap:var(--q) calc(2 * var(--q)); }
+  #craft .cneeds.c3 { grid-template-columns:repeat(3, minmax(0, 1fr)); font-size:calc(6 * var(--q)); }
+  #craft .cneeds:is(.c2, .c3) .cneed { gap:calc(3 * var(--q)); } #craft .cneeds.c3 .cneed { gap:calc(2 * var(--q)); }
+  #craft .cneeds:is(.c2, .c3) .cneed > span { display:none; } #craft .cneeds:is(.c2, .c3) .cneed b { margin-left:0; padding-right:0; }
+  #craft .cneed.more { justify-content:center; color:var(--ink2); font-size:calc(6 * var(--q)); }
+  #craft .cneed > span { min-width:0; overflow:hidden; white-space:nowrap; }
+  #craft .cneed { flex:none; min-width:0; height:calc(18 * var(--q)); overflow:hidden; display:flex; align-items:center; gap:calc(4 * var(--q)); } #craft .cneed b { margin-left:auto; padding-right:calc(2 * var(--q)); font-weight:normal; color:#3f8a52; white-space:nowrap; }
+  #craft .cneed.miss b { color:var(--warn); }
+  #craft .cbtns { flex:none; display:flex; gap:calc(4 * var(--q)); margin:0 var(--q) var(--q); } #craft .cbtn { flex:1; height:calc(20 * var(--q)); } #craft .x5 { height:calc(20 * var(--q)); }
+  /* a phone: in the middle of the screen, over the thumbs' buttons, which are put away while it is open */
+  body.touch :is(#craft, #bag) { bottom:0; z-index:6; }
+  body.touch:has(:is(#craft, #bag)[style*="display: block"]) :is(#ttop, #tbtns, #tctx) { visibility:hidden; }
+  /* The goals, top left: a small card in the inventory's pixel (the land's: 3 screen px an art px), and small in that
+     pixel: 106 by 62 of them. A line at the top: the title, how many are done, the help's key. Then the next three in
+     a sunk list, each a line 13 high: its small picture (the 11 px one the bar's slots hold) in a cell, its words,
+     a box at the right that is ticked. (At this pixel with the book's 18 px cells and 20 px lines it was 128 by 110:
+     way too big. At a smaller pixel it was small, and its px were not the game's.) */
+  #goals { position:fixed; left:calc(10px + var(--q)); top:calc(10px + var(--q)); width:calc(106 * var(--q)); padding:calc(3 * var(--q)); display:none; z-index:3; cursor:default;
+    color:var(--ink); font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(3 * var(--q)) 0 rgba(60,40,30,.22); }
+  /* While you play: the goals stay, top left, with the help's link (the title panel is put away: its day and your
+     name show on Tab). Held, Tab shows one window in the top right corner (under a phone's buttons there): the day, who you are, who else
+     is awake (as the sandbox classic lists its players; who.js). Nothing in it moves in: it is there at once. (The goals
+     were put on Tab too for a day: each press played their slide in again, in four steps, which looked like lag.)
+     Watching, not playing, the title and the list stay as they were: you pick who to follow. */
+  body.playing #brand, body.playing #side { display:none !important; }
+  /* ---- what Tab shows (who.js): drawn as the recipe book is, in its pixel (--q) and its colours ---- */
+  #who { --q:var(--w); position:fixed; right:calc(10px + var(--w)); top:calc(10px + var(--w)); width:calc(150 * var(--q)); padding:calc(5 * var(--q)); display:none; z-index:5; pointer-events:none;
+    color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(60,40,30,.22); }
+  body.playing.tab #who { display:block; } body.touch #who { top:calc(64px + env(safe-area-inset-top)); right:calc(10px + env(safe-area-inset-right)); }
+  #who canvas { display:block; width:calc(16 * var(--q)); height:calc(16 * var(--q)); image-rendering:pixelated; }
+  #who .cell { flex:none; width:calc(18 * var(--q)); height:calc(18 * var(--q)); padding:var(--q); background:#cfad84; box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+  #who .whead { display:flex; align-items:center; gap:calc(5 * var(--q)); height:calc(18 * var(--q)); margin:0 var(--q); } #whoday { flex:1; font-weight:normal; } #whohour { padding-right:calc(2 * var(--q)); }
+  #whosky { background:#f1dfb8 !important; } #whosky[data-night="1"] { background:#5d5f8f !important; box-shadow:inset var(--q) var(--q) 0 #45476e, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #8d8fb8 !important; }
+  /* the day as a bar: the sky's colours hour by hour (daylight.js: skyBar, 68 x 3 cells of two px); the mark is the hour */
+  #whobar { position:relative; height:calc(6 * var(--q)); margin:calc(5 * var(--q)) calc(2 * var(--q)) calc(6 * var(--q)); box-shadow:calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  #who #whoband { width:100%; height:100%; }
+  #whomark { position:absolute; top:calc(-2 * var(--q)); width:calc(4 * var(--q)); height:calc(10 * var(--q)); background:#fff6e2; box-shadow:inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  #wholist { background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; padding:calc(3 * var(--q)); display:flex; flex-direction:column; gap:calc(2 * var(--q)); }
+  #who .line { flex:none; display:flex; align-items:center; gap:calc(4 * var(--q)); height:calc(20 * var(--q)); padding:var(--q) calc(5 * var(--q)) var(--q) var(--q); white-space:nowrap; overflow:hidden; }
+  #who .line .n { min-width:0; overflow:hidden; } #who .line .lv { margin-left:auto; font-size:calc(6 * var(--q)); color:var(--ink2); }
+  #who .line .tag { font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); padding:0 calc(2 * var(--q)); color:#6b4a3a; background:#f3e5c2; text-shadow:none; box-shadow:calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  #who .line.cur { color:#fff6e2; text-shadow:var(--q) var(--q) 0 #6b4a3a; background:#aa7959; box-shadow:inset var(--q) var(--q) 0 #c49a6c, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #8a5f4b, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  #who .line.cur .lv { color:#f3dcc0; text-shadow:none; }
+  #whofoot { display:flex; justify-content:space-between; height:calc(8 * var(--q)); margin:calc(3 * var(--q)) calc(2 * var(--q)) 0; font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); }
+  /* early in the game, with the card away: a small tab where it would be, that says its key */
+  #goalhint { position:fixed; left:calc(10px + var(--q)); top:calc(10px + var(--q)); display:none; align-items:center; gap:calc(3 * var(--q)); height:calc(14 * var(--q)); padding:0 calc(4 * var(--q)) 0 calc(3 * var(--q)); z-index:3; cursor:pointer;
+    color:var(--ink); font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(3 * var(--q)) 0 rgba(60,40,30,.22); }
+  #goalhint span { color:var(--ink2); } body:not(.playing) #goalhint { display:none !important; }
+  #goals .gh { display:flex; align-items:center; gap:calc(3 * var(--q)); height:calc(9 * var(--q)); margin:0 calc(1 * var(--q)) calc(2 * var(--q)) calc(2 * var(--q)); } #goals .gh b { font-weight:normal; } #goalcount { flex:1; color:var(--ink2); }
+  #goallist { background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; padding:calc(2 * var(--q)); display:flex; flex-direction:column; gap:var(--q); min-height:calc(45 * var(--q)); }
+  .goal { flex:none; display:flex; align-items:center; gap:calc(3 * var(--q)); height:calc(13 * var(--q)); padding-right:calc(2 * var(--q)); animation:goalin .35s steps(4); }
+  .goal .gc { flex:none; display:flex; align-items:center; justify-content:center; width:calc(13 * var(--q)); height:calc(13 * var(--q)); background:#cfad84; box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+  .goal .gi { width:calc(11 * var(--q)); height:calc(11 * var(--q)); flex:none; image-rendering:pixelated; }
+  .goal .gt { flex:1; min-width:0; white-space:nowrap; overflow:hidden; }
+  .goal .tick { flex:none; width:calc(6 * var(--q)); height:calc(6 * var(--q)); background:#cfad84; box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+  .goal.done .gt { color:#4f7a3a; }
+  .goal.done .tick { background:#8fc46a; box-shadow:inset var(--q) var(--q) 0 #6aa04e, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c2e8a0; }
+  .goal.done { animation:goaldone 1.6s steps(8) forwards; }
+  #goals .gf { display:flex; align-items:center; gap:calc(2 * var(--q)); color:var(--ink2); cursor:pointer; }
+  :is(#goals, #goalhint) kbd { display:flex; align-items:center; height:calc(8 * var(--q)); padding:0 calc(2 * var(--q)); font:inherit; color:var(--ink); background:#f3e5c2; box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  @keyframes goalin { from { opacity:0; transform:translateX(-12px); } }
+  @keyframes goaldone { 0%, 70% { opacity:1; } 100% { opacity:0; transform:translateX(-12px); } }
+  /* ---- the inventory (bag.js): the recipe book's manner, in a pixel of its own (--b: the book's, less where 224 x 162 would not fit) ---- */
+  #bag { --q:var(--b); position:fixed; left:0; right:0; top:0; bottom:10vh; margin:auto; width:calc(214 * var(--q)); height:calc(155 * var(--q)); padding:calc(5 * var(--q)); display:none; z-index:4;
+    color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); background:#e8cfa6; box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(60,40,30,.22); }
+  #bagclose { position:absolute; right:calc(5 * var(--q)); top:calc(6 * var(--q)); width:calc(16 * var(--q)); padding:0 0 var(--q); }
+  #bag .bhead { display:flex; align-items:center; gap:calc(4 * var(--q)); height:calc(18 * var(--q)); margin:0 calc(22 * var(--q)) calc(2 * var(--q)) calc(2 * var(--q)); } #bag .bhead b { flex:1; font-weight:normal; }
+  #bag .bhead span, #bag .blabel { font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); } #bag .blabel { margin:calc(2 * var(--q)) calc(3 * var(--q)) var(--q); }
+  #bagwear { display:flex; gap:calc(2 * var(--q)); }
+  #bag .bgrid { display:grid; grid-template-columns:repeat(10, calc(18 * var(--q))); gap:calc(2 * var(--q)); padding:calc(3 * var(--q)); }
+  #bag .cell { cursor:pointer; } #bag .cell.ghost canvas { opacity:.2; filter:grayscale(1); }
+  #bag .cell .k { position:absolute; left:calc(1 * var(--q)); top:0; font-style:normal; font-size:calc(6 * var(--q)); line-height:calc(7 * var(--q)); color:#fff8e8; text-shadow:var(--q) var(--q) 0 var(--ink); }
+  #bag .cell.held { background:#f1dfb8; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #fffaf0; }            /* (in your hand: a lighter cell) */
+  #bag .cell.cur { box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4, 0 0 0 var(--q) #fff6e2, 0 0 0 calc(2 * var(--q)) #6b4a3a; z-index:1; }   /* (the cursor: a light frame and a dark one round the cell) */
+  #bag .cell.moving canvas, #bag .cell.moving span { opacity:.35; }
+  #bag .cell span { right:var(--q); bottom:0; font-size:calc(6 * var(--q)); line-height:calc(7 * var(--q)); }                                   /* (how many: small, in the corner) */
+  /* the label on the cursor's cell: the thing's name and its line */
+  #bag .btip { position:absolute; left:50%; bottom:calc(100% + calc(4 * var(--q))); transform:translateX(-50%); z-index:5; white-space:nowrap; pointer-events:none; padding:calc(3 * var(--q)) calc(4 * var(--q)); background:#f3e5c2; color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(10 * var(--q)); text-shadow:none;
+    box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(3 * var(--q)) 0 rgba(60,40,30,.25); }
+  #bag .btip i { display:block; font-style:normal; font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); } #bag .btip i:empty { display:none; }
+  #bag .btip.down { bottom:auto; top:calc(100% + calc(4 * var(--q))); }
+  /* the keys, in a line: each with its word for the thing you are on */
+  #bagkeys { display:flex; align-items:center; gap:calc(4 * var(--q)); height:calc(9 * var(--q)); margin:calc(5 * var(--q)) calc(3 * var(--q)) 0; font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); white-space:nowrap; }
+  #bag .bkey { display:flex; align-items:center; gap:calc(2 * var(--q)); cursor:pointer; } #bag .bkey.off { opacity:.35; cursor:default; } #bagkeys kbd { display:flex; margin:0; }

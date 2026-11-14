@@ -1,0 +1,25 @@
+/* The help (js/help.js): the recipe book's window. One pixel size, --q (the land's): a face, a bevel inside it and an
+   edge outside it one pixel wide that leaves the corners out, all shadows of the box. Its pixel is --w, the one of
+   what Tab shows and of the goals (the book.s --q read too big beside the land). */
+#help { --q:var(--w); position:fixed; left:0; right:0; top:0; bottom:10vh; margin:auto; width:calc(232 * var(--q)); max-width:none; height:fit-content; padding:calc(5 * var(--q)); display:none; z-index:6;
+  color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); background:#e8cfa6;
+  box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(60,40,30,.22); }
+#help b { font-weight:normal; }
+#help .hh { display:flex; align-items:center; justify-content:space-between; height:calc(13 * var(--q)); padding:0 calc(2 * var(--q)); }
+#help .hh span, #help .hf { display:flex; align-items:center; gap:calc(3 * var(--q)); color:var(--ink2); cursor:pointer; }
+#help .hf { justify-content:center; height:calc(15 * var(--q)); padding-top:calc(3 * var(--q)); cursor:default; }
+#help kbd { flex:none; display:flex; align-items:center; justify-content:center; min-width:calc(11 * var(--q)); height:calc(11 * var(--q)); padding:0 calc(3 * var(--q)) var(--q); font:inherit; color:var(--ink);
+  background:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-2 * var(--q)) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#help .tabs { display:flex; gap:calc(3 * var(--q)); padding:calc(3 * var(--q)) calc(2 * var(--q)) 0; }
+#help .tab { flex:1; display:flex; align-items:center; justify-content:center; height:calc(15 * var(--q)); padding-bottom:var(--q); cursor:pointer; color:#6b4a3a; background:#cfad84;
+  box-shadow:inset var(--q) var(--q) 0 #e2c79c, inset calc(-1 * var(--q)) 0 0 #b08a62, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a; }
+#help .tab.on { color:var(--ink); background:#d9bd90; height:calc(17 * var(--q)); margin-top:calc(-2 * var(--q));
+  box-shadow:inset var(--q) var(--q) 0 #f8edd4, inset calc(-1 * var(--q)) 0 0 #b8946a, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a; }   /* (the page you are on: taller, and the well's colour) */
+#help .well { display:flex; flex-direction:column; gap:calc(2 * var(--q)); min-height:calc(116 * var(--q));     /* (five rows: every page the same size) */
+  padding:calc(4 * var(--q)); background:#d9bd90;
+  box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+#help .row { display:flex; align-items:center; gap:calc(5 * var(--q)); min-height:calc(20 * var(--q)); padding:0 calc(3 * var(--q)); background:#e8cfa6;
+  box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c; }
+#help .keys { flex:none; display:flex; gap:calc(3 * var(--q)); width:calc(62 * var(--q)); }
+#help .what { flex:1; }
+body.touch #help { display:none !important; }

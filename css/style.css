@@ -1,0 +1,190 @@
+  @font-face { font-family: SproutPixel; src: url(../assets/sprout-pixel.ttf); }
+  :root { --ink:#5b3f36; --ink2:#8a6a55; --paper:#f3dfba; --accent:#4f9a6a; --warn:#c0503c;
+    --u:2px; --i:3px; --u3:3px; --q:3px;
+    /* a number on a slot: a hard rim, one font pixel wide all round (the font at 18 px is 2 px a pixel), so it reads on wood, on an item, on grass.
+       In the ink's brown for a count, in a lighter one for a slot's key: near black, and the key yellow, they shouted */
+    --rim:2px 0px 0 #5b3f36, -2px 0px 0 #5b3f36, 0px 2px 0 #5b3f36, 0px -2px 0 #5b3f36, 2px 2px 0 #5b3f36, -2px 2px 0 #5b3f36, 2px -2px 0 #5b3f36, -2px -2px 0 #5b3f36;
+    --rim-key:2px 0px 0 #7a5846, -2px 0px 0 #7a5846, 0px 2px 0 #7a5846, 0px -2px 0 #7a5846, 2px 2px 0 #7a5846, -2px 2px 0 #7a5846, 2px -2px 0 #7a5846, -2px -2px 0 #7a5846; }   /* the HUD's art pixels, each a whole number of screen pixels: a slot's frame, the item in it (the land's own), the big picture (hudFit, ui.js) */
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:#9bd4c3; overflow:hidden; color:var(--ink);
+    font:18px/22px SproutPixel, monospace; font-synthesis:none; user-select:none; }
+  * { font-weight:normal !important; }
+  canvas#c { position:fixed; inset:0; display:block; image-rendering:pixelated; cursor:url(../assets/cursor.png) 4 2, auto; }
+  canvas#c.act { cursor:url(../assets/cursor_point.png) 10 2, pointer; }
+  body, button, .slot, .rc, .ag { cursor:url(../assets/cursor.png) 4 2, auto; }
+  .panel { position:fixed; border:calc(8 * var(--u3)) solid transparent; border-image:url(../assets/panel.png) 9 fill / calc(9 * var(--u3)) stretch;   /* (3 px a pixel, in whole screen pixels) */
+    image-rendering:pixelated; padding:0; filter:drop-shadow(0 3px 0 rgba(60,40,30,.25)); }
+  .panel > .in { margin:-10px -8px -12px; }
+  h3 { margin:0 0 4px; font-size:18px; color:var(--ink2); font-weight:800; letter-spacing:0; text-transform:uppercase; }
+  #brand { left:10px; top:10px; }
+  #brand .t { font-size:27px; font-weight:800; letter-spacing:0; }
+  #brand .s { color:var(--ink2); margin-top:2px; }
+  #side { right:10px; top:10px; width:230px; max-height:40vh; display:flex; flex-direction:column; }
+  #side .in { display:flex; flex-direction:column; gap:2px; min-height:0; max-height:calc(40vh - 40px); overflow:auto; }
+  #agents { max-height:24vh; overflow:auto; }
+  .ag { display:flex; align-items:center; gap:7px; padding:1px 4px; cursor:pointer; border-radius:3px; }
+  .ag:hover, .ag.sel { background:rgba(91,63,54,.1); }
+  .ag .dot { width:9px; height:9px; flex:none; border:2px solid var(--ink); }
+  .ag .n { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ag .m { color:var(--ink2); font-size:18px; }
+  .ag.off { opacity:.45; }
+  .say{color:#3d6f9e}.shout{color:#b0692a}.death{color:var(--warn)}.attack{color:#b5532f}.give{color:#3f8a4f}
+  .craft{color:#7b5aa6}.join,.leave,.creature_died{color:var(--ink2)}.sign{color:#8a6a2a}
+  #joinbox { left:50%; top:50%; transform:translate(-50%,-50%); width:420px; text-align:center; }
+  #joinbox .t { font-size:36px; font-weight:800; letter-spacing:0; margin:4px 0; }
+  #joinbox p { color:var(--ink2); margin:6px 0 14px; }
+  input { font:inherit; color:var(--ink); background:#fff6e2; border:3px solid #c9a27a; border-radius:4px; padding:6px 9px; outline:none; }
+  input:focus { border-color:var(--accent); }
+  button { font:inherit; color:#fff8e8; background:#6aa66f; border:3px solid #3f7a4f; border-radius:4px; padding:5px 12px; cursor:pointer; }
+  button:hover { filter:brightness(1.08); }
+  button.ghost { background:#e9cfa2; color:var(--ink); border-color:#c9a27a; }
+  #joinbox .row { display:flex; gap:8px; } #joinbox input { flex:1; }
+  #joinbox .watch { margin-top:10px; }
+  #where { color:var(--ink2); margin-bottom:3px; }
+  #doing { color:#b0692a; min-height:16px; }
+  #hotbar { display:flex; gap:calc(2 * var(--u)); flex-wrap:nowrap; justify-content:center; }
+  /* a slot is its frame as it was drawn, 30 art px a side at --u, and in it the item's small picture, 11 px at --i (the
+     land's pixel: as it lies on the ground). The frame is put whole (in nine pieces, between two screen pixels, the
+     joints showed) */
+  .slot { width:calc(30 * var(--u)); height:calc(30 * var(--u)); flex:none; border:calc(5 * var(--u)) solid transparent;
+    background:url(../assets/slot.png) 0 0 / 100% 100% no-repeat border-box;
+    image-rendering:pixelated; position:relative; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .slot.sel { background-image:url(../assets/slot_sel.png); }
+  .slot canvas { width:calc(11 * var(--i)); height:calc(11 * var(--i)); flex:none; image-rendering:pixelated; }
+  .slot .c { position:absolute; right:-6px; bottom:-8px; font-size:18px; line-height:18px; color:#fff8e8; text-shadow:var(--rim); }
+  .slot .lvl { position:absolute; left:8px; right:8px; bottom:5px; height:4px; background:#5b4038; border-radius:2px; overflow:hidden; }
+  .slot .lvl i { display:block; height:100%; background:#7fd3e6; }
+  .slot .k { position:absolute; left:-5px; top:-7px; font-size:18px; line-height:18px; color:#f6e3bf; text-shadow:var(--rim-key); }   /* (its key: quieter than the count) */
+  .slot:hover .tip { display:block; }
+  .tip { display:none; position:absolute; bottom:46px; left:50%; transform:translateX(-50%); white-space:nowrap; background:var(--paper); border:2px solid var(--ink); padding:2px 7px; pointer-events:none; z-index:3; }
+  .bagslot .bagtxt { color:#fff8e8; text-shadow:1px 1px 0 var(--ink); }
+  #mail { left:50%; top:50%; transform:translate(-50%,-55%); width:min(520px, 92vw); display:none; z-index:4; }
+  #mail .close { position:absolute; right:-6px; top:-14px; cursor:pointer; color:var(--ink2); }
+  #mail .row { display:flex; gap:6px; margin-top:8px; } #mail input { flex:1; }
+  #letters { max-height:240px; overflow:auto; }
+  .letter { background:#fff6e2; border:2px solid #d9b98a; border-radius:5px; padding:6px 8px; margin:4px 0; }
+  .letter .from { color:var(--ink2); }
+  #banner { left:50%; top:24%; transform:translateX(-50%); display:none; text-align:center; width:min(520px, 90vw); z-index:5; }
+  #banner .t { font-size:36px; line-height:40px; color:var(--warn); margin-bottom:6px; }
+  #toast { left:50%; top:10px; transform:translateX(-50%); display:none; max-width:70vw; }
+  #help { right:10px; bottom:10px; display:none; max-width:300px; color:var(--ink2); font-size:18px; }
+  #help b { color:var(--ink); font-weight:normal; }
+  #hover.bad { color:var(--warn); }
+  #hover { position:fixed; pointer-events:none; background:var(--paper); border:2px solid var(--ink); padding:2px 7px; display:none; z-index:5; }
+  .slot.kfocus { outline:3px solid #6aa66f; outline-offset:1px; }
+
+  /* ---- HUD: hearts and food on the hotbar ---- */
+  #hud { position:fixed; left:0; right:0; margin:0 auto; width:max-content; bottom:10px; display:none; flex-direction:column; align-items:stretch;
+    gap:3px; z-index:3; filter:drop-shadow(0 3px 0 rgba(60,40,30,.3)); pointer-events:none; }
+  #hud .hudrow { display:flex; gap:calc(2 * var(--u)); align-items:center; pointer-events:auto; }
+  #vitals { display:flex; justify-content:space-between; align-items:flex-end; padding:0 4px; box-sizing:border-box; }
+  #vitals canvas { image-rendering:pixelated; }
+  /* experience: the wooden track between the vitals and the hotbar (drawn on a canvas by xp.js) */
+  #xpwrap { position:relative; align-self:flex-start; margin:3px 0 7px; }
+  #xpbar { display:block; image-rendering:pixelated; }
+  /* the level: the pixel font at 2x its 9 px grid (crisp), bright green with a hard one-font-pixel outline, centred,
+     resting on the bar's top edge */
+  #xplevel { position:absolute; left:0; right:0; bottom:6px; text-align:center; font-size:18px; line-height:18px; color:#c2f066;
+    text-shadow:2px 0 0 #2b4417, -2px 0 0 #2b4417, 0 2px 0 #2b4417, 0 -2px 0 #2b4417,
+      2px 2px 0 #2b4417, -2px 2px 0 #2b4417, 2px -2px 0 #2b4417, -2px -2px 0 #2b4417; }
+  #xplevel:empty { display:none; }
+  #status { align-self:center; text-align:center; white-space:nowrap; color:#fff8e8; font-size:18px; display:none;
+    text-shadow:0 0 2px var(--ink), 1px 1px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink); }
+  #status { color:#ffd0b8; }
+  .slot.tool canvas { opacity:.95; }
+  .link { cursor:pointer; text-decoration:underline dotted; }
+  /* ---- chat: lines fade away after a while; Enter opens the history and the input ---- */
+  #chatbox { position:fixed; left:12px; bottom:120px; width:min(460px, 32vw); z-index:3; display:flex; flex-direction:column; gap:4px; pointer-events:none; }
+  #chatlog { display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; max-height:40vh; overflow:hidden; }
+  #chatlog div { background:rgba(40,28,24,.55); color:#fff8e8; padding:1px 8px; font-size:18px; line-height:22px; transition:opacity .8s;
+    text-shadow:1px 1px 0 rgba(0,0,0,.45); overflow-wrap:anywhere; }
+  #chatlog div.old { opacity:0; }
+  #chatlog .who { color:#ffe6a8; } #chatlog .shout { color:#ffb38a; } #chatlog .sys { color:#c9e7b8; } #chatlog .bad { color:#ffb0a0; }
+  #chatbox.open { pointer-events:auto; } #chatbox.open #chatlog { overflow:auto; } #chatbox.open #chatlog div.old { opacity:1; }
+  #say { display:none; width:100%; font:inherit; color:#fff8e8; background:rgba(40,28,24,.8); border:2px solid rgba(255,248,232,.35); padding:3px 8px; outline:none; }
+  #chatbox.open #say { display:block; }
+  /* what can come next in the line (complete.js): a list over it, the one Tab takes marked */
+  #sayhelp { display:none; align-self:flex-start; box-sizing:content-box; width:max-content; min-width:calc(100% - 4px); max-width:min(700px, 92vw);
+    max-height:168px; overflow-y:auto; background:rgba(40,28,24,.9); border:2px solid rgba(255,248,232,.35); color:#fff8e8;
+    font-size:18px; line-height:22px; pointer-events:auto; scrollbar-width:none; }   /* (seven rows; wider than the line if what it says is long) */
+  #sayhelp div { display:flex; gap:12px; padding:1px 8px; white-space:nowrap; cursor:pointer; }
+  #sayhelp b { flex:none; font-weight:normal; color:#ffe6a8; } #sayhelp span { color:rgba(255,248,232,.55); overflow:hidden; text-overflow:ellipsis; }
+  #sayhelp div.on { background:rgba(255,248,232,.17); } #sayhelp div.on span { color:rgba(255,248,232,.85); }
+  #sayhelp div.note { cursor:default; }
+  #debug { position:fixed; right:12px; bottom:12px; display:none; color:#fff8e8; background:rgba(40,28,24,.6); padding:4px 8px; font-size:18px; z-index:3; }
+  #vitals canvas.low { animation:jiggle .45s steps(2) infinite; }
+  @keyframes jiggle { 0% { transform:translateY(0); } 50% { transform:translateY(-2px); } }
+  /* ---- what you can do right now, bottom right ---- */
+  #actions { position:fixed; right:12px; bottom:12px; display:none; z-index:3; pointer-events:none; color:#fff8e8; font-size:18px; line-height:26px;
+    text-shadow:0 0 2px var(--ink), 1px 1px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink); }
+  #actions div { display:flex; align-items:center; justify-content:flex-end; }
+  #actions .key { order:2; display:inline-block; min-width:28px; padding:0 6px; margin-left:8px; text-align:center; line-height:18px; color:var(--ink);
+    background:#f7e7c6; border:2px solid var(--ink); border-bottom-width:4px; border-radius:4px; text-shadow:none; }
+  #debug { bottom:auto; top:120px; }
+  #actions div.bad { color:#ffb0a0; }
+  /* ---- touch screens (touch.js): a joystick on the left, two buttons on the right, a few at the top ---- */
+  body.touch { touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; overscroll-behavior:none; }
+  body.touch #joinbox { width:min(420px, 92vw); box-sizing:border-box; }
+  body.touch #joinbox input { font-size:18px; }  /* (16px+ or iOS zooms in on focus) */
+  body.touch #actions, body.touch #help, body.touch #helpbtn { display:none !important; }
+  body.touch #hud { transform-origin:bottom left; bottom:calc(8px + env(safe-area-inset-bottom)); }
+  body.touch .slot .k { display:none; }   /* (a slot's key: there are no keys) */
+  body.touch #xyz { top:calc(62px + env(safe-area-inset-top)) !important; font-size:12px !important; }  /* (/coords, /perf: under the buttons at the top) */
+  @media (max-width:600px) { body.touch #side { display:none; } }
+  body.touch #vitals { min-width:max-content; gap:10px; } body.touch #hud .hudrow { justify-content:center; }
+  body.touch #chatbox { width:min(460px, 60vw); bottom:calc(var(--tbot, 12px) + 150px); }
+  #pad, #tbtns, #tctx, #ttop { display:none; }
+  body.touch.playing #pad, body.touch.playing #tbtns, body.touch.playing #tctx, body.touch.playing #ttop { display:block; }
+  #pad { position:fixed; left:0; top:25vh; width:45vw; bottom:0; z-index:2; touch-action:none; }
+  #stickbase, #stickknob { position:fixed; display:none; transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; }
+  #pad.on #stickbase, #pad.on #stickknob { display:block; }
+  #stickbase { width:150px; height:150px; background:rgba(40,28,24,.25); border:3px solid rgba(255,248,232,.45); box-sizing:border-box; }
+  #stickknob { width:62px; height:62px; background:#f7e7c6; border:3px solid var(--ink); border-bottom-width:6px; box-sizing:border-box; opacity:.9; }
+  #tbtns { position:fixed; right:calc(14px + env(safe-area-inset-right)); bottom:var(--tbot, 12px); width:170px; height:150px; z-index:4; }
+  #tA, #tB { position:absolute; border-radius:50%; background:#f7e7c6; border:3px solid var(--ink); border-bottom-width:7px; box-sizing:border-box;
+    display:flex; align-items:center; justify-content:center; touch-action:none; filter:drop-shadow(0 3px 0 rgba(60,40,30,.3)); }
+  #tA { width:84px; height:84px; right:0; bottom:8px; } #tB { width:62px; height:62px; right:96px; bottom:0; background:#e3d3b8; }
+  #tA.down, #tB.down, #tctx div.down, #ttop div.down { border-bottom-width:3px; transform:translateY(3px); }
+  #tA.idle, #tB.idle { opacity:.55; } #tA.bad { background:#f3c7b8; }
+  #tA .lbl, #tB .lbl { font-size:26px; color:var(--ink); } #tB .lbl { font-size:20px; }
+  #tA .cap, #tB .cap { position:absolute; bottom:100%; margin-bottom:6px; right:-4px; white-space:nowrap; color:#fff8e8; font-size:16px; pointer-events:none;
+    text-shadow:0 0 2px var(--ink), 1px 1px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink); }
+  #tB .cap { bottom:auto; right:100%; margin:0 8px 0 0; }   /* (to its left: the main button's is above) */
+  #tctx { position:fixed; right:calc(14px + env(safe-area-inset-right)); bottom:calc(var(--tbot, 12px) + 190px); z-index:4; flex-direction:column; gap:8px; align-items:flex-end; }
+  #ttop { position:fixed; right:calc(10px + env(safe-area-inset-right)); top:calc(10px + env(safe-area-inset-top)); z-index:4; gap:8px; }
+  @media (max-width:600px) { body.touch.playing #ttop { flex-direction:column; align-items:flex-end; } body.touch #toast { top:auto; bottom:45vh; max-width:86vw; } }
+  body.touch.playing #ttop { display:flex; } body.touch.playing #tctx { display:flex; }
+  #tctx div, #ttop div { display:none; padding:6px 12px; background:#f7e7c6; color:var(--ink); border:2px solid var(--ink); border-bottom-width:5px;
+    border-radius:8px; font-size:18px; touch-action:none; }
+  #ttop div { display:block; }
+
+  /* the death screen (death.js): the world drained and edged dark red, a panel dropping in */
+  #deathveil { position:fixed; inset:0; display:none; z-index:6; pointer-events:none; opacity:0;
+    background:radial-gradient(ellipse at center, rgba(40,10,20,0) 35%, rgba(70,14,26,.55) 100%);
+    backdrop-filter:grayscale(.85) brightness(.8); -webkit-backdrop-filter:grayscale(.85) brightness(.8); transition:opacity .6s; }
+  #deathveil.on { opacity:1; } #deathveil.off { opacity:0; transition:opacity .45s; }
+  #death { left:50%; top:46%; transform:translate(-50%,-50%) scale(.92); display:none; z-index:7; text-align:center;
+    width:min(440px, 90vw); opacity:0; transition:opacity .35s .25s, transform .45s .25s cubic-bezier(.2,1.6,.4,1); }
+  #death.on { opacity:1; transform:translate(-50%,-50%) scale(1); } #death.off { opacity:0; transform:translate(-50%,-46%) scale(.96); transition:all .4s; }
+  #deathskull { width:64px; height:64px; image-rendering:pixelated; display:block; margin:-46px auto 0; animation:skullbob 1.6s steps(4) infinite; }
+  @keyframes skullbob { 50% { transform:translateY(-4px); } }
+  #death .dt { font-size:40px; line-height:44px; color:var(--warn); margin:2px 0 4px; text-shadow:2px 2px 0 rgba(91,63,54,.25); }
+  #deathcause { font-size:22px; color:var(--ink); margin-bottom:10px; }
+  #deathloot { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin:6px 0 4px; }
+  #deathloot .dslot { position:relative; width:calc(11 * var(--i) + 12px); height:calc(11 * var(--i) + 12px); background:#e9d3ab; border:2px solid #c9a676; border-radius:5px;
+    box-shadow:inset 0 -3px 0 rgba(91,63,54,.15); animation:dslotin .4s steps(4) backwards; }
+  #deathloot .dslot:nth-child(2) { animation-delay:.07s } #deathloot .dslot:nth-child(3) { animation-delay:.14s }
+  #deathloot .dslot:nth-child(4) { animation-delay:.21s } #deathloot .dslot:nth-child(n+5) { animation-delay:.28s }
+  @keyframes dslotin { from { opacity:0; transform:translateY(-8px); } }
+  #deathloot .dicon { width:calc(11 * var(--i)); height:calc(11 * var(--i)); image-rendering:pixelated; margin:4px; display:block; }
+  #deathloot span { position:absolute; right:1px; bottom:-4px; color:#fff8e8; font-size:16px;
+    text-shadow:2px 0 0 var(--ink),-2px 0 0 var(--ink),0 2px 0 var(--ink),0 -2px 0 var(--ink),2px 2px 0 var(--ink),-2px 2px 0 var(--ink),2px -2px 0 var(--ink),-2px -2px 0 var(--ink); }
+  #deathleft, #deathwake { color:var(--ink2); font-size:18px; line-height:22px; }
+  #deathwake { margin-top:4px; color:var(--ink); }
+  #death .dbar { height:8px; margin:12px 10px 4px; background:#d9bf94; border:2px solid var(--ink); border-radius:4px; overflow:hidden; }
+  #death .dbar i { display:block; height:100%; width:0; background:linear-gradient(#f2d98a,#d8a94e); }
+  #death .dhint { color:var(--ink2); font-size:15px; opacity:.8; }
+  body.touch #death .dhint { display:none; }
+
+#death .dhint { animation: deathhint 1.6s ease-in-out infinite; }
+@keyframes deathhint { 50% { opacity: .45; } }

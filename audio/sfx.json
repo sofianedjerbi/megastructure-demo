@@ -1,0 +1,810 @@
+{
+ "version": "3088e89ca7",
+ "rate": 32000,
+ "sounds": {
+  "step": {
+   "files": [
+    "step_0.flac",
+    "step_1.flac",
+    "step_2.flac",
+    "step_3.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "tock": {
+   "files": [
+    "tock_0.flac",
+    "tock_1.flac",
+    "tock_2.flac",
+    "tock_3.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "click": {
+   "files": [
+    "click_0.flac",
+    "click_1.flac",
+    "click_2.flac",
+    "click_3.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "wade": {
+   "files": [
+    "wade_0.flac",
+    "wade_1.flac",
+    "wade_2.flac",
+    "wade_3.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "swim": {
+   "files": [
+    "swim_0.flac",
+    "swim_1.flac",
+    "swim_2.flac",
+    "swim_3.flac",
+    "swim_4.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "thud": {
+   "files": [
+    "thud_0.flac",
+    "thud_1.flac",
+    "thud_2.flac"
+   ],
+   "category": "Footsteps",
+   "pitch": true
+  },
+  "chop": {
+   "files": [
+    "chop_0.flac",
+    "chop_1.flac",
+    "chop_2.flac",
+    "chop_3.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "mine": {
+   "files": [
+    "mine_0.flac",
+    "mine_1.flac",
+    "mine_2.flac",
+    "mine_3.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "dig": {
+   "files": [
+    "dig_0.flac",
+    "dig_1.flac",
+    "dig_2.flac",
+    "dig_3.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "rustle": {
+   "files": [
+    "rustle_0.flac",
+    "rustle_1.flac",
+    "rustle_2.flac",
+    "rustle_3.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "swing": {
+   "files": [
+    "swing_0.flac",
+    "swing_1.flac",
+    "swing_2.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "punch": {
+   "files": [
+    "punch_0.flac",
+    "punch_1.flac",
+    "punch_2.flac"
+   ],
+   "category": "Work",
+   "pitch": true
+  },
+  "snap": {
+   "files": [
+    "snap_0.flac",
+    "snap_1.flac",
+    "snap_2.flac"
+   ],
+   "category": "Breaking",
+   "pitch": true
+  },
+  "crumble": {
+   "files": [
+    "crumble_0.flac",
+    "crumble_1.flac",
+    "crumble_2.flac"
+   ],
+   "category": "Breaking",
+   "pitch": true
+  },
+  "creak": {
+   "files": [
+    "creak_0.flac",
+    "creak_1.flac"
+   ],
+   "category": "Breaking",
+   "pitch": true
+  },
+  "fallthud": {
+   "files": [
+    "fallthud_0.flac",
+    "fallthud_1.flac"
+   ],
+   "category": "Breaking",
+   "pitch": true
+  },
+  "place": {
+   "files": [
+    "place_0.flac",
+    "place_1.flac",
+    "place_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "clack": {
+   "files": [
+    "clack_0.flac",
+    "clack_1.flac",
+    "clack_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "plant": {
+   "files": [
+    "plant_0.flac",
+    "plant_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_post": {
+   "files": [
+    "place_post_0.flac",
+    "place_post_1.flac",
+    "place_post_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_planks": {
+   "files": [
+    "place_planks_0.flac",
+    "place_planks_1.flac",
+    "place_planks_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_stone": {
+   "files": [
+    "place_stone_0.flac",
+    "place_stone_1.flac",
+    "place_stone_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_furniture": {
+   "files": [
+    "place_furniture_0.flac",
+    "place_furniture_1.flac",
+    "place_furniture_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_soft": {
+   "files": [
+    "place_soft_0.flac",
+    "place_soft_1.flac",
+    "place_soft_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_pot": {
+   "files": [
+    "place_pot_0.flac",
+    "place_pot_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_fire": {
+   "files": [
+    "place_fire_0.flac",
+    "place_fire_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_boat": {
+   "files": [
+    "place_boat_0.flac",
+    "place_boat_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_floor": {
+   "files": [
+    "place_floor_0.flac",
+    "place_floor_1.flac",
+    "place_floor_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "place_path": {
+   "files": [
+    "place_path_0.flac",
+    "place_path_1.flac",
+    "place_path_2.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "fill_dirt": {
+   "files": [
+    "fill_dirt_0.flac",
+    "fill_dirt_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "gate": {
+   "files": [
+    "gate_0.flac",
+    "gate_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "chest": {
+   "files": [
+    "chest_0.flac",
+    "chest_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "write": {
+   "files": [
+    "write_0.flac",
+    "write_1.flac"
+   ],
+   "category": "Building",
+   "pitch": true
+  },
+  "collect": {
+   "files": [
+    "collect_0.flac",
+    "collect_1.flac",
+    "collect_2.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "orb": {
+   "files": [
+    "orb_0.flac",
+    "orb_1.flac",
+    "orb_2.flac",
+    "orb_3.flac",
+    "orb_4.flac",
+    "orb_5.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "drop": {
+   "files": [
+    "drop_0.flac",
+    "drop_1.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "eat": {
+   "files": [
+    "eat_0.flac",
+    "eat_1.flac",
+    "eat_2.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "loot": {
+   "files": [
+    "loot_0.flac",
+    "loot_1.flac",
+    "loot_2.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "craft": {
+   "files": [
+    "craft_0.flac",
+    "craft_1.flac"
+   ],
+   "category": "Items",
+   "pitch": false
+  },
+  "chime": {
+   "files": [
+    "chime_0.flac"
+   ],
+   "category": "Progress",
+   "pitch": false
+  },
+  "levelup": {
+   "files": [
+    "levelup_0.flac"
+   ],
+   "category": "Progress",
+   "pitch": false
+  },
+  "mail": {
+   "files": [
+    "mail_0.flac"
+   ],
+   "category": "Progress",
+   "pitch": false
+  },
+  "hit": {
+   "files": [
+    "hit_0.flac",
+    "hit_1.flac",
+    "hit_2.flac"
+   ],
+   "category": "Fights",
+   "pitch": true
+  },
+  "hurt": {
+   "files": [
+    "hurt_0.flac",
+    "hurt_1.flac"
+   ],
+   "category": "Fights",
+   "pitch": true
+  },
+  "die": {
+   "files": [
+    "die_0.flac"
+   ],
+   "category": "Fights",
+   "pitch": false
+  },
+  "poof": {
+   "files": [
+    "poof_0.flac",
+    "poof_1.flac"
+   ],
+   "category": "Fights",
+   "pitch": true
+  },
+  "gloom": {
+   "files": [
+    "gloom_0.flac",
+    "gloom_1.flac"
+   ],
+   "category": "Fights",
+   "pitch": true
+  },
+  "cluck": {
+   "files": [
+    "cluck_0.flac",
+    "cluck_1.flac",
+    "cluck_2.flac",
+    "cluck_3.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "squawk": {
+   "files": [
+    "squawk_0.flac",
+    "squawk_1.flac",
+    "squawk_2.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "chirp": {
+   "files": [
+    "chirp_0.flac",
+    "chirp_1.flac",
+    "chirp_2.flac",
+    "chirp_3.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "moo": {
+   "files": [
+    "moo_0.flac",
+    "moo_1.flac",
+    "moo_2.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "milk": {
+   "files": [
+    "milk_0.flac",
+    "milk_1.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "lay": {
+   "files": [
+    "lay_0.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "hatch": {
+   "files": [
+    "hatch_0.flac"
+   ],
+   "category": "Animals",
+   "pitch": true
+  },
+  "love": {
+   "files": [
+    "love_0.flac",
+    "love_1.flac"
+   ],
+   "category": "Animals",
+   "pitch": false
+  },
+  "water": {
+   "files": [
+    "water_0.flac",
+    "water_1.flac",
+    "water_2.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "pour": {
+   "files": [
+    "pour_0.flac",
+    "pour_1.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "fill": {
+   "files": [
+    "fill_0.flac",
+    "fill_1.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "whoosh": {
+   "files": [
+    "whoosh_0.flac",
+    "whoosh_1.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "crackle": {
+   "files": [
+    "crackle_0.flac",
+    "crackle_1.flac",
+    "crackle_2.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "flood": {
+   "files": [
+    "flood_0.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "grow": {
+   "files": [
+    "grow_0.flac",
+    "grow_1.flac"
+   ],
+   "category": "World",
+   "pitch": false
+  },
+  "descend": {
+   "files": [
+    "descend_0.flac"
+   ],
+   "category": "World",
+   "pitch": true
+  },
+  "say": {
+   "files": [
+    "say_0.flac",
+    "say_1.flac",
+    "say_2.flac",
+    "say_3.flac",
+    "say_4.flac"
+   ],
+   "category": "People",
+   "pitch": false
+  },
+  "shout": {
+   "files": [
+    "shout_0.flac",
+    "shout_1.flac"
+   ],
+   "category": "People",
+   "pitch": false
+  },
+  "give": {
+   "files": [
+    "give_0.flac"
+   ],
+   "category": "People",
+   "pitch": false
+  },
+  "join": {
+   "files": [
+    "join_0.flac"
+   ],
+   "category": "People",
+   "pitch": false
+  },
+  "leave": {
+   "files": [
+    "leave_0.flac"
+   ],
+   "category": "People",
+   "pitch": false
+  },
+  "ui": {
+   "files": [
+    "ui_0.flac",
+    "ui_1.flac",
+    "ui_2.flac"
+   ],
+   "category": "Interface",
+   "pitch": false
+  },
+  "pick": {
+   "files": [
+    "pick_0.flac",
+    "pick_1.flac",
+    "pick_2.flac"
+   ],
+   "category": "Interface",
+   "pitch": false
+  },
+  "open": {
+   "files": [
+    "open_0.flac"
+   ],
+   "category": "Interface",
+   "pitch": false
+  },
+  "close": {
+   "files": [
+    "close_0.flac"
+   ],
+   "category": "Interface",
+   "pitch": false
+  },
+  "buzz": {
+   "files": [
+    "buzz_0.flac"
+   ],
+   "category": "Interface",
+   "pitch": false
+  },
+  "boss_wake": {
+   "files": [
+    "boss_wake_0.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "boss_groan": {
+   "files": [
+    "boss_groan_0.flac",
+    "boss_groan_1.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "boss_stomp": {
+   "files": [
+    "boss_stomp_0.flac",
+    "boss_stomp_1.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "boss_snap": {
+   "files": [
+    "boss_snap_0.flac",
+    "boss_snap_1.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "boss_shake": {
+   "files": [
+    "boss_shake_0.flac",
+    "boss_shake_1.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "sporeling_land": {
+   "files": [
+    "sporeling_land_0.flac",
+    "sporeling_land_1.flac",
+    "sporeling_land_2.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  },
+  "spore_puff": {
+   "files": [
+    "spore_puff_0.flac",
+    "spore_puff_1.flac",
+    "spore_puff_2.flac"
+   ],
+   "category": "Boss",
+   "pitch": true
+  }
+ },
+ "place": {
+  "fence": "place_post",
+  "stone_wall": "place_stone",
+  "door": "place_planks",
+  "campfire": "place_fire",
+  "workbench": "place_furniture",
+  "sign": "place_post",
+  "flag": "place_post",
+  "sprout": "plant",
+  "chest": "place_furniture",
+  "flower": "plant",
+  "well": "place_stone",
+  "coop": "place_furniture",
+  "picnic_blanket": "place_soft",
+  "basket": "place_soft",
+  "trough": "place_furniture",
+  "hay_bale": "place_soft",
+  "wood_wall": "place_planks",
+  "boat": "place_boat",
+  "mailbox": "place_furniture",
+  "bed": "place_soft",
+  "chair": "place_furniture",
+  "table": "place_furniture",
+  "plant": "place_pot",
+  "clock": "place_furniture",
+  "rug": "place_soft",
+  "gate": "place_post"
+ },
+ "ground": {
+  "water": "fill_dirt",
+  "dirt": "fill_dirt",
+  "mid_water": "fill_dirt",
+  "deep_water": "fill_dirt",
+  "cobble": "place_path",
+  "floor": "place_floor",
+  "bridge": "place_floor"
+ },
+ "tracks": {
+  "side_street_day": {
+   "files": [
+    "side_street_day_000.flac",
+    "side_street_day_001.flac",
+    "side_street_day_002.flac",
+    "side_street_day_003.flac",
+    "side_street_day_004.flac"
+   ],
+   "seconds": 35.5555625,
+   "seg": 8.0,
+   "pad": 0.05,
+   "last": 3.5555625
+  },
+  "far_shore_day": {
+   "files": [
+    "far_shore_day_000.flac",
+    "far_shore_day_001.flac",
+    "far_shore_day_002.flac",
+    "far_shore_day_003.flac",
+    "far_shore_day_004.flac"
+   ],
+   "seconds": 34.28571875,
+   "seg": 8.0,
+   "pad": 0.05,
+   "last": 2.28571875
+  },
+  "side_street_night": {
+   "files": [
+    "side_street_night_000.flac",
+    "side_street_night_001.flac",
+    "side_street_night_002.flac",
+    "side_street_night_003.flac",
+    "side_street_night_004.flac",
+    "side_street_night_005.flac",
+    "side_street_night_006.flac",
+    "side_street_night_007.flac"
+   ],
+   "seconds": 58.1818125,
+   "seg": 8.0,
+   "pad": 0.05,
+   "last": 2.1818125
+  },
+  "far_shore_night_c": {
+   "files": [
+    "far_shore_night_c_000.flac",
+    "far_shore_night_c_001.flac",
+    "far_shore_night_c_002.flac",
+    "far_shore_night_c_003.flac",
+    "far_shore_night_c_004.flac",
+    "far_shore_night_c_005.flac",
+    "far_shore_night_c_006.flac",
+    "far_shore_night_c_007.flac"
+   ],
+   "seconds": 58.1818125,
+   "seg": 8.0,
+   "pad": 0.05,
+   "last": 2.1818125
+  },
+  "old_mossback": {
+   "files": [
+    "old_mossback_000.flac",
+    "old_mossback_001.flac",
+    "old_mossback_002.flac",
+    "old_mossback_003.flac",
+    "old_mossback_004.flac",
+    "old_mossback_005.flac",
+    "old_mossback_006.flac"
+   ],
+   "seconds": 54.0,
+   "seg": 8.0,
+   "pad": 0.05,
+   "last": 6.0
+  }
+ },
+ "play": {
+  "day": [
+   "side_street_day",
+   "far_shore_day"
+  ],
+  "night": [
+   "side_street_night",
+   "far_shore_night_c"
+  ],
+  "boss": "old_mossback"
+ }
+}

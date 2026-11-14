@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Megastructure: music</title>
+<style>
+  body { margin:0; background:#f3e3c3; color:#5b3a29; font:16px/1.45 system-ui, sans-serif; }
+  main { max-width:720px; margin:0 auto; padding:20px 14px 60px; }
+  h1 { font-size:26px; margin:6px 0 2px; }
+  h2 { font-size:19px; margin:0 0 4px; }
+  section { background:#fff6e0; border:3px solid #c99b6b; border-radius:14px; padding:14px; margin-top:16px; }
+  .t { margin-top:14px; }
+  .t small { display:block; color:#8a6a55; }
+  audio { width:100%; margin-top:6px; }
+  a { color:#5b3a29; }
+  .rule { display:flex; gap:8px; align-items:baseline; font-size:13px; padding:2px 0; }
+  .rule span { flex:0 0 44%; } .rule em { font-style:normal; opacity:.75; }
+  .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; background:#6aa84f; flex:none; }
+  .dot.bad { background:#c0392b; } .dot.info { background:#b9a88f; }
+  details { margin-top:10px; } summary { cursor:pointer; } h4 { margin:10px 0 2px; font-size:13px; text-transform:uppercase; letter-spacing:.04em; opacity:.7; }
+  table.tone { border-collapse:collapse; font-size:12px; margin-top:6px; width:100%; } table.tone td, table.tone th { text-align:left; padding:2px 6px 2px 0; }
+  table.tone { display:block; overflow-x:auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Megastructure: music</h1>
+  <div>Every track is a loop. Online they are compressed, so a loop may click where it restarts; in the game it does not. <a href="./">Play the demo</a></div>
+  <section><h2>The game's music: final mix</h2><div>The game's music after the final mix. Every piece is at the same loudness (-20 LUFS, a background-music level, under the main sound effects), peaks under the ceiling, bass and kick centred, a gentle glue compressor on the day pieces and the boss. Far shore night is in two new versions (C, D) on other instruments. The sound effects are levelled on the same scale. These are in the game: day and night pieces play now and then with silence between, Old Mossback loops during the fight (Far shore night C is the one wired in).</div><div id="final"></div></section>
+  <section><h2>Before the final mix</h2><div>The same five as they were before the final mix, to compare.</div><div id="pieces"></div></section>
+  <section><h2>Earlier: bright plucks, one piece on three palettes</h2><div>The direction you found better (bright plucks), designed further: one piece of about a minute with a form (intro, A, B, A), fills, a second sound answering the tune, a bass audible on small speakers, and the band ducking under the kick. The same piece on three sets of Surge XT sounds, so the sounds and the writing can be judged apart.</div><div id="bright"></div></section>
+  <section><h2>Earlier: five directions, about 20 s each</h2><div>New approach: the music is still written in Python, but played on Surge XT, a real synthesizer, with sounds made by sound designers. Five short loops in five different directions (rhythm, sounds and tone all differ). Which direction, if any, is worth continuing?</div><div id="dirs"></div></section>
+  <section><h2>Older: other music for the day</h2><div>Each its own tune and its own instruments. None is in the game yet. Every instrument on this page is a recording of a real one (public-domain libraries: VCSL and VSCO 2 CE by Versilian Studios, FreePats guitar); nothing is synthesised.</div><div id="days"></div></section>
+  <section><h2>Older: the tracks in the game</h2><div id="now"></div></section>
+  <section><h2>Audit</h2><div>Theory, Animal Crossing practice, each instrument and each mix, measured.</div><div id="audit">loading…</div></section>
+</main>
+<script>
+const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+function add(box, file, title, sub, loop) {
+  const d = document.createElement("div");
+  d.className = "t";
+  d.innerHTML = `<b>${title}</b><small>${sub}</small><audio controls preload="none" ${loop ? "loop" : ""} src="music/${file}.m4a"></audio>`;
+  document.getElementById(box).appendChild(d);
+}
+document.addEventListener("play", (e) => document.querySelectorAll("audio").forEach((a) => a !== e.target && a.pause()), true);
+fetch("music/final.json").then((r) => r.json()).then((ds) => {
+  for (const d of ds) add("final", "final_" + d.id, d.title, `${d.where} · ${Math.round(d.seconds)} s · ${d.after.lufs} LUFS`, true);
+});
+fetch("music/pieces.json").then((r) => r.json()).then((ds) => {
+  for (const d of ds) add("pieces", "piece_" + d.id, d.title, `${d.bpm} BPM · ${d.about}`, true);
+});
+fetch("music/bright.json").then((r) => r.json()).then((ds) => {
+  for (const d of ds) add("bright", "bright_" + d.id, d.title, `${d.bpm} BPM · ${d.sounds}`, true);
+});
+fetch("music/directions.json").then((r) => r.json()).then((ds) => {
+  for (const d of ds) add("dirs", "dir_" + d.id, d.title, `${d.mood} · ${d.bpm} BPM · sounds: ${d.sounds}`, true);
+});
+fetch("music/days.json").then((r) => r.json()).then((days) => {
+  for (const d of days) add("days", "day_" + d.id, d.title, `${d.bpm} BPM · ${d.key} · ${fmt(d.seconds)} · ${d.mood} · ${d.band}`, true);
+});
+add("now", "master", "Meadow Road", "the day theme in the game, on a nylon guitar · 84 BPM · D major · 4:10", true);
+add("now", "boss", "Old Mossback", "the boss fight in the game: the same tune in B minor, on an oboe · 96 BPM · 1:30", true);
+add("now", "night", "Lantern Road", "the day theme at night, on a vibraphone, not in the game yet · 60 BPM · 3:12", true);
+fetch("music/quality.json").then((r) => r.json()).then((q) => showAudit(q, document.getElementById("audit")));
+
+// The audit (music/quality.py): every rule with what was measured.
+function showAudit(q, box) {
+  const dot = (ok) => `<i class="dot ${ok === false ? "bad" : ok === null ? "info" : "ok"}"></i>`;
+  const rows = (list) => list.map(([name, ok, detail]) => `<div class="rule">${dot(ok)}<span>${name}</span><em>${detail || ""}</em></div>`).join("");
+  let h = `<div><b>${q.fails} failures</b> over ${q.tracks.length} tracks and ${q.instruments.length} instruments. Green: passes. Grey: for information.</div>`;
+  for (const t of q.tracks) {
+    const m = t.mix, bal = m.tune_over_band_db ? `${m.tune_over_band_db[0]} to ${m.tune_over_band_db[1]} dB` : "not measured (the tune and the fight share the front)";
+    h += `<details><summary><b>${t.title}</b> <small>lead: ${t.lead} · ${m.lufs} LUFS · peak ${m.peak_db} dBFS · ${m.fail.length + t.theory.filter((r) => r[1] === false).length} failures</small></summary>
+      <h4>Theory</h4>${rows(t.theory)}<h4>Animal Crossing practice</h4>${rows(t.practice)}<h4>Mix</h4>${rows([
+        ["loudness on target", Math.abs(m.lufs - m.target) <= 0.6, `${m.lufs} LUFS, target ${m.target}`],
+        ["peaks under -1 dBFS", m.peak_db <= -0.9, `${m.peak_db} dBFS`],
+        ["sections close in level", m.block_range_db <= 8, `within ${m.block_range_db} dB`],
+        ["the tune over the band", true, bal],
+        ["tonal balance", true, Object.entries(m.bands_db).map(([k, v]) => `${k} ${v}`).join(" · ") + " dB"],
+        ["stereo, and the lows centred", true, `left/right ${m.stereo}, under 150 Hz ${m.low_mono}`],
+        ["the loop point", m.seam <= 0.03, `step of ${m.seam}`]])}</details>`;
+  }
+  h += `<details><summary><b>Instruments</b> <small>tone of each, one note at its usual pitch</small></summary><table class="tone"><tr><th>instrument</th><th>role</th><th>note</th><th>loudness</th><th>attack</th><th>centre</th><th>tuning</th><th>ends</th></tr>` +
+    q.instruments.map((r) => `<tr><td>${dot(r.fail.length ? false : true)}${r.name.replace("_", " ")}</td><td>${r.role}</td><td>${r.note}</td><td>${r.loudness} LUFS</td><td>${r.attack_ms} ms</td><td>${r.centroid_hz} Hz</td><td>${r.cents === null ? "" : r.cents + " cents"}</td><td>${r.cut_db} dB</td></tr>`).join("") + `</table></details>`;
+  h += `<details><summary><b>Reverb</b> <small>one small room</small></summary>` + Object.entries(q.room).map(([k, r]) =>
+    `<div class="rule">${dot(true)}<span>${k}</span><em>gone in ${r.rt60_s} s · starts ${r.predelay_ms} ms after the note · kept to ${r.return} · level: ${Object.entries(r.level_db).map(([a, b]) => `${a} ${b}${b === "dry" ? "" : " dB"}`).join(", ")}</em></div>`).join("") + `</details>`;
+  box.innerHTML = h;
+}
+</script>
+</body>
+</html>

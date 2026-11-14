@@ -1,0 +1,42 @@
+[
+ {
+  "id": "tape",
+  "title": "Tape keys",
+  "bpm": 76,
+  "seconds": 25.3,
+  "mood": "lo-fi: soft keys on tape, lazy drums, a round bass",
+  "sounds": "Tape Keys, Mellow, Kick Lo-Fi, Old Snare, Old Hat, Lo-Fi Pluck"
+ },
+ {
+  "id": "pads",
+  "title": "Warm pads",
+  "bpm": 64,
+  "seconds": 30.0,
+  "mood": "ambient: three chords, no drums, one small figure repeated exactly",
+  "sounds": "Another Warm, Winter Warmer, Sub 1, The Softest"
+ },
+ {
+  "id": "poly",
+  "title": "Analog poly",
+  "bpm": 100,
+  "seconds": 19.2,
+  "mood": "synthwave, mellow: a steady kick, eighth-note bass, analog chords, a singing lead",
+  "sounds": "Jupiter-8, Juno-60 Strings, Bass 1, Kick - Classic, Snare - Classic, Hat Closed, Smoothy Hollow"
+ },
+ {
+  "id": "wurli",
+  "title": "Wurli groove",
+  "bpm": 88,
+  "seconds": 21.8,
+  "mood": "laid-back funk: an electric piano comping off the beat, a fingered bass that moves, tight drums",
+  "sounds": "Wurli, Fingered, Acoustic Kick, Acoustic Snare, Acoustic HiHat, Soft 80s Brass"
+ },
+ {
+  "id": "dream",
+  "title": "Dream plucks",
+  "bpm": 108,
+  "seconds": 17.8,
+  "mood": "bright and light: plucks that bounce, a soft pad, a rubber bass, small drums",
+  "sounds": "Dream Plucks, Nice Pluck 1, Warmbo, Rubber Bass, Proper Kick, Simple Snare, Hi-Hat"
+ }
+]

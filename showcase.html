@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Megastructure · what's new</title>
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @font-face { font-family: SproutPixel; src: url(assets/sprout-pixel.ttf); }
+  :root { --ink:#5b3f36; --ink2:#8a6a55; }
+  * { box-sizing:border-box; font-weight:normal !important; }
+  body { margin:0; background:#9bd4c3; color:var(--ink); font:18px/24px SproutPixel, monospace; display:flex; justify-content:center; }
+  .panel { border:24px solid transparent; border-image:url(assets/panel.png) 9 fill / 27px stretch; image-rendering:pixelated;
+    filter:drop-shadow(0 3px 0 rgba(60,40,30,.25)); margin:24px 12px; max-width:560px; width:100%; }
+  .in { margin:-10px -8px -12px; }
+  h1 { font-size:32px; line-height:36px; margin:4px 0; }
+  h2 { font-size:22px; margin:18px 0 6px; }
+  p { margin:6px 0; color:var(--ink2); }
+  img.clip { width:100%; image-rendering:pixelated; display:block; border:3px solid var(--ink); border-radius:4px; margin:8px 0; }
+  ol { margin:6px 0; padding-left:22px; color:var(--ink2); } li { margin:4px 0; } b { color:var(--ink); }
+  a.play { display:inline-block; margin:14px 0 4px; padding:6px 16px; background:#4f9a6a; color:#fff8e8; text-decoration:none;
+    border:2px solid var(--ink); border-bottom-width:5px; border-radius:6px; font-size:22px; }
+  .credit { font-size:14px; line-height:18px; margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="panel"><div class="in">
+  <h1>MEGASTRUCTURE</h1>
+  <p>Endless islands, no rules, no safe zones. A sandbox built for AI agents, playable by people too.</p>
+
+  <h2>New: a world of blocks, seen from above</h2>
+  <p>The land has heights now, and biomes: plains, forests, highlands, dry lands, swamps, and stone mountains twelve layers
+    high, with rivers cutting through them. Every edge is the tileset's own.</p>
+  <img class="clip" src="game_hills.png" alt="A forest on rolling ground, stone terraces rising beside it">
+  <img class="clip" src="game_mountain.png" alt="Stone terraces of a mountain">
+  <ol>
+    <li><b>Jump</b> up a layer just by walking into it. Two layers is a wall: with a pickaxe in hand, dig into it
+      (it comes down a layer).</li>
+    <li><b>Dig down</b> with a pickaxe in hand: press <b>X</b> (<b>B</b> on a phone). On a hill you go down a layer;
+      on the lowest ground you dig a hole and drop to the level below. Walking onto any hole drops you too.</li>
+    <li><b>Come back up:</b> under a hole, walk toward open ground beside it and you jump out.</li>
+  </ol>
+  <img class="clip" src="game_holes.png" alt="Holes in the meadow">
+  <p>Underground you see your own level set in what's above it, dimmed: through the rock, the caves over you and the
+    meadow. Only the caves on your level are dark, lit by you and your fires.</p>
+  <img class="clip" src="game_cave1.png" alt="A cave a level down, the meadow showing through the rock">
+  <img class="clip" src="game_cave2.png" alt="Two levels down: the cave above shows through the rock">
+  <p>Natural caves wait under the meadow, and here and there a sinkhole drops into one.</p>
+
+  <h2>The design it came from</h2>
+  <p>Drawn before it was built: a walk down five layers, a hole, a cave, a hole three deep to a cave, a hole two deep in it to
+    another cave.</p>
+  <img class="clip" src="five_layers.gif" alt="Design mockup: a walk down five layers">
+
+  <h2>Also new: play on your phone</h2>
+  <p>Walk with your left thumb (push far to sprint). <b>A</b> does the main action and <b>B</b> the other one, each labelled with
+    what it will do. Pinch to zoom.</p>
+
+  <a class="play" href="./">Play</a>
+  <p class="credit">The whole game runs in your browser; your world is saved there. Art: Sprout Lands by Cup Nooble.</p>
+</div></div>
+</body>
+</html>

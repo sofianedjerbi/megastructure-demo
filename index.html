@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Megastructure</title>
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/help.css">
+<link rel="stylesheet" href="css/windows.css">
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hover"></div>
+<div id="xyz" style="position:fixed;top:10px;right:12px;z-index:5;font:inherit;font-size:15px;color:#fff6e0;text-shadow:0 1px 0 #3b2a22,1px 0 0 #3b2a22,-1px 0 0 #3b2a22,0 -1px 0 #3b2a22;pointer-events:none;white-space:pre;text-align:right"></div>
+<div class="panel" id="brand"><div class="in"><div class="t">MEGASTRUCTURE</div><div class="s"><span id="clock">waking…</span> · <span id="mode">watching</span> · <span id="helpbtn" class="link">help (H)</span></div></div></div>
+<div class="panel" id="side"><div class="in"><h3>Awake</h3><div id="agents"></div></div></div>
+<div id="who"><div class="whead"><div class="cell" id="whosky"></div><b id="whoday"></b><span id="whohour"></span></div>
+  <div id="whobar"><canvas id="whoband"></canvas><b id="whomark"></b></div>
+  <div class="well" id="wholist"></div><div id="whofoot"><span id="whoat"></span><span id="whocount"></span></div></div>
+<div id="debug"></div>
+<div id="actions"></div>
+<div class="panel" id="joinbox"><div class="in">
+  <div class="t">MEGASTRUCTURE</div>
+  <p>Endless islands. No rules, no safe zones.<br>Pick a name to wake up on the shore.</p>
+  <div class="row"><input id="name" placeholder="your name" maxlength="24" autocomplete="off"><button id="join">Wake up</button></div>
+  <div class="watch"><button class="ghost" id="watch">just watch</button></div>
+  <div class="watch"><a href="showcase.html" style="color:var(--ink2)">New: heights, biomes, dig anywhere</a></div>
+</div></div>
+<div id="help"></div>
+<div id="goals"><div class="gh"><b>Goals</b><span id="goalcount"></span><span class="gf" id="goalhide"><kbd>G</kbd>hide</span><span class="gf" id="goalhelp"><kbd>H</kbd>help</span></div><div id="goallist"></div></div>
+<div id="goalhint"><kbd>G</kbd>goals<span id="goalhintn"></span></div>
+<div id="bag"><div class="b paper" id="bagclose" title="Esc">x</div>
+  <div class="bhead"><b>Inventory</b><span>Worn</span><div id="bagwear"></div></div>
+  <div class="blabel" id="bagpage">Pack</div><div class="well bgrid" id="bagpack"></div>
+  <div class="blabel">Your bar</div><div class="well bgrid" id="bagbar"></div>
+  <div id="bagkeys"></div>
+</div>
+<div id="craft"><div id="crafttabs"></div><div class="b paper" id="craftclose" title="Esc">x</div>
+  <div class="cbook">
+    <div class="cleft"><div class="ctools"><div class="b paper" id="craftonly" title="only what you can make now (F)">Can make<kbd>F</kbd></div><div class="b paper" id="craftprev">&lt;</div><div class="b paper" id="craftnext">&gt;</div></div>
+      <div class="well" id="recipes"></div><div id="craftmore"></div></div>
+    <div id="craftdetail"></div>
+  </div>
+</div>
+<div id="chatbox"><div id="chatlog"></div><div id="sayhelp"></div><input id="say" placeholder="Say something… (Enter send · Esc cancel · CAPITALS shout · / commands)" maxlength="200" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+<div id="hud">
+  <div id="status"></div>
+  <div id="vitals"><canvas id="hearts"></canvas><canvas id="foods"></canvas></div>
+  <div id="xpwrap"><canvas id="xpbar"></canvas><span id="xplevel"></span></div>
+  <div class="hudrow"><div id="hotbar"></div></div>
+</div>
+<div class="panel" id="mail"><div class="in">
+  <h3 id="mailtitle">Mailbox</h3><span class="close" id="mailclose">close (Esc)</span>
+  <div id="letters"></div>
+  <div class="row"><input id="letter" maxlength="200" placeholder="Write a letter…" autocomplete="off"><button id="postbtn">Post</button></div>
+  <div style="margin-top:6px"><button class="ghost" id="openbtn">Take the letters out</button></div>
+</div></div>
+<div class="panel" id="banner"><div class="in"><div class="t" id="bannert"></div><div id="bannerd"></div></div></div>
+<div id="deathveil"></div>
+<div class="panel" id="death"><div class="in"><canvas id="deathskull" width="32" height="32"></canvas><div class="dt">You fell</div>
+  <div id="deathcause"></div><div id="deathloot"></div><div id="deathleft"></div><div id="deathwake"></div>
+  <div class="dbar"><i id="deathbar"></i></div><div class="dhint">any key to get up</div></div></div>
+<div class="panel" id="toast"><div class="in" id="toastt"></div></div>
+
+<script src="js/vocab.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/tool_art.js"></script>
+<script src="js/swing_art.js"></script>
+<script src="js/tiles.js"></script>
+<script src="js/cells.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/babble.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/loot.js"></script>
+<script src="js/xp.js"></script>
+<script src="js/world_decor.js"></script>
+<script src="js/houses.js"></script>
+<script src="js/relief.js"></script>
+<script src="js/behind.js"></script>
+<script src="js/caves.js"></script>
+<script src="js/cavelight.js"></script>
+<script src="js/death.js"></script>
+<script src="js/local.js"></script>
+<script src="js/state.js"></script>
+<script src="js/boss.js"></script>
+<script src="js/jump.js"></script>
+<script src="js/characters.js"></script>
+<script src="js/bubbles.js"></script>
+<script src="js/render.js"></script>
+<script src="js/daylight.js"></script>
+<script src="js/selector.js"></script>
+<script src="js/panels.js"></script>
+<script src="js/mouse.js"></script>
+<script src="js/agent.js"></script>
+<script src="js/intent.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/blurbs.js"></script>
+<script src="js/craft.js"></script>
+<script src="js/races.js"></script>
+<script src="js/wear.js"></script>
+<script src="js/wear_items.js"></script>
+<script src="js/swim.js"></script>
+<script src="js/who.js"></script>
+<script src="js/bag.js"></script>
+<script src="js/water.js"></script>
+<script src="js/goals.js"></script>
+<script src="js/keyboard.js"></script>
+<script src="js/debug.js"></script>
+<script src="js/walk.js"></script>
+<script src="js/xray.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/complete.js"></script>
+<script src="js/main.js"></script>
+<script src="js/help.js"></script>
+</body>
+</html>

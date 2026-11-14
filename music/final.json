@@ -1,0 +1,194 @@
+[
+ {
+  "id": "side_street_day",
+  "title": "Side street, day",
+  "role": "day",
+  "where": "random moments in the day",
+  "seconds": 35.6,
+  "before": {
+   "lufs": -14.3,
+   "true_peak": -0.2,
+   "under_60": -11.9,
+   "b60_250": -5.9,
+   "b250_1k": -3.9,
+   "b1_4k": -6.0,
+   "over_4k": -17.6,
+   "lows_apart": -32.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -4.9,
+   "under_60": -12.4,
+   "b60_250": -5.7,
+   "b250_1k": -3.9,
+   "b1_4k": -6.0,
+   "over_4k": -17.2,
+   "lows_apart": -54.0
+  },
+  "did": {
+   "glue_avg_db": 1.5,
+   "glue_max_db": 3.6,
+   "limiter_percent": 0.0
+  }
+ },
+ {
+  "id": "far_shore_day",
+  "title": "Far shore, day",
+  "role": "day",
+  "where": "random moments in the day",
+  "seconds": 34.3,
+  "before": {
+   "lufs": -14.6,
+   "true_peak": -1.0,
+   "under_60": -15.0,
+   "b60_250": -3.9,
+   "b250_1k": -3.3,
+   "b1_4k": -11.4,
+   "over_4k": -18.1,
+   "lows_apart": -52.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -5.3,
+   "under_60": -14.6,
+   "b60_250": -3.9,
+   "b250_1k": -3.4,
+   "b1_4k": -10.9,
+   "over_4k": -17.3,
+   "lows_apart": -74.0
+  },
+  "did": {
+   "glue_avg_db": 1.5,
+   "glue_max_db": 4.1,
+   "limiter_percent": 0.0
+  }
+ },
+ {
+  "id": "side_street_night",
+  "title": "Side street, night",
+  "role": "night",
+  "where": "random moments at night",
+  "seconds": 58.2,
+  "before": {
+   "lufs": -15.1,
+   "true_peak": -1.0,
+   "under_60": -5.3,
+   "b60_250": -6.8,
+   "b250_1k": -6.0,
+   "b1_4k": -6.2,
+   "over_4k": -53.4,
+   "lows_apart": -23.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -5.8,
+   "under_60": -5.7,
+   "b60_250": -6.7,
+   "b250_1k": -5.8,
+   "b1_4k": -6.0,
+   "over_4k": -53.3,
+   "lows_apart": -44.0
+  },
+  "did": {
+   "glue_avg_db": 0.0,
+   "glue_max_db": 0.0,
+   "limiter_percent": 0.0
+  }
+ },
+ {
+  "id": "far_shore_night_c",
+  "title": "Far shore, night C",
+  "role": "night",
+  "where": "random moments at night (pick C or D)",
+  "seconds": 58.2,
+  "before": {
+   "lufs": -15.1,
+   "true_peak": -2.3,
+   "under_60": -9.8,
+   "b60_250": -6.3,
+   "b250_1k": -2.2,
+   "b1_4k": -12.8,
+   "over_4k": -46.8,
+   "lows_apart": -23.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -7.2,
+   "under_60": -10.3,
+   "b60_250": -6.3,
+   "b250_1k": -2.1,
+   "b1_4k": -12.7,
+   "over_4k": -46.7,
+   "lows_apart": -46.0
+  },
+  "did": {
+   "glue_avg_db": 0.0,
+   "glue_max_db": 0.0,
+   "limiter_percent": 0.0
+  }
+ },
+ {
+  "id": "far_shore_night_d",
+  "title": "Far shore, night D",
+  "role": "night",
+  "where": "random moments at night (pick C or D)",
+  "seconds": 58.2,
+  "before": {
+   "lufs": -15.0,
+   "true_peak": -2.7,
+   "under_60": -9.2,
+   "b60_250": -6.9,
+   "b250_1k": -2.0,
+   "b1_4k": -14.2,
+   "over_4k": -32.2,
+   "lows_apart": -38.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -7.8,
+   "under_60": -9.7,
+   "b60_250": -6.9,
+   "b250_1k": -1.9,
+   "b1_4k": -14.1,
+   "over_4k": -32.1,
+   "lows_apart": -62.0
+  },
+  "did": {
+   "glue_avg_db": 0.0,
+   "glue_max_db": 0.0,
+   "limiter_percent": 0.0
+  }
+ },
+ {
+  "id": "old_mossback",
+  "title": "Old Mossback",
+  "role": "boss",
+  "where": "the boss fight, looped",
+  "seconds": 54.0,
+  "before": {
+   "lufs": -14.6,
+   "true_peak": -0.3,
+   "under_60": -7.6,
+   "b60_250": -3.6,
+   "b250_1k": -6.9,
+   "b1_4k": -8.5,
+   "over_4k": -13.3,
+   "lows_apart": -32.0
+  },
+  "after": {
+   "lufs": -20.0,
+   "true_peak": -5.2,
+   "under_60": -8.5,
+   "b60_250": -3.5,
+   "b250_1k": -6.7,
+   "b1_4k": -8.3,
+   "over_4k": -13.1,
+   "lows_apart": -53.0
+  },
+  "did": {
+   "glue_avg_db": 1.5,
+   "glue_max_db": 3.1,
+   "limiter_percent": 0.0
+  }
+ }
+]
