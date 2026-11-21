@@ -1,0 +1,85 @@
+/* The first screen (js/title.js): the classic menu. The world is whole behind it; on the left the game's name, large,
+   and a line that is never twice the same (splash.js); on the right one window: who you are (your character beside
+   your name, the five races under them), then a short list played with the arrows and Enter or the mouse.
+   One pixel size for the window, --w (what Tab shows and the help use it); the name's own is three of the land's. */
+#joinbox { --q:max(var(--w), 2px); --L:calc(3 * var(--u3)); position:fixed; inset:0; width:auto; transform:none; text-align:left; pointer-events:none; z-index:4; }
+body.touch #joinbox { width:auto; }
+body.title #brand, body.title #side { display:none; }
+#joinbox > * { position:absolute; pointer-events:auto; }
+#joinbox .logo { left:7vw; top:13vh; font-size:calc(9 * var(--L)); line-height:calc(11 * var(--L)); color:#fff1a8; white-space:nowrap; letter-spacing:var(--L); pointer-events:none;
+  text-shadow: var(--L) 0 0 #5b3f36, calc(-1 * var(--L)) 0 0 #5b3f36, 0 var(--L) 0 #5b3f36, 0 calc(-1 * var(--L)) 0 #5b3f36,
+    var(--L) var(--L) 0 #5b3f36, calc(-1 * var(--L)) var(--L) 0 #5b3f36, var(--L) calc(-1 * var(--L)) 0 #5b3f36, calc(-1 * var(--L)) calc(-1 * var(--L)) 0 #5b3f36,
+    0 calc(2 * var(--L)) 0 #5b3f36, var(--L) calc(2 * var(--L)) 0 #5b3f36, calc(-1 * var(--L)) calc(2 * var(--L)) 0 #5b3f36, 0 calc(3 * var(--L)) 0 rgba(43,35,32,.35); }
+#joinbox .logo em { font-style:normal; color:#ffd36a; display:block; }
+#joinbox .say { left:7vw; top:calc(13vh + 27 * var(--L)); max-width:40vw; font-size:calc(9 * var(--u3)); line-height:calc(11 * var(--u3)); color:#fff6e2; text-shadow:var(--u3) var(--u3) 0 #2b2320; pointer-events:none; }
+#joinbox .say { width:fit-content; padding:0 var(--u3); background:rgba(43,35,32,.62); box-decoration-break:clone; -webkit-box-decoration-break:clone; }   /* (read over any island: a dark strip of the ink behind its words, square, as the F3 lines: it was unreadable over trees and bubbles) */
+#joinbox .menu { right:8vw; top:50%; transform:translateY(-50%); width:calc(150 * var(--q)); padding:calc(5 * var(--q)); display:flex; flex-direction:column; gap:calc(3 * var(--q));
+  color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); background:#e8cfa6;
+  box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(60,40,30,.25); }
+#joinbox .card { display:flex; align-items:center; gap:calc(5 * var(--q)); padding:calc(4 * var(--q)); background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+#joinbox #titleme { flex:none; width:calc(48 * var(--q)); height:calc(52 * var(--q)); image-rendering:pixelated; }
+/* one step at a time (title.js): your email, the code, who you are; a world with no accounts only has the last */
+#joinbox:not([data-step="mail"]) .step-mail, #joinbox:not([data-step="code"]) .step-code, #joinbox:not([data-step="me"]) .step-me { display:none; }
+body:not([data-accounts]) #logout { display:none; }
+#joinbox #logoutv { min-width:0; max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#joinbox input[readonly] { background:#e8cfa6; cursor:default; }
+#joinbox .me { flex:1; min-width:0; display:flex; flex-direction:column; gap:calc(3 * var(--q)); }
+#joinbox .soft { color:var(--ink2); }
+#joinbox input { all:unset; box-sizing:border-box; width:100%; height:calc(17 * var(--q)); padding:0 calc(4 * var(--q)); font:inherit; color:var(--ink); background:#fff6e2; cursor:text;
+  box-shadow:inset var(--q) var(--q) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#joinbox input::placeholder { color:#b8946a; }
+#joinbox input.need { background:#ffd9d0; }
+#joinbox button { all:unset; box-sizing:border-box; cursor:pointer; font:inherit; color:var(--ink); }
+#racepick { display:flex; justify-content:space-between; gap:calc(2 * var(--q)); padding:calc(2 * var(--q)); }
+#racepick.on { background:#fff1a8; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #e0b84e, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#joinbox #racepick button { display:flex; align-items:center; justify-content:center; width:calc(26 * var(--q)); height:calc(26 * var(--q)); background:#cfad84; box-shadow:inset var(--q) var(--q) 0 #9a6f55, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+#joinbox #racepick button.on { background:#fff6e2; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #e0b84e, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#racepick canvas { display:block; width:calc(24 * var(--q)); height:calc(24 * var(--q)); image-rendering:pixelated; }
+#joinbox .item { display:flex; align-items:center; justify-content:space-between; height:calc(17 * var(--q)); padding:0 calc(5 * var(--q)); }
+#joinbox a.item { color:inherit; text-decoration:none; }
+#joinbox .item.on { background:#fff1a8; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #e0b84e, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#joinbox kbd { display:inline-flex; align-items:center; justify-content:center; min-width:calc(11 * var(--q)); height:calc(11 * var(--q)); padding:0 calc(3 * var(--q)) var(--q); font:inherit; color:var(--ink);
+  background:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-2 * var(--q)) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+body.touch #joinbox kbd { display:none; }
+/* a narrow screen (a phone held upright): the name over the window, both in the middle */
+@media (max-width: 860px) {
+  #joinbox { --L:calc(2 * var(--u3)); }
+  #joinbox .logo { left:0; right:0; top:5vh; text-align:center; }
+  #joinbox .say { left:4vw; right:4vw; max-width:none; top:calc(5vh + 26 * var(--L)); text-align:center; }
+  #joinbox .menu { left:50%; right:auto; top:auto; bottom:5vh; transform:translateX(-50%); width:min(calc(150 * var(--q)), 94vw); }
+}
+body.touch #titlehelp { display:none; }                     /* (the help is a list of keys: a phone has none) */
+#raceslot { min-height:calc(30 * var(--q)); }               /* (its place is kept while the five are still to be drawn) */
+/* A phone (body.touch: said by the page itself, before its first picture; a desk's screen has none of this). The
+   list is for a thumb: what you came for, Wake up, is a button across the window, always lit; the others are
+   buttons too, two abreast (one left over takes its row), each as high as a finger is wide (they were lines of text, 34 px each, in a column
+   that was taller than a phone held on its side: the game's name was off the screen and its line ran behind the
+   window). On its side the name is on the left, the window on the right, your character half the size. */
+body.touch #joinbox .menu { flex-direction:row; flex-wrap:wrap; max-height:calc(100dvh - 16px); overflow-y:auto; overscroll-behavior:contain; }
+body.touch #joinbox .card, body.touch #joinbox #raceslot, body.touch #joinbox #join, body.touch #joinbox #sendcode, body.touch #joinbox #login { flex:0 0 100%; }
+body.touch #joinbox .item { flex:1 1 40%; height:calc(22 * var(--q)); background:#d9bd90; box-shadow:inset var(--q) var(--q) 0 #f8edd4, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #b8946a; }
+body.touch #joinbox .item:active { background:#fff6e2; }
+body.touch #joinbox #join, body.touch #joinbox #sendcode, body.touch #joinbox #login { height:calc(26 * var(--q)); justify-content:center; background:#fff1a8;
+  box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #e0b84e, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+@media (max-width: 860px) { body.touch #joinbox .menu { bottom:max(4vh, env(safe-area-inset-bottom)); } }
+@media (max-height: 520px) and (orientation: landscape) {
+  body.touch #joinbox { --L:calc(2 * var(--u3)); }
+  body.touch #joinbox .logo { left:max(5vw, env(safe-area-inset-left)); right:auto; top:8vh; text-align:left; }
+  body.touch #joinbox .say { left:max(5vw, env(safe-area-inset-left)); right:auto; top:calc(8vh + 26 * var(--L)); max-width:42vw; text-align:left; }
+  body.touch #joinbox .menu { left:auto; right:max(4vw, env(safe-area-inset-right)); top:50%; bottom:auto; transform:translateY(-50%); }
+  body.touch #joinbox #titleme { width:calc(24 * var(--q)); height:calc(26 * var(--q)); }
+}
+/* the demo's world is still coming (local.js): a strip along the foot of Wake up, on any screen, as long as the
+   share of the world that has come (--boot-w, whole art px; it ran from left to right and said nothing); pressed
+   meanwhile it says so, and you are in as soon as the world is there (nothing showed for the fourteen seconds) */
+body.booting #joinbox #join { position:relative; overflow:hidden; }
+body.booting #joinbox #join::before { content:""; position:absolute; left:0; right:0; bottom:0; height:calc(2 * var(--q)); background:#6b4a3a; }
+body.booting #joinbox #join::after { content:""; position:absolute; left:0; bottom:0; width:var(--boot-w, 0px); height:calc(2 * var(--q)); background:#e0b84e; }
+
+/* The island behind the first screen: its still picture first (index.html puts it; it comes in softly), then the
+   island itself over it, once all of it is painted (title_scene.js says so: body.scene), not a block at a time. */
+#poster { position:fixed; z-index:0; max-width:none; image-rendering:pixelated; pointer-events:none; opacity:0; transition:opacity .35s ease-out; }
+#poster.in { opacity:1; }
+body:not(.title) #poster, body.scene #poster { visibility:hidden; transition:visibility 0s .8s; }
+canvas#c, canvas#hd { transition:opacity .7s ease-out; }
+body.title:not(.scene) canvas#c, body.title:not(.scene) canvas#hd { opacity:0; }

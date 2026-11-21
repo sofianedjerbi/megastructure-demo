@@ -1,0 +1,44 @@
+[
+ {
+  "id": "cute1",
+  "title": "Side street, day (kept: was Cuter 1)",
+  "bpm": 108,
+  "seconds": 35.6,
+  "about": "kept for random day moments: 108 BPM, a bass that hops between octaves, short chords off the beat, claps"
+ },
+ {
+  "id": "mc1",
+  "title": "Side street, night (kept: was Minecraft feeling 1)",
+  "bpm": 66,
+  "seconds": 58.2,
+  "about": "kept for random night moments: 66 BPM, no drums, a soft key over warm pads and a long low bass"
+ },
+ {
+  "id": "mossback2",
+  "title": "Old Mossback (boss; lead quieter)",
+  "bpm": 160,
+  "seconds": 54.0,
+  "about": "the boss: lead 4 dB lower so the backing (riff, stabs, drums) comes forward; the lead repeats one bar three times then closes"
+ },
+ {
+  "id": "shore",
+  "title": "Third theme B: Far shore",
+  "bpm": 112,
+  "seconds": 34.3,
+  "about": "new: 112 BPM, a kick on every beat; one lead bar that never changes while seven chords move under it; pluck lead, a synth lead joining an octave up the second time, analog stabs"
+ },
+ {
+  "id": "shore_night_c",
+  "title": "Far shore, night C",
+  "bpm": 66,
+  "seconds": 58.2,
+  "about": "slow, no drums; an electric piano over two dark warm pads and a low bass (the sounds measured closest to Side street night's, without being them)"
+ },
+ {
+  "id": "shore_night_d",
+  "title": "Far shore, night D",
+  "bpm": 66,
+  "seconds": 58.2,
+  "about": "slow, no drums; a softer electric piano over two other warm pads and a low bass"
+ }
+]

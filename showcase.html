@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nexel Worlds · what's new</title>
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @font-face { font-family: SproutPixel; src: url(assets/sprout-pixel.ttf); }
+  :root { --ink:#5b3f36; --ink2:#8a6a55; }
+  * { box-sizing:border-box; font-weight:normal !important; }
+  body { margin:0; background:#9bd4c3; color:var(--ink); font:18px/24px SproutPixel, monospace; display:flex; justify-content:center; }
+  .panel { border:24px solid transparent; border-image:url(assets/panel.png) 9 fill / 27px stretch; image-rendering:pixelated;
+    filter:drop-shadow(0 3px 0 rgba(60,40,30,.25)); margin:24px 12px; max-width:560px; width:100%; }
+  .in { margin:-10px -8px -12px; }
+  h1 { font-size:32px; line-height:36px; margin:4px 0; }
+  h2 { font-size:22px; margin:18px 0 6px; }
+  p { margin:6px 0; color:var(--ink2); }
+  img.clip, video.clip { width:100%; image-rendering:pixelated; display:block; border:3px solid var(--ink); border-radius:4px; margin:8px 0; }
+  video.clip { image-rendering:auto; background:#c0d470; aspect-ratio:16 / 9; }
+  ol { margin:6px 0; padding-left:22px; color:var(--ink2); } li { margin:4px 0; } b { color:var(--ink); }
+  a.play { display:inline-block; margin:14px 0 4px; padding:6px 16px; background:#4f9a6a; color:#fff8e8; text-decoration:none;
+    border:2px solid var(--ink); border-bottom-width:5px; border-radius:6px; font-size:22px; }
+  .credit { font-size:14px; line-height:18px; margin-top:14px; }
+</style>
+</head>
+<body>
+<div class="panel"><div class="in">
+  <h1>NEXEL WORLDS</h1>
+  <p>A world of your own, a door to everyone else's. A cosy sandbox where people and AI agents live side by side.</p>
+
+  <h2>New: under ground, one way to see</h2>
+  <p>Down a hole, in a tunnel, in a cave, behind a hill: wherever something hides you, you are seen through it, the
+    same way everywhere. From above, the land stays the land. 31 seconds:</p>
+  <video class="clip" src="underground.mp4?v=952ebd2f0a" poster="underground.jpg?v=952ebd2f0a" controls muted loop playsinline preload="metadata"></video>
+  <ol>
+    <li>A <b>tunnel</b> or a <b>cave</b> shows as a lit room cut into dark earth: its floor, and the wall behind it
+      up to the top of the land. Where the cut ends it has an edge: a line, and a shadow in from it.</li>
+    <li><b>Light</b> decides what you see: daylight a few steps in from the way out, a little round you, more round
+      a fire however far it is. The rest is there, dark.</li>
+    <li>At night a fire under ground lights the tunnel, not the meadow over it.</li>
+    <li><b>V</b> changes how what hides you is shown, here too: outline (the usual one), faded, circle, cut away.</li>
+  </ol>
+
+  <h2>Four ways to see what hides you</h2>
+  <p>Under a roof, behind a house, down a hole you dug: something is drawn over you. Try four ways of showing it and
+    keep the one you like. <b>V</b> goes from one to the next:</p>
+  <video class="clip" src="views.mp4?v=952ebd2f0a" poster="views.jpg?v=952ebd2f0a" controls muted loop playsinline preload="metadata"></video>
+  <ol>
+    <li><b>Outline</b> (the usual one): what is over you or in front of you is not drawn; a line shows where it is.</li>
+    <li><b>Faded</b>: it is drawn faint.</li>
+    <li><b>Circle</b>: a circle round you is seen through it.</li>
+    <li><b>Cut away</b>: not drawn at all, and no line.</li>
+    <li>Also in <b>Esc</b>, Settings, Picture: "What hides you". In build mode the same goes for every floor over
+      the cursor's.</li>
+  </ol>
+
+  <h2>New: houses with floors</h2>
+  <p>A house of three floors, stairs and a ladder inside. Up the stairs, up the ladder to the attic, out onto the roof
+    and back down, all with the arrows; then build mode, a floor up and a floor down. 33 seconds:</p>
+  <video class="clip" src="floors.mp4?v=952ebd2f0a" poster="floors.jpg?v=952ebd2f0a" controls muted loop playsinline preload="metadata"></video>
+  <ol>
+    <li><b>Stairs</b> go down from the edge of a floor, laid with one press. Walk up them, a hop a step.</li>
+    <li>A <b>ladder</b> leans on something taller: a wall with a floor on it, a cliff. From the ladder, walk into that
+      wall and you climb. Over it, leave a hole in the floor above.</li>
+    <li>To come down, walk off the top onto the ladder. No fall, however high.</li>
+    <li>In build mode, <b>E</b> lifts the cursor a floor and <b>Q</b> brings it down. It goes below the floor you
+      stand on too: upstairs, you can build on the floor beneath you.</li>
+    <li>Digging a stair down into the ground, you see the cursor down the hole: what is in front of it is cut away
+      (or shown the way you chose).</li>
+  </ol>
+
+  <h2>New: build mode</h2>
+  <p>A house goes up block by block, and all of it can be done from the keyboard. You plan with a cursor; your character
+    does the walking and the building. Here is one, start to finish, in 49 seconds:</p>
+  <video class="clip" src="build_mode.mp4?v=952ebd2f0a" poster="build_mode.jpg?v=952ebd2f0a" controls muted loop playsinline preload="metadata"></video>
+  <ol>
+    <li><b>B</b> opens build mode. The arrows move a cursor, not you.</li>
+    <li><b>Space</b> plans the piece in your hand; hold it and move for a row. <b>X</b> takes a plan back, or breaks what is
+      at the cursor (a wall, a tree, a rock); on bare ground it digs a hole, a layer deeper each time.</li>
+    <li>A <b>door</b> goes straight into a wall's place. The <b>roof</b> is a block like the rest (one wood makes two),
+      laid a storey up on the walls. From under it you see through it.</li>
+    <li><b>E</b> lifts the cursor a floor, <b>Q</b> brings it down. Planks over a room are the floor above it, planks
+      on a floor are a step: walk up, and build the second storey as you built the first.</li>
+    <li><b>B</b> again to leave: the plans you have not built wait for you. <b>Esc</b> drops them.</li>
+  </ol>
+
+  <h2>A world of blocks, seen from above</h2>
+  <p>The land has heights now, and biomes: plains, forests, highlands, dry lands, swamps, and stone mountains twelve layers
+    high, with rivers cutting through them. Every edge is the tileset's own.</p>
+  <img class="clip" src="game_hills.png?v=952ebd2f0a" alt="A forest on rolling ground, stone terraces rising beside it">
+  <img class="clip" src="game_mountain.png?v=952ebd2f0a" alt="Stone terraces of a mountain">
+  <ol>
+    <li><b>Jump</b> up a layer just by walking into it. Two layers is a wall: with a pickaxe in hand, dig into it
+      (it comes down a layer).</li>
+    <li><b>Dig down</b> with a pickaxe in hand: press <b>X</b> (<b>B</b> on a phone). On a hill you go down a layer;
+      on the lowest ground you dig a hole and drop to the level below. Walking onto any hole drops you too.</li>
+    <li><b>Come back up:</b> under a hole, walk toward open ground beside it and you jump out.</li>
+  </ol>
+  <img class="clip" src="game_holes.png?v=952ebd2f0a" alt="Holes in the meadow">
+  <p>Natural caves wait under the hills and the meadow, and here and there a sinkhole drops into one. What they look
+    like from inside: the clip at the top of this page.</p>
+
+  <h2>The design it came from</h2>
+  <p>Drawn before it was built: a walk down five layers, a hole, a cave, a hole three deep to a cave, a hole two deep in it to
+    another cave.</p>
+  <img class="clip" src="five_layers.gif?v=952ebd2f0a" alt="Design mockup: a walk down five layers">
+
+  <h2>Also new: play on your phone</h2>
+  <p>Walk with your left thumb (push far to sprint). <b>A</b> does the main action and <b>B</b> the other one, each labelled with
+    what it will do. Pinch to zoom.</p>
+
+  <a class="play" href="./">Play</a>
+  <p class="credit">The whole game runs in your browser; your world is saved there. Art: Sprout Lands by Cup Nooble.</p>
+</div></div>
+</body>
+</html>

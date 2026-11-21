@@ -1,0 +1,44 @@
+/* The game's menu and its settings (js/menu.js): the help's window (css/help.css), its pixel --w, its faces, bevels and
+   one-pixel edges that leave the corners out. Behind it the world is dimmed, and a click there shuts it. */
+#menu { --q:var(--w); position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:40; background:rgba(43,30,38,.45);
+  color:var(--ink); font-size:calc(9 * var(--q)); line-height:calc(9 * var(--q)); user-select:none; -webkit-user-select:none; touch-action:none; }
+#menu .win { width:calc(250 * var(--q)); max-width:calc(100vw - 6 * var(--q)); margin-bottom:6vh; padding:calc(5 * var(--q)); background:#e8cfa6;
+  box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a, 0 calc(4 * var(--q)) 0 rgba(43,30,38,.35); }
+#menu .win.small { width:calc(170 * var(--q)); }
+#menu b { font-weight:normal; }
+#menu .hh { display:flex; align-items:center; justify-content:space-between; height:calc(13 * var(--q)); padding:0 calc(2 * var(--q)); }
+#menu .hh span, #menu .hf, #menu .hf span { display:flex; align-items:center; gap:calc(3 * var(--q)); color:var(--ink2); cursor:pointer; }
+#menu .hf { justify-content:center; height:calc(15 * var(--q)); padding-top:calc(3 * var(--q)); cursor:default; white-space:nowrap; }
+#menu .hf span { margin-left:calc(4 * var(--q)); } #menu .hf i { font-style:normal; }
+#menu kbd { flex:none; display:flex; align-items:center; justify-content:center; min-width:calc(11 * var(--q)); height:calc(11 * var(--q)); padding:0 calc(3 * var(--q)) var(--q); font:inherit; color:var(--ink);
+  background:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-2 * var(--q)) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#menu .tabs { display:flex; gap:calc(3 * var(--q)); padding:calc(3 * var(--q)) calc(2 * var(--q)) 0; }
+#menu .tab { flex:1; display:flex; align-items:center; justify-content:center; height:calc(15 * var(--q)); padding-bottom:var(--q); cursor:pointer; color:#6b4a3a; background:#cfad84;
+  box-shadow:inset var(--q) var(--q) 0 #e2c79c, inset calc(-1 * var(--q)) 0 0 #b08a62, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a; }
+#menu .tab.on { color:var(--ink); background:#d9bd90; height:calc(17 * var(--q)); margin-top:calc(-2 * var(--q));
+  box-shadow:inset var(--q) var(--q) 0 #f8edd4, inset calc(-1 * var(--q)) 0 0 #b8946a, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a; }
+/* The rows: seven show, the others are a scroll away (the row you are on is always in view) */
+#menu .well { display:flex; flex-direction:column; gap:calc(2 * var(--q)); height:calc(132 * var(--q)); max-height:56vh; padding:calc(4 * var(--q)); overflow-y:auto; scrollbar-width:none; background:#d9bd90;
+  box-shadow:inset var(--q) var(--q) 0 #b8946a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #f8edd4; }
+#menu .well::-webkit-scrollbar { display:none; }
+#menu .small .well { height:auto; }
+#menu .row { flex:none; display:flex; align-items:center; justify-content:space-between; gap:calc(5 * var(--q)); height:calc(16 * var(--q)); padding:0 calc(4 * var(--q)); cursor:pointer; background:#e8cfa6;
+  box-shadow:inset var(--q) var(--q) 0 #fbf0d6, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c49a6c; }
+#menu .row.big { height:calc(20 * var(--q)); }
+#menu .row.on { background:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#menu .row.own .name::after { content:""; display:inline-block; width:calc(2 * var(--q)); height:calc(2 * var(--q)); margin-left:calc(3 * var(--q)); vertical-align:middle; background:var(--accent); }   /* (not as it came) */
+#menu .name { white-space:nowrap; }
+#menu .ctl { flex:none; display:flex; align-items:center; justify-content:flex-end; gap:calc(4 * var(--q)); width:calc(112 * var(--q)); }
+/* A bar: a groove, filled as far as it is set */
+#menu .bar { flex:1; height:calc(8 * var(--q)); background:#b8946a; cursor:ew-resize;
+  box-shadow:inset var(--q) var(--q) 0 #9a7650, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#menu .bar i { display:block; height:100%; background:var(--accent); box-shadow:inset var(--q) var(--q) 0 #7fc494, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #3d7a53; }
+#menu .val { flex:none; width:calc(24 * var(--q)); text-align:right; }
+#menu .sw, #menu .pick { display:flex; align-items:center; justify-content:center; height:calc(11 * var(--q)); padding-bottom:var(--q); background:#cfad84; color:#6b4a3a;
+  box-shadow:inset var(--q) var(--q) 0 #e2c79c, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #b08a62, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#menu .sw { width:calc(30 * var(--q)); }
+#menu .sw.yes { background:var(--accent); color:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #7fc494, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #3d7a53, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+#menu .pick { flex:1; justify-content:space-between; }
+#menu .pick span { flex:1; text-align:center; color:var(--ink); white-space:nowrap; }
+#menu .pick b { padding:0 calc(4 * var(--q)); }
+body.nohints #actions, body.nohints #prompts, body.notips #hover { display:none !important; }

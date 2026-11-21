@@ -1,0 +1,23 @@
+[
+ {
+  "id": "dream",
+  "title": "Bright A: Dream",
+  "bpm": 104,
+  "seconds": 55.4,
+  "sounds": "lead: Dream Plucks, answer: The Softest, chords: Nice Pluck 1, pad: Warmbo, bass: Rubber Bass"
+ },
+ {
+  "id": "cute",
+  "title": "Bright B: Cute",
+  "bpm": 104,
+  "seconds": 55.4,
+  "sounds": "lead: Cute 1, answer: Cute, chords: Cute 2, pad: Rainy Day Dreamaway, bass: Plastic Dream"
+ },
+ {
+  "id": "sweets",
+  "title": "Bright C: Sweets",
+  "bpm": 104,
+  "seconds": 55.4,
+  "sounds": "lead: Dreams And Sweets, answer: EP Forest, chords: Come Closer, pad: Wool 1, bass: Fingered"
+ }
+]

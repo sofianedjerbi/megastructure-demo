@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nexel Worlds · a sky over the world</title>
+<style>
+  :root { --q:3px; --ink:#f3e6cf; --soft:#b9a48a; --night:#1d1a2b; --panel:#2f2a44; --hi:#4a4368; --lo:#17142a; --edge:#0d0b18; --gold:#ffd36a; --on:#fff1a8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--night); color:var(--ink); font:16px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; padding:32px 16px 64px; }
+  main { width:min(1140px, 100%); margin:0 auto; }
+  h1 { margin:0; font-size:34px; letter-spacing:2px; color:var(--on); text-shadow:var(--q) var(--q) 0 #5b3f36; }
+  h1 em { font-style:normal; color:var(--gold); }
+  .sub { color:var(--soft); margin:8px 0 24px; }
+  .box { background:var(--panel); padding:16px 18px; margin-bottom:18px;
+    box-shadow:inset var(--q) var(--q) 0 var(--hi), inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 var(--lo), calc(-1 * var(--q)) 0 var(--edge), var(--q) 0 var(--edge), 0 calc(-1 * var(--q)) var(--edge), 0 var(--q) var(--edge); }
+  h2 { margin:0 0 8px; font-size:24px; color:var(--on); }
+  .view { position:relative; aspect-ratio:1100 / 650; box-shadow:0 0 0 var(--q) var(--edge); overflow:hidden; }
+  .view canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 12px; }
+  button { font:inherit; color:var(--ink); background:var(--hi); border:0; padding:6px 12px 8px; cursor:pointer;
+    box-shadow:inset var(--q) var(--q) 0 #655d8a, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #332d4f, 0 0 0 var(--q) var(--edge); }
+  button.on { background:var(--gold); color:#3b2a22; box-shadow:inset var(--q) var(--q) 0 #ffe9a8, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #c99a3a, 0 0 0 var(--q) var(--edge); }
+  .knobs { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px 24px; margin-top:14px; }
+  label { display:flex; align-items:center; gap:10px; color:var(--soft); }
+  label span { flex:none; width:118px; } label b { flex:none; width:44px; text-align:right; color:var(--ink); font-weight:normal; }
+  input[type=range] { flex:1; accent-color:var(--gold); }
+  .four { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .four > div { cursor:pointer; } .four p { margin:6px 0 0; color:var(--soft); font-size:14px; } .four p b { color:var(--on); font-weight:normal; }
+  ul { margin:6px 0 0; padding-left:20px; } li { margin:4px 0; } li b { color:var(--on); font-weight:normal; }
+  .try { display:flex; flex-direction:column; }
+  /* A phone: the picture first and as wide as the screen, the buttons in rows that slide sideways, one view */
+  @media (max-width:760px) {
+    body { padding:12px 0 40px; font-size:15px; }
+    h1 { font-size:22px; padding:0 12px; } .sub { padding:0 12px; margin:4px 0 10px; font-size:13px; line-height:1.4; }
+    .box { padding:12px; margin-bottom:10px; box-shadow:none; }
+    .try { padding:0 0 12px; } .try h2 { display:none; } .try .view { order:-1; box-shadow:none; margin-bottom:10px; }
+    .bar { flex-wrap:nowrap; overflow-x:auto; margin:0; padding:3px 12px 9px; gap:8px; scrollbar-width:none; } .bar::-webkit-scrollbar { display:none; }
+    .bar button { flex:none; white-space:nowrap; padding:7px 11px 9px; }
+    .knobs { padding:0 12px; margin-top:4px; grid-template-columns:1fr; gap:10px; } label { font-size:14px; } label span { width:112px; white-space:nowrap; } input[type=range] { height:28px; }
+    .side { display:none; } h2 { font-size:19px; } ul { padding-left:18px; } li { font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>NEXEL <em>WORLDS</em></h1>
+  <div class="sub">A sky over the world: the ground curves away to a horizon, and the land and everything on it stand. Made from real frames of the game; nothing here is in the game yet. (Page 38.)</div>
+  <div class="box try">
+    <h2>Try it</h2>
+    <div class="bar" id="scenes"></div>
+    <div class="bar" id="presets"></div>
+    <div class="view" id="main"></div>
+    <div class="knobs">
+      <label><span>Horizon height</span><input type="range" id="yh" min="50" max="96"><b></b></label>
+      <label><span>Bend starts at</span><input type="range" id="y0" min="5" max="80"><b></b></label>
+      <label><span>View distance</span><input type="range" id="g" min="0" max="300"><b></b></label>
+      <label><span>Hour</span><input type="range" id="hour" min="0" max="100"><b></b></label>
+      <label><span>Walk north</span><input type="range" id="walk" min="0" max="100"><b></b></label>
+      <label><span>Walk by itself</span><input type="checkbox" id="auto" checked></label>
+      <label><span>Block height</span><input type="range" id="tall" min="100" max="250" step="10"><b></b></label>
+      <label><span>Painted hills</span><input type="checkbox" id="hills" checked></label>
+      <label><span>Show the shapes</span><input type="checkbox" id="shapes"></label>
+    </div>
+  </div>
+  <div class="box side">
+    <h2>Seven places, in the curved far view</h2>
+    <div class="four" id="four"></div>
+  </div>
+  <div class="box">
+    <h2>What this shows</h2>
+    <ul>
+      <li><b>It is drawn from shapes now.</b> The earlier pages took the game's finished picture and worked out, pixel by pixel, what a bent world would show: every fix left something else wrong at the horizon. This page builds each place as geometry and lets the graphics card bend it: every tile's top at its own height, every cliff an upright wall, every tree, animal and house piece an upright card. The game's own painting is on all of it.</li>
+      <li><b>What that gives without a rule for it.</b> Land in front hides what is behind it. A far terrace is as small as it should be, and smoothed the way any far thing is. Past the horizon the world goes on round and down, and things sink behind the ground because the ground in front of them is nearer.</li>
+      <li><b>Where you are, nothing changes.</b> The lower part of the screen is not bent: it is today's picture, tile for tile. In a dug room the hole is cut open around you as now; in a house its upper floor and roof are cut away as now.</li>
+      <li><b>Height and shade.</b> A level is 8 pixels high in the game today (half a tile), and from above that reads flat. Here a level is drawn half as tall again ("Block height", up to two and a half times), each wall is lit at its top and darker to its foot, and land under a cliff is in its shade. Two places are also shown as the game itself draws them with 14-pixel levels. Either would change the whole game's look, not only the curve.</li>
+      <li><b>The sky</b> is the hour's: sun or moon on its way across, clouds, stars. The two rows of far hills are painted, not the world's own.</li>
+      <li><b>Short or far.</b> Short view holds about 1.6 times the bent band's height in land; far view about 3.8 times, which is about 20 more tiles to draw.</li>
+      <li><b>A cliff's sides.</b> Seen from above, the game paints the east and west sides of a cliff as a narrow strip. Here that strip is the side itself: it slopes from the upper land down to the lower, in shade, so a cliff has sides as well as a front.</li>
+      <li><b>Not right yet.</b> A tile whose top the game's picture hides behind higher land wears that land's painting. Someone in a far pit is hidden by its rim. Aiming with the mouse in the bent band, and names over heads there, are not tried.</li>
+    </ul>
+  </div>
+</main>
+<script>
+// (?audit=1: wherever no shape is drawn under the horizon the picture is magenta: a hole in the land shows, and a script counts them)
+const AUDIT = new URLSearchParams(location.search).get("audit") === "1";
+const H = 650;                                              // (a view shows 1100 of the picture's pixels across; on a narrow screen 600, bigger: `vw`)
+// The places: each a frame of the game taken in two parts (design/enemies/horizon_capture.py)
+const SCENES = {
+  meadow: {name: "Meadow", say: "Trees, ponds, animals: nothing built."},
+  village: {name: "Two houses", say: "Two floors each, walls upstairs, a roof, seen from outside. Every wall, floor and roof piece is put back standing."},
+  inside: {name: "Inside a house", say: "You stand downstairs in the near house: the game has cut its upper floor and roof away, as it does today."},
+  hills: {name: "A mountain", say: "The world's own mountain, thirteen levels of terraces, as the game made it. Each level is lifted on the curve; its walls stand."},
+  hills_tall: {name: "Mountain, taller blocks", say: "The same mountain with every level 14 pixels high instead of 8, drawn by the game itself with that one number changed. Taller walls: more of a mountain, near and far."},
+  under: {name: "Under ground", say: "You stand in a room dug four down, a stair up to the west; north of you a hill with a cave in it."},
+  under_tall: {name: "Under ground, taller blocks", say: "The dug room and the hill with 14-pixel levels: a deeper room, a higher hill."},
+};
+const PRESETS = [
+  {key: "flat", name: "Today (no sky)", mode: 0, yh: 100, y0: 100, g: 0, tall: 100, say: "The game as it is."},
+  {key: "curve1", name: "Curved · short view", mode: 1, yh: 80, y0: 42, g: 0, tall: 150, say: "The ground bends away from 42% up the screen to a horizon at 80%. Things stand on it; the last trees stand against the sky."},
+  {key: "curve2", name: "Curved · far view", mode: 1, yh: 84, y0: 34, g: 140, tall: 150, say: "The same with more than twice the land in the bend: ponds and woods far to the north, small."},
+];
+// How far along the ground a row of the screen is (y: 0 at the bottom, 1 at the top), as a share of the screen's
+// height; and how much wider the land is drawn there (tilted). The same in the shader below.
+// ---------------------------------------------------------------------------------------------------------------
+// The picture is drawn from real shapes, not worked back from a finished picture ("It is terrible. Rethink your
+// approach": the page took the game's flat picture and asked, pixel by pixel, what a bent world would show there;
+// every fix of that left something else wrong at the horizon). Now each place is built once as geometry:
+//   every tile's top, a square at its own height, with the game's painting of it on it;
+//   every wall, upright, where a tile stands higher than the one south of it, with the game's painting of that wall;
+//   everything that stands (a tree, an animal, you, each piece of a house): an upright card with its foot on the ground.
+// The graphics card bends all of it (each corner is put where the bend puts its spot of the ground, and raised by its
+// height) and keeps, for every pixel, what is nearest: land in front hides what is behind it, a far terrace is as
+// small as it should be and smoothed as any far thing is, and past the horizon things go down behind the ground,
+// because the ground in front of them is nearer. None of that is written here: it is what drawing shapes does.
+// ---------------------------------------------------------------------------------------------------------------
+// Shared by the land and what stands: where a spot of the ground is on the screen. r: its row of the picture at sea
+// level. -> y (px from the bottom), t (how far into the bend, 0 to 1). Up to the horizon as on a log (asin), and past
+// it down the far side three times as fast.
+const PLACE = `
+uniform vec2 uRes; uniform float uBottom, uMode, uYh, uY0, uG, uCx, uFar;
+float curve(float t) { return asin(t) * (1. + uG * t * t); }
+void place(float r, out float y, out float t) {      // (t is 1 beyond the horizon too: as deep in the air as the horizon)
+  float d = (uBottom - r) / uRes.y, y0 = min(uY0, uYh - .02); t = 0.;
+  if (uMode < .5 || d <= y0) { y = d * uRes.y; return; }
+  float want = (d - y0) / (uYh - y0), most = curve(.999);
+  float past = max(0., want - most) * (uYh - y0) * uRes.y;      // px of ground beyond the horizon
+  if (want >= most) want = max(0., most - 3. * (want - most));
+  float lo = 0., hi = .999;
+  for (int i = 0; i < 22; i++) { float m = (lo + hi) * .5; if (curve(m) < want) lo = m; else hi = m; }
+  // Beyond the horizon the ground falls away, a pixel down for each pixel further: a hill there shows its top over
+  // the line, then sinks. (Without this a mountain behind the horizon stood whole in the sky, its terraces piled
+  // like bricks with animals on them: "Wtf is happening at the horizon".)
+  y = (y0 + (uYh - y0) * lo) * uRes.y - past; t = past > 0. ? 1. : lo;
+}
+float landLean(float t) { return 1. - .5 * pow(t, 1.5); }    // how much of the land's height shows where it leans back, far off (most of it: with half, a far mountain lay flat)
+uniform float uRef;                                          // the land's height where you stand: the camera is at your height, as in the game
+uniform float uFlatFar;                                      // (to compare: 1 = a cliff's side stands straight far off, as page 24 to 30 had it)
+uniform float uTall;                                         // how tall a level is drawn, as a share of the game's 8 px ("looks soo flat")
+// How far up the screen a height is drawn (px), from the camera's own. Over the ground: as tall as "Block height"
+// says. Under it (a dug room): as deep as the game draws it. Both lean back far off.
+// A dug room is a real hole ("underground does not show any depth effect. We should be able to see 3d holes"):
+// its floor is down there, its north wall stands, and the ground south of it hides what it would hide. While you
+// are in it, that ground is cut away as far south as the room is deep, as the game cuts it (see shapes).
+// (Under the ground a depth is squeezed in the bend as the rows of the ground are, not leant as a height is: so
+// the ground cut away south of your room, as many rows as the room is deep, uncovers its floor at any distance.)
+float rows(float t) { return uMode < .5 ? 1. : 1. / ((1. + uG * t * t) / sqrt(max(1e-4, 1. - t * t)) + asin(t) * 2. * uG * t); }
+float rise(float z, float t) { return (z >= 0. ? z * uTall * landLean(t) : z * rows(t)) - uRef * uTall * landLean(t); }
+float depth(float r, float lead) { return clamp((uBottom - r) / uFar - lead, -.98, .98); }      // nearer along the ground: in front
+`;
+const LAND_V = `#version 300 es
+precision highp float;
+in vec3 aPos; in vec2 aUV; in float aShade, aFar, aKind; out vec2 vUV; out float vT, vShade, vKind; out vec3 vAt;` + PLACE + `
+// (a cliff's side slopes near you; far off it stands straight again: there each sloping end made a terrace a bevelled brick)
+void main() {
+  float y, t; place(aPos.y, y, t);
+  float zz = mix(aPos.z, aFar, uFlatFar * smoothstep(.15, .6, t));
+  gl_Position = vec4((uRes.x * .5 + aPos.x - uCx) / uRes.x * 2. - 1., (y + rise(zz, t)) / uRes.y * 2. - 1., depth(aPos.y, 0.), 1.);
+  vUV = aUV; vT = t; vShade = aShade; vKind = aKind; vAt = aPos;
+}`;
+const LAND_F = `#version 300 es
+precision highp float;
+uniform sampler2D uTex; uniform vec2 uSrc; uniform vec3 uLight, uAir; uniform float uShow, uGrid; in vec2 vUV; in float vT, vShade, vKind; in vec3 vAt; out vec4 o;
+// ("Show the shapes": no painting. Each face in the colour of its kind: a top green, a wall that faces south brown,
+// a step of a cliff's side orange, what is under the ground sand; and a dark line along every tile's edge and every
+// level of a wall. What you then see is the blocks themselves: tops, fronts and sides, each at its own place.)
+void main() {
+  vec3 c = texture(uTex, vUV / uSrc).rgb * uLight * vShade;
+  if (uShow > .5) {
+    int k = int(vKind + .5);
+    c = (k == 0 ? vec3(.55, .78, .44) : k == 1 ? vec3(.74, .5, .36) : k == 2 ? vec3(.93, .64, .3) : vec3(.84, .74, .52)) * (vAt.z < 0. && k == 1 ? .8 : 1.) * vShade;
+    vec2 g = abs(fract(vec2(vAt.x - uGrid, k == 1 ? vAt.z : vAt.y - uGrid) / vec2(48., k == 1 ? 24. : 48.) + .5) - .5) * vec2(48., k == 1 ? 24. : 48.);
+    if (k != 2 && min(g.x, g.y) < 1.) c *= .62;
+  }
+  o = vec4(mix(c, uAir, smoothstep(.55, 1., vT) * .5), 1.);
+}`;
+// What stands: a card. aFoot: its foot's row; aCx: its middle; aOff: this corner from the middle of its foot;
+// aGap: how high over the ground its foot is (the land's height there, a floor upstairs); aBuilt: a piece of a house.
+// A thing of its own keeps its shape and is smaller far off; a built piece keeps its width, or a house comes apart.
+const CARD_V = `#version 300 es
+precision highp float;
+in float aFoot, aCx, aLift, aOwn, aBuilt; in vec2 aOff, aUV; out vec2 vUV; out float vT;` + PLACE + `
+void main() {
+  float y, t; place(aFoot, y, t);
+  float small = 1. - .38 * pow(t, 1.5), back = 1. - .5 * pow(t, 1.6), built = step(.5, aBuilt);
+  float sx = uRes.x * .5 + aCx - uCx + aOff.x * mix(small, 1., built);
+  // (aLift: the height of the land it stands on, drawn as tall as the land is; aOwn: how high over that it is itself, a floor upstairs)
+  float sy = y + rise(aLift, t) + aOwn * mix(landLean(t), back, built) + aOff.y * mix(small, back, built);
+  // (in front of the ground it stands on; and someone down a hole near you is seen in it, as the game cuts the ground away for them)
+  float z = depth(aFoot, .0015);
+  gl_Position = vec4(sx / uRes.x * 2. - 1., sy / uRes.y * 2. - 1., z, 1.);
+  vUV = aUV; vT = t;
+}`;
+const CARD_F = `#version 300 es
+precision highp float;
+uniform sampler2D uTex; uniform vec2 uSrc; uniform vec3 uLight, uAir; in vec2 vUV; in float vT; out vec4 o;
+void main() { vec4 c = texture(uTex, vUV / uSrc); if (c.a < .5) discard; o = vec4(mix(c.rgb * uLight, uAir, smoothstep(.6, 1., vT) * .4), 1.); }`;
+// The sky behind it all: the hour's colours, sun or moon on its way across, clouds, stars, two rows of far hills.
+const SKY_V = `#version 300 es
+in vec2 p; void main() { gl_Position = vec4(p, .999, 1.); }`;
+const SKY_F = `#version 300 es
+precision highp float;
+uniform vec2 uRes; uniform float uYh, uT, uHour, uHills, uK, uAudit; out vec4 o;
+float hash(vec2 q) { return fract(sin(dot(q, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 q) { vec2 i = floor(q), f = fract(q); f = f * f * (3. - 2. * f);
+  return mix(mix(hash(i), hash(i + vec2(1., 0.)), f.x), mix(hash(i + vec2(0., 1.)), hash(i + vec2(1., 1.)), f.x), f.y); }
+vec3 pick(vec3 day, vec3 dusk, vec3 night) { float a = smoothstep(.5, .7, uHour), b = smoothstep(.7, .84, uHour); return mix(mix(day, dusk, a), night, b); }
+float ridge(float x, float seed, float f) { return noise(vec2(x * f + seed, seed)) * .6 + noise(vec2(x * f * 2.7 + seed, 3.)) * .28 + noise(vec2(x * f * 6.1, seed)) * .12; }
+void main() {
+  vec2 a = floor(gl_FragCoord.xy / uK / 3.) * 3.;             // (the sky is made of the land's own pixels: 3 of the picture's)
+  vec3 zen = pick(vec3(.33, .6, .93), vec3(.27, .3, .58), vec3(.05, .07, .19)), hor = pick(vec3(.78, .9, .98), vec3(.99, .68, .42), vec3(.17, .21, .44));
+  float yh = uYh, up = (a.y / uRes.y - yh) / (1. - yh), px = a.y - yh * uRes.y;
+  vec3 c = mix(hor, zen, pow(clamp(up, 0., 1.), .7));
+  float night = smoothstep(.72, .84, uHour), way = night > .5 ? (uHour - .78) / .22 : uHour / .72;
+  vec2 sun = vec2(uRes.x * (.12 + .76 * way), uRes.y * (yh + (1. - yh) * (.25 + .55 * sin(way * 3.1416))));
+  float disc = length(a + 1.5 - sun);
+  c = mix(c, night > .5 ? vec3(.92, .94, 1.) : vec3(1., .95, .7), step(disc, night > .5 ? 13. : 17.));
+  c += (night > .5 ? vec3(.2, .24, .4) : vec3(.5, .4, .2)) * smoothstep(90., 15., disc) * .5;
+  vec2 q = vec2(a.x * .004 + uT * .012, up * 3.2);
+  float cl = noise(q) * .55 + noise(q * 2.3 + 4.1) * .3 + noise(q * 5.1 + 9.) * .15;
+  c = mix(c, pick(vec3(1.), vec3(1., .82, .72), vec3(.3, .34, .56)), step(.56, cl) * (.9 - .5 * up));
+  c = mix(c, pick(vec3(.86, .92, 1.), vec3(.9, .62, .6), vec3(.22, .26, .46)), step(.5, cl) * (1. - step(.56, cl)) * .7);
+  c += step(.9975, hash(a)) * night * (1. - step(.5, cl)) * (.6 + .4 * sin(uT * 3. + a.x));
+  if (uHills > .5) {
+    float m1 = 34. + 92. * ridge(a.x, 11., .0035), m2 = 12. + 40. * ridge(a.x, 47., .007);
+    if (px < m1) c = mix(pick(vec3(.5, .62, .78), vec3(.52, .36, .5), vec3(.1, .13, .3)), hor, .12 + .3 * (1. - px / m1));
+    if (px < m1 && px > m1 - 12. && ridge(a.x, 11., .0035) > .56) c = mix(c, vec3(1.), .55 * (1. - smoothstep(.7, .86, uHour)));
+    if (px < m2) c = mix(pick(vec3(.4, .6, .5), vec3(.5, .36, .34), vec3(.08, .13, .22)), hor, .18);
+  }
+  if (px < 0.) c = uAudit > .5 && px < -10. ? vec3(1., 0., 1.) : hor;      /* (the last 10 px under the line are the air: a tile's top is flat pieces, and cuts the horizon's own curve a little short) */                                       // (under the horizon line where no land is known: the air)
+  o = vec4(c, 1.);
+}`;
+// A place as shapes. Land: for each tile whose height is known, its top (four strips, so that it bends) and, where it
+// stands higher than the tile south of it, its wall (a strip a level). Both carry the game's own painting: the game
+// draws a tile's top `height` px up the picture from its square, and its wall hanging under that, so that is where
+// each is taken from. Cards: one for each thing that stands, far ones first.
+function shapes(sc, cut) {
+  let kind = 0;                                               // the kind of face being made: 0 a top, 1 a wall facing south, 2 a step of a cliff's side, 3 under the ground
+  const [gx, gy, S] = sc.grid, st = sc.step, land = [], cards = [], iw = sc.ground.width, ih = sc.ground.height;
+  // A tile's height along its width, as flat steps [from, to, height] (x from its west side). Its own height; but
+  // at a side where the land beside it is lower, its last 12 px go down to that land in four steps of one land
+  // pixel (3 px) each: the cliff's side. (It was a smooth slope: its ends were slanted lines, on walls too, and
+  // nothing else in this picture is slanted: "Can you improve edges".) Every edge is upright or level.
+  const RIB = 4, PX = 3, W = RIB * PX;
+  const FOOT = 7;      // px at the foot of a level of wall that the game paints as grass in shade
+  const edge = (i, j) => { const L = sc.tile(i, j), w = sc.tile(i - 1, j), e = sc.tile(i + 1, j), h = L * st, out = [];
+    // (only over the ground: a side that goes down into a dug room is in the game's painting of the room already)
+    // (and never more than a level down: the side of a cliff twelve levels high, in four steps, was four pillars)
+    // (and none at a sheer drop of more than two levels: on a canyon's wall each tile's step was a dark notch at its top)
+    const side = (v) => v !== null && v < L && L > 0 && L - v <= 2 ? Math.max(v, 0, L - 1) * st : null, lw = side(w), le = side(e);
+    if (lw !== null) for (let q = 0; q < RIB; q++) out.push([q * PX, (q + 1) * PX, Math.round(lw + (h - lw) * (q + 1) / (RIB + 1)), q]);
+    out.push([lw !== null ? W : 0, le !== null ? S - W : S, h, -1]);
+    if (le !== null) for (let q = RIB - 1; q >= 0; q--) out.push([S - (q + 1) * PX, S - q * PX, Math.round(le + (h - le) * (q + 1) / (RIB + 1)), q]);
+    return out; };
+  // What the game's picture really shows. The game paints high land over what is behind it: a river behind a
+  // mountain, the far wall of a canyon. Taken from the picture, those wore the mountain's painting: a canyon wall
+  // twelve levels high stood at the horizon as pale slabs ("Wtf is happening at the horizon"). So: front(i, j) is
+  // the highest row of the picture that land south of a tile is painted up to; a top or a level of a wall that is
+  // not clear of it (or not all in the picture) takes the painting of one that is, at the same level: the nearest
+  // plain tile for a top, any wall for a wall.
+  const front = new Float32Array(sc.mw * sc.mh).fill(1e9);
+  for (let i = 0; i < sc.mw; i++) { let f = 1e9; for (let j = sc.mh - 1; j >= 0; j--) { front[j * sc.mw + i] = f; const L = sc.tile(i, j); if (L !== null) f = Math.min(f, gy + j * S - L * st); } }
+  // The cut. The game shows the dug room you are in by not drawing the ground south of it, as far as the room is
+  // deep: `cutTo` is, for a tile south of a dug one, the row its ground is cut away to. In the game's picture that
+  // ground is painted over by the room's floor, so its own painting is never used: it wears another tile's.
+  // Cut (you are in the room): that ground is not drawn, and the room's floor goes on under where it was.
+  // Not cut (you are outside): the ground is there, and hides the floor behind its rim, as a hole's rim does.
+  const cutTo = new Float32Array(sc.mw * sc.mh).fill(-1e9);
+  for (let i = 0; i < sc.mw; i++) { let lim = -1e9; for (let j = 1; j < sc.mh; j++) { const L = sc.tile(i, j), N = sc.tile(i, j - 1);
+    if (L !== null && N !== null && N < 0 && N < L) lim = Math.max(lim, gy + j * S + (L - N) * st);
+    if (L !== null && L >= 0) cutTo[j * sc.mw + i] = lim; } }
+  // (Not cut, the ground the game painted the room over wears another tile's painting; and so does the ground just
+  // past it and beside it: there the game paints the cut's edge, a dark line and the room's wall in section, which
+  // lay on the grass as a thin outline of a room that is not open.)
+  const painted = (i, j) => { const Y = gy + j * S, k = j * sc.mw + i; return cut ? cutTo[k] > Y : cutTo[k] + 24 > Y || (i > 0 && cutTo[k - 1] + 24 > Y) || (i + 1 < sc.mw && cutTo[k + 1] + 24 > Y); };
+  // (Not cut: the part of a dug floor that its own rim hides from every distance, the last rows as many as it is
+  // deep, is not made at all. Drawn and hidden, its dark edge showed as a thin line through the joins of the
+  // ground in front of it.)
+  const seenTo = new Float32Array(sc.mw * sc.mh).fill(1e9);
+  for (let i = 0; i < sc.mw; i++) for (let j = sc.mh - 2; j >= 0; j--) { const L = sc.tile(i, j), Sn = sc.tile(i, j + 1);
+    if (L === null || L >= 0 || Sn === null) continue;
+    seenTo[j * sc.mw + i] = Sn > L ? gy + (j + 1) * S - (Math.max(Sn, 0) - L) * st : Sn === L ? seenTo[(j + 1) * sc.mw + i] : 1e9; }
+  const inPic = (X, top, bottom) => top >= 0 && bottom <= ih;      // (a tile half off the picture's side keeps its own painting)
+  const topSeen = (i, j) => { const L = sc.tile(i, j), Y = gy + j * S, h = L * st; return inPic(gx + i * S, Y - h, Y + S - h) && (L <= 0 || front[j * sc.mw + i] >= Y + S - h) && !(L >= 0 && painted(i, j)); };
+  const bandSeen = (i, j, k) => { const Y = gy + j * S; return inPic(gx + i * S, Y + S - k * st, Y + S - (k - 1) * st) && (k <= 0 || front[j * sc.mw + i] >= Y + S - (k - 1) * st); };
+  const plain = new Map(), bands = new Map();
+  for (let j = 0; j < sc.mh; j++) for (let i = 0; i < sc.mw; i++) {
+    const L = sc.tile(i, j); if (L === null) continue;
+    if (topSeen(i, j) && [[1, 0], [-1, 0], [0, 1], [0, -1]].every(([a, b]) => sc.tile(i + a, j + b) === L)) { if (!plain.has(L)) plain.set(L, []); plain.get(L).push([i, j]); }
+    const south = sc.tile(i, j + 1);
+    if (south !== null && south < L) for (let k = L; k > south; k--) if (!bands.has(k) && bandSeen(i, j, k)) bands.set(k, [i, j]);
+  }
+  const nearestKey = (map, k) => { let best = null; for (const q of map.keys()) if (best === null || Math.abs(q - k) < Math.abs(best - k)) best = q; return best; };
+  const topFrom = (i, j, L) => { if (topSeen(i, j)) return [i, j]; const list = plain.get(L) || plain.get(nearestKey(plain, L)); if (!list) return null;
+    let best = list[0], bd = 1e9; for (const q of list) { const d = (q[0] - i) ** 2 + (q[1] - j) ** 2; if (d < bd) { bd = d; best = q; } } return best; };
+  const bandFrom = (i, j, k) => bandSeen(i, j, k) ? [i, j] : bands.get(k) || bands.get(nearestKey(bands, k)) || null;
+  for (let j = 0; j < sc.mh; j++) for (let i = 0; i < sc.mw; i++) {
+    const L = sc.tile(i, j); if (L === null) continue;
+    const X = gx + i * S, Y = gy + j * S, h = L * st;
+    if (X + S <= 0 || X >= iw) continue;
+    const src = topFrom(i, j, L); if (!src) continue;
+    const dX = (src[0] - i) * S, dY = (src[1] - j) * S - (sc.tile(src[0], src[1]) - L) * st;      // from this tile's painting to the one it wears
+    const north = sc.tile(i, j - 1), south = sc.tile(i, j + 1), west = sc.tile(i - 1, j), east = sc.tile(i + 1, j);
+    const low = (v) => v !== null && v < L, ONLY = new URLSearchParams(location.search).get("only");      // (?only=tops or ?only=walls: one kind of shape alone, to look at it)
+    // One piece with four corners, each [x, ground row, height, lit]; its painting is the tile's own (the game draws a
+    // top `h` px up the picture from its square), or what `uv` says.
+    // (Beside higher land the game paints that land's side over this tile's edge, a few px a level: lying flat on
+    // this tile it was a pale bracket at the foot of a hill, "what are those weird corners". This tile's painting
+    // is taken from further in there.)
+    // (And at a sheer drop, where this tile has no stepped side: the game paints the cliff's own side down that
+    // edge and cuts the tile's corner round, showing what is behind, a river's yellow at a canyon's edge.)
+    const over = (v) => v === null || L < 0 ? 0 : v < 0 ? 12 : v > L ? Math.min(S / 2, 6 + 3 * (v - L)) : L > 0 && L - v > 2 ? 16 : 0, oN = north !== null && L > 0 && L - north > 2 ? 16 : 0, oW = Math.max(over(west), oN), oE = Math.max(over(east), oN);      // (oN: the same along its north edge, a thin line of the river's colour)
+    const piece = (a, b, c, d, uv = (x, r, hh) => [Math.max(X + oW, Math.min(X + S - oE, x)) + dX, Math.max(r, Y + oN) - h + dY]) => { for (const [x, r, hh, lit, far = hh] of [a, b, c, b, d, c]) land.push(kind, x, r, hh, ...uv(x, r, hh), lit, far); };      // (far: its height far off, where a side does not slope)
+    // Its top: each step of its width, in four strips north to south (so that it bends). The flat middle wears
+    // the game's painting; a step of a cliff's side is the cliff's earth, one colour (8 px in from the side, where
+    // the game paints the cliff), darker the lower it is. Where higher land stands north, the first strip is in
+    // its shade. Far off a side's steps stand at the tile's height again (there they made each terrace a brick).
+    const hs = edge(i, j);
+    // The shade under a cliff: bands of one land pixel, each one flat, lighter away from the cliff. Under the
+    // cliff's flat edge, four; under each step of its side, one more than the step before: so the shade ends
+    // round, as the cliff does, and not as a square block ("corners and their shadow are a bit squarish").
+    const shaded = north !== null && north > L, above = shaded ? edge(i, j - 1) : [];
+    const bandsAt = (x) => { const q = above.find((v) => x >= v[0] && x < v[1]); return !q || q[2] <= h ? 0 : q[3] < 0 ? 4 : q[3] + 1; };
+    if (ONLY !== "walls") for (const [xa, xb, hh, rib] of hs) {
+      kind = L < 0 ? 3 : 0;
+      if (rib < 0) {
+        const cuts = [...new Set([xa, xb, ...above.flatMap((v) => [v[0], v[1]]).filter((x) => x > xa && x < xb)])].sort((p, q) => p - q);
+        for (let c = 0; c + 1 < cuts.length; c++) { const n = bandsAt((cuts[c] + cuts[c + 1]) / 2), x0 = X + cuts[c], x1 = X + cuts[c + 1];
+          const lim = cut && L >= 0 ? cutTo[j * sc.mw + i] : -1e9;      // (cut away north of this row)
+          const end = 1e9;      // (the whole floor is made: far off in the bend more of it is in view than near, and cut short it left a strip of nothing under it: "weird down border")
+          const flat = (r0, r1, l) => { r0 = Math.max(r0, lim); r1 = Math.min(r1, end); if (r1 > r0) piece([x0, r0, hh, l], [x1, r0, hh, l], [x0, r1, hh, l], [x1, r1, hh, l]); };
+          for (let q = 0; q < n; q++) flat(Y + q * PX, Y + (q + 1) * PX, .7 + .075 * q);
+          flat(Y + n * PX, Y + S / 4, 1); for (let q = 1; q < 4; q++) flat(Y + q * S / 4, Y + (q + 1) * S / 4, 1); }
+        continue; }
+      for (let q = 0; q < 4; q++) { const r0 = Y + q * S / 4, r1 = r0 + S / 4;
+      kind = 2;
+      const col = xa < S / 2 ? X + 8 : X + S - 9, sh = .6 + .09 * rib;
+      piece([X + xa, r0, hh, sh, h], [X + xb, r0, hh, sh, h], [X + xa, r1, hh, sh, h], [X + xb, r1, hh, sh, h], () => [col + dX, Y + S / 2 - h + dY]); }
+    }
+    // Walls: upright, along the tile's south edge, wherever a step of its edge stands higher than the step of the
+    // tile south of it at that place: the whole edge where that tile is lower (the cliff's front), or a few px of
+    // it where one of the two has a side and the other has not. Lit at the top and darker to the foot, a level at
+    // a time: each level takes its own painting (from the tile's middle, spread over its width: at its two sides
+    // the game paints the grass rim turning the corner, a green line down an upright wall), or another wall's at
+    // that level where the game's picture has it covered. A wall's foot goes 2 px under the land it stands on.
+    // (cut: a dug tile's floor goes on south under the ground cut away there, in the floor's plain colour)
+    kind = 3;
+    if (cut && L < 0 && south !== null && south > L && ONLY !== "walls") {
+      const D = (Math.max(south, 0) - L) * st, mid = () => [X + S / 2 + dX, Y + S / 2 - h + dY];
+      for (let r = 0; r < D; r += 12) piece([X, Y + S + r, h, 1], [X + S, Y + S + r, h, 1], [X, Y + S + Math.min(D, r + 12), h, 1], [X + S, Y + S + Math.min(D, r + 12), h, 1], mid);      // (in strips, as a tile's top is: one long piece cut the corner of the horizon and left a gap there)
+    }
+    const under = south === null ? null : edge(i, j + 1);
+    if (ONLY !== "tops" && under) {
+      kind = 1;
+      const cuts = [...new Set([...hs, ...under].flatMap((q) => [q[0], q[1]]))].sort((p, q) => p - q), at = (list, x) => list.find((q) => x >= q[0] && x < q[1])[2];
+      const parts = []; for (let q = 0; q + 1 < cuts.length; q++) { const m = (cuts[q] + cuts[q + 1]) / 2; parts.push([X + cuts[q], X + cuts[q + 1], at(hs, m), Math.min(at(hs, m), at(under, m))]); }
+      const foot = Math.min(...parts.map((q) => q[3])), span = Math.max(1, h - foot), lit = (v) => .7 + .26 * Math.max(0, Math.min(1, (v - foot) / span));
+      const fb = Math.min(h, south * st), cl = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+      for (let k = L; k * st > foot; k--) {
+        const from = bandFrom(i, j, k); if (!from) continue;
+        const hi = k * st, lo = hi - st, wX = gx + from[0] * S, wY = gy + from[1] * S, ff = cl(fb, lo, hi);
+        // (from the tile's middle third: the game rounds a wall's lower corners, and that cut, up to 18 px in, showing the
+        // grass behind, was a slanted dark patch at each wall's foot: "corners still has weird shadow angles")
+        const uv = (x, r, hh) => [wX + 18 + (x - X) / S * (S - 36), wY + S - (lo + FOOT + (Math.max(hh, lo) - lo) * (st - FOOT) / st)];      // (not the last rows of a level: there the game paints the shaded grass at the cliff's foot, a dark green patch under each wall)
+        for (const [xa, xb, top, bot] of parts) {
+          const t = cl(top, lo, hi), bt = cl(bot, lo, t), b2 = bt <= bot ? bt - 2 : bt;
+          if (t > bt || hi > ff) piece([xa, Y + S, t, lit(t), hi], [xb, Y + S, t, lit(t), hi], [xa, Y + S, b2, lit(bt), ff], [xb, Y + S, b2, lit(bt), ff], uv);
+        }
+      }
+    }
+  }
+  for (const q of sc.sprites) {
+    if (q === sc.me) continue;                                  // (you: drawn each frame where you stand, see `youAt`)
+    const cx = q.x + q.w / 2, gap = q.foot - (q.y + q.h), b = q.b ? 1 : 0;
+    const lift = (sc.tile(Math.floor((cx - gx) / S), Math.floor((q.foot - 1 - gy) / S)) || 0) * st;      // the land's height where it stands
+    for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 0], [1, 1], [0, 1]])
+      cards.push(q.foot, cx, (dx - .5) * q.w, dy * q.h, lift, gap - lift, b, q.ax + .5 + dx * (q.w - 1), q.ay + .5 + (1 - dy) * (q.h - 1));      // (half a pixel in from its edges: at the very edge it took in the empty pixel beside it, and two pieces of a wall had a line between them)
+  }
+  return {land: new Float32Array(land), cards: new Float32Array(cards)};
+}
+function view(box, get) {
+  const canvas = document.createElement("canvas"); box.append(canvas);
+  const gl = canvas.getContext("webgl2", {antialias: true, alpha: false});
+  if (!gl) { box.textContent = "This browser cannot draw it (WebGL 2 is needed)."; return {draw() {}}; }
+  const program = (vs, fs) => {
+    const mk = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+    const pr = gl.createProgram(); gl.attachShader(pr, mk(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr));
+    const u = {}; for (let i = 0; i < gl.getProgramParameter(pr, gl.ACTIVE_UNIFORMS); i++) { const n = gl.getActiveUniform(pr, i).name; u[n] = gl.getUniformLocation(pr, n); }
+    return {pr, u, at: (n) => gl.getAttribLocation(pr, n)};
+  };
+  const P = {land: program(LAND_V, LAND_F), card: program(CARD_V, CARD_F), sky: program(SKY_V, SKY_F)};
+  const texture = (img, sharp) => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+    // (far off many of the picture's pixels fall in one of the screen's: they are averaged, at the right size, by the card)
+    if (!sharp) { gl.generateMipmap(gl.TEXTURE_2D); const e = gl.getExtension("EXT_texture_filter_anisotropic"); if (e) gl.texParameterf(gl.TEXTURE_2D, e.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(e.MAX_TEXTURE_MAX_ANISOTROPY_EXT))); }
+    for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, sharp ? gl.LINEAR : gl.LINEAR_MIPMAP_LINEAR], [gl.TEXTURE_MAG_FILTER, gl.NEAREST], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v);
+    return t; };
+  const array = (prog, data, parts) => {                      // parts: [name, how many numbers]...
+    const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+    const width = parts.reduce((n, q) => n + q[1], 0); let off = 0;
+    for (const [name, n] of parts) { const loc = prog.at(name); if (loc >= 0) { gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, n, gl.FLOAT, false, width * 4, off * 4); } off += n; }
+    return {vao, n: data.length / width, buf: gl.getParameter(gl.ARRAY_BUFFER_BINDING)};
+  };
+  const sky = array(P.sky, new Float32Array([-1, -1, 1, -1, -1, 1, 1, -1, 1, 1, -1, 1]), [["p", 2]]);
+  const CARD = [["aFoot", 1], ["aCx", 1], ["aOff", 2], ["aLift", 1], ["aOwn", 1], ["aBuilt", 1], ["aUV", 2]], you = array(P.card, new Float32Array(54), CARD);
+  const built = new Map();                                     // a place's shapes and pictures, on this card
+  const placeOf = (key) => {
+    if (!built.has(key)) { const [name, cut] = key.split("|"), sc = SCENES[name], m = (sc.mesh || (sc.mesh = {}))[cut] || (sc.mesh[cut] = shapes(sc, cut === "cut"));
+      built.set(key, {land: array(P.land, m.land, [["aKind", 1], ["aPos", 3], ["aUV", 2], ["aShade", 1], ["aFar", 1]]), cards: array(P.card, m.cards, [["aFoot", 1], ["aCx", 1], ["aOff", 2], ["aLift", 1], ["aOwn", 1], ["aBuilt", 1], ["aUV", 2]]),
+        ground: texture(sc.ground, false), atlas: texture(sc.atlas, true)}); }
+    return built.get(key);
+  };
+  let onScreen = true;
+  if (window.IntersectionObserver) new IntersectionObserver((es) => { onScreen = es[es.length - 1].isIntersecting; }, {rootMargin: "200px"}).observe(box);
+  const mixc = (a, b, k) => a.map((v, i) => v + (b[i] - v) * k), ease = (a, b, x) => { const k = Math.max(0, Math.min(1, (x - a) / (b - a))); return k * k * (3 - 2 * k); };
+  return {
+    draw(t) {
+      if (!onScreen) return;
+      const s = get(), sc = SCENES[s.scene]; if (!sc.ground) return;
+      // the canvas has the pixels the screen gives this box (two a px at most); the picture is 1100 of its own px across, or 600 on a narrow screen
+      const vw = box.clientWidth < 620 ? 600 : 1100;
+      if (box.dataset.vw !== String(vw)) { box.dataset.vw = vw; box.style.aspectRatio = `${vw} / ${H}`; }
+      const cw = Math.max(200, Math.round(box.clientWidth * Math.min(2, window.devicePixelRatio || 1))), k = cw / vw;
+      if (canvas.width !== cw) { canvas.width = cw; canvas.height = Math.round(H * k); }
+      const cxv = s.me ? Math.max(vw / 2, Math.min(sc.ground.width - vw / 2, Math.round(s.me.x))) : sc.cx;      // (on a narrow screen the view follows you sideways)
+      // The camera's height: the land's where you stand. And the sky's horizon: sea level's, as seen from that height,
+      // so lower on the screen the higher you stand (.5: how much of a height shows at the horizon, `landLean`). Left
+      // at the bend's own line, low land seen from a mountain ended far under it, with a wide band of nothing between.
+      const ref = s.mode ? Math.round(heightAt(sc, s.me ? s.me.x : sc.cx, s.me ? s.me.r : s.bottom - .3 * H) * s.tall / 100) / (s.tall / 100) : 0;
+      const inRoom = sc.me && (() => { const at = s.me || sc.home, [gx, gy, S] = sc.grid; return (sc.tile(Math.floor((at.x - gx) / S), Math.floor((at.r - 1 - gy) / S)) || 0) < 0; })();
+      const g = placeOf(s.scene + (inRoom ? "|cut" : "|whole")), hr = s.hour / 100, dusk = ease(.5, .7, hr), night = ease(.7, .84, hr);
+      const light = mixc(mixc([1, 1, 1], [1, .9, .8], dusk), [.5, .58, .86], night), air = mixc(mixc([.78, .9, .98], [.99, .68, .42], dusk), [.17, .21, .44], night);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.clearColor(...(AUDIT ? [1, 0, 1] : air), 1); gl.clearDepth(1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      gl.disable(gl.DEPTH_TEST);
+      if (s.mode) { gl.useProgram(P.sky.pr); gl.uniform2f(P.sky.u.uRes, vw, H); gl.uniform1f(P.sky.u.uYh, s.yh / 100 - ref * (s.tall / 100) * .5 / H); gl.uniform1f(P.sky.u.uT, t); gl.uniform1f(P.sky.u.uHour, hr);
+        gl.uniform1f(P.sky.u.uAudit, AUDIT ? 1 : 0); gl.uniform1f(P.sky.u.uHills, s.hills ? 1 : 0); gl.uniform1f(P.sky.u.uK, k); gl.bindVertexArray(sky.vao); gl.drawArrays(gl.TRIANGLES, 0, sky.n); }
+      gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL);
+      for (const [prog, mesh, tex, img] of [[P.land, g.land, g.ground, sc.ground], [P.card, g.cards, g.atlas, sc.atlas]]) {
+        const u = prog.u; gl.useProgram(prog.pr);
+        gl.uniform2f(u.uRes, vw, H); gl.uniform1f(u.uBottom, s.bottom); gl.uniform1f(u.uMode, s.mode); gl.uniform1f(u.uYh, s.yh / 100); gl.uniform1f(u.uY0, s.y0 / 100);
+        gl.uniform1f(u.uG, s.g / 100); gl.uniform1f(u.uCx, cxv); gl.uniform1f(u.uFar, 5200); gl.uniform1f(u.uTall, s.tall / 100); if (u.uFlatFar) gl.uniform1f(u.uFlatFar, new URLSearchParams(location.search).get('flatfar') ? 1 : 0); gl.uniform1f(u.uRef, ref);
+        if (u.uShow) { gl.uniform1f(u.uShow, state.shapes ? 1 : 0); gl.uniform1f(u.uGrid, ((sc.grid[0] % 48) + 48) % 48); }
+        gl.uniform3f(u.uLight, ...light); gl.uniform3f(u.uAir, ...air); gl.uniform2f(u.uSrc, img.width, img.height);
+        gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform1i(u.uTex, 0);
+        gl.bindVertexArray(mesh.vao); gl.drawArrays(gl.TRIANGLES, 0, mesh.n);
+        if (prog === P.card && sc.me) {                         // you, where you stand (where the game had you, or where you have walked to)
+          const q = sc.me, at = s.me || sc.home, [gx, gy, S] = sc.grid, lift = (sc.tile(Math.floor((at.x - gx) / S), Math.floor((at.r - 1 - gy) / S)) || 0) * sc.step, v = [];
+          for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 0], [1, 1], [0, 1]]) { const fx = at.left ? 1 - dx : dx;
+            v.push(at.r, at.x, (dx - .5) * q.w, dy * q.h, lift, at.hop || 0, 0, q.ax + .5 + fx * (q.w - 1), q.ay + .5 + (1 - dy) * (q.h - 1)); }
+          gl.bindVertexArray(you.vao); gl.bindBuffer(gl.ARRAY_BUFFER, you.buf); gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array(v)); gl.drawArrays(gl.TRIANGLES, 0, 6);
+        }
+      }
+    },
+  };
+}
+const state = {...PRESETS[2], hour: 30, walk: 55, stand: true, hills: true, layers: true, scene: "meadow"};
+// (in a house or under ground the camera stays on you while the walk goes by itself: that is where you look)
+// (a whole pixel of the picture at a time: at parts of a pixel the land's sharp pixels moved by two, then three, then two: a shake)
+// The land's height (px) around a spot of the picture: the levels of the tiles near it, the nearest counting most, so
+// that it changes evenly as you walk. The camera is held at that height: on a mountain you look out from it, over
+// the land below, and the sky is still there (it was not: the mountain you stood on was drawn up over it).
+function heightAt(sc, x, r) {
+  const [gx, gy, S] = sc.grid, fi = (x - gx) / S - .5, fj = (r - gy) / S - .5; let sum = 0, all = 0;
+  for (let j = Math.floor(fj) - 3; j <= Math.floor(fj) + 4; j++) for (let i = Math.floor(fi) - 3; i <= Math.floor(fi) + 4; i++) {
+    const L = sc.tile(i, j), w = Math.max(0, 1 - Math.abs(i - fi) / 4) * Math.max(0, 1 - Math.abs(j - fj) / 4);
+    if (L !== null && L > 0) { sum += L * w; all += w; } else all += w; }
+  return all ? sum / all * sc.step : 0;
+}
+// How far north the walk may go in a place: not so far that the horizon shows the end of the land known there
+// (1480: the ground from the screen's bottom to the horizon in the far view). Land too high to be all in the
+// picture wears the painting of land that is, so the picture's own top edge is no limit.
+function northOf(sc) { return Math.max(1330, sc.grid[1] + 1480); }
+const bottomOf = (walk, scene) => ((scene === "inside" || scene.startsWith("under")) && $("auto").checked ? 1545 : Math.round(2580 - walk / 100 * (2580 - (SCENES[scene].tile ? northOf(SCENES[scene]) : 1330))));
+const $ = (id) => document.getElementById(id);
+// Playing (on this computer only: a try of the curve in the hand, not a part of the public page). You walk with the
+// arrows or WASD, or by dragging on the picture; the view keeps you 40% up the screen. You go where the land is known
+// and no more than a level up or down at a step, as in the game.
+const LOCAL = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname), keys = new Set(), drag = {on: false, x: 0, y: 0, dx: 0, dy: 0};
+const playing = () => LOCAL && $("play") && $("play").checked && SCENES[state.scene].me;
+const youAt = () => { const sc = SCENES[state.scene]; return sc.at || (sc.at = {...sc.home, px: sc.home.x, pr: sc.home.r}); };
+const views = [view($("main"), () => { if (!playing()) return {...state, bottom: bottomOf(state.walk, state.scene)};
+  const sc = SCENES[state.scene], at = youAt(); return {...state, me: {x: at.px, r: at.pr, left: at.left, hop: at.hop}, bottom: Math.max(northOf(sc), Math.min(sc.ground.height, at.pr + Math.round(.4 * H)))}; })];
+function walkYou(dt, t) {
+  const sc = SCENES[state.scene], at = youAt(), [gx, gy, S] = sc.grid, lev = (x, r) => sc.tile(Math.floor((x - gx) / S), Math.floor((r - 1 - gy) / S));
+  let dx = (keys.has("ArrowRight") || keys.has("d") ? 1 : 0) - (keys.has("ArrowLeft") || keys.has("a") || keys.has("q") ? 1 : 0), dy = (keys.has("ArrowDown") || keys.has("s") ? 1 : 0) - (keys.has("ArrowUp") || keys.has("w") || keys.has("z") ? 1 : 0);
+  if (drag.on && Math.hypot(drag.dx, drag.dy) > 14) { const a = Math.atan2(drag.dy, drag.dx); dx = Math.cos(a); dy = Math.sin(a); }
+  const n = Math.hypot(dx, dy); at.hop = 0; if (!n) return;
+  const step = 190 * Math.min(.05, dt) / n, here = lev(at.x, at.r), ok = (x, r) => { const L = lev(x, r); return L !== null && Math.abs(L - here) <= 1 && x > 24 && x < sc.ground.width - 24 && r < sc.ground.height - 40 && r > northOf(sc) - .4 * H; };
+  const nx = at.x + dx * step, nr = at.r + dy * step;
+  if (ok(nx, at.r)) at.x = nx; if (ok(at.x, nr)) at.r = nr;
+  at.px = Math.round(at.x); at.pr = Math.round(at.r);      // (drawn on whole pixels, as the land is)
+  if (dx) at.left = dx < 0; at.hop = Math.floor(t * 9) % 2 ? 3 : 0;
+}
+function show() {
+  for (const id of ["yh", "y0", "g", "hour", "walk", "tall"]) { $(id).value = state[id];
+    $(id).parentNode.querySelector("b").textContent = id === "g" ? (1.57 * (1 + state.g / 100)).toFixed(1) + "x" : id === "hour" ? (state.hour < 72 ? "day" : "night") : Math.round(state[id]) + "%"; }
+  document.querySelectorAll("#presets button").forEach((b) => b.classList.toggle("on", b.dataset.key === state.key));
+  document.querySelectorAll("#scenes button").forEach((b) => b.classList.toggle("on", b.dataset.key === state.scene));
+  for (const id of ["y0", "g"]) $(id).disabled = state.mode !== 1;
+  $("yh").disabled = state.mode === 0;
+}
+function pick(p) { Object.assign(state, p); show(); }
+for (const p of PRESETS) { const b = document.createElement("button"); b.textContent = p.name; b.dataset.key = p.key; b.onclick = () => pick(p); $("presets").append(b); }
+for (const id of ["yh", "y0", "g", "hour", "walk", "tall"]) $(id).oninput = () => { state[id] = +$(id).value; if (id !== "hour" && id !== "walk") state.key = "own"; if (id === "walk") $("auto").checked = false; show(); };
+for (const id of ["hills", "shapes"]) $(id).onchange = () => { state[id] = $(id).checked; };
+for (const [key, sc] of Object.entries(SCENES)) { const b = document.createElement("button"); b.textContent = sc.name; b.dataset.key = key; b.onclick = () => { state.scene = key; show(); }; $("scenes").append(b); }
+const NARROW = matchMedia("(max-width: 760px)").matches;
+for (const [key, sc] of NARROW ? [] : Object.entries(SCENES)) {
+  const d = document.createElement("div"), box = document.createElement("div"); box.className = "view";
+  d.append(box); d.insertAdjacentHTML("beforeend", `<p><b>${sc.name}.</b> ${sc.say}</p>`); d.onclick = () => { pick(PRESETS[2]); state.scene = key; show(); scrollTo({top: 0, behavior: "smooth"}); };
+  $("four").append(d);
+  views.push(view(box, () => ({...PRESETS[2], scene: key, hour: state.hour, stand: state.stand, hills: state.hills, tall: state.tall, bottom: bottomOf(state.walk, key)})));
+}
+const image = (src) => new Promise((ok) => { const i = new Image(); i.onload = () => ok(i); i.src = src + "?v=" + Date.now(); });
+(async () => {
+  await Promise.all(Object.entries(SCENES).map(async ([key, sc]) => {
+    const [ground, atlas, meta] = await Promise.all([image(`horizon/${key}_ground.png`), image(`horizon/${key}_atlas.png`), fetch(`horizon/${key}.json?v=` + Date.now()).then((r) => r.json())]);
+    sc.sprites = meta.sprites.filter((q) => !q.g).map((q, i) => ({...q, i})).sort((a, b) => a.foot - b.foot || a.i - b.i);      // far ones first; on one row, in the game's own order
+    sc.atlas = atlas; sc.cx = meta.size[0] / 2; sc.step = meta.step; sc.grid = meta.grid;
+    // the land's height tile by tile, from the map: a pixel a tile, red 128 + its level (0: not known)
+    const levels = await image(`horizon/${key}_levels.png`), mc = document.createElement("canvas"); mc.width = sc.mw = levels.width; mc.height = sc.mh = levels.height;
+    const mg = mc.getContext("2d"); mg.drawImage(levels, 0, 0);
+    const md = mg.getImageData(0, 0, mc.width, mc.height).data;
+    sc.tile = (i, j) => { const v = i < 0 || j < 0 || i >= sc.mw || j >= sc.mh ? 0 : md[(j * sc.mw + i) * 4]; return v ? v - 128 : null; };
+    sc.ground = ground;
+    // you: the one the game had in the middle of its picture (a body's size), if there is one
+    const mine = sc.sprites.filter((q) => !q.b && q.w > 34 && q.w < 50 && q.h > 38 && q.h < 58 && Math.abs(q.x + q.w / 2 - sc.cx) < 8);
+    sc.me = mine.sort((a, b) => Math.abs(a.foot - 1300) - Math.abs(b.foot - 1300))[0] || null;
+    if (sc.me) sc.home = {x: sc.me.x + sc.me.w / 2, r: sc.me.foot};
+  }));
+  if (LOCAL) {
+    $("auto").parentNode.insertAdjacentHTML("beforebegin", '<label><span>Play: arrows, WASD or drag</span><input type="checkbox" id="play"></label>');
+    $("play").onchange = () => { if ($("play").checked) $("auto").checked = false; $("main").style.touchAction = $("play").checked ? "none" : ""; };
+    addEventListener("keydown", (e) => { if (!playing()) return; keys.add(e.key.length === 1 ? e.key.toLowerCase() : e.key); if (e.key.startsWith("Arrow")) e.preventDefault(); });
+    addEventListener("keyup", (e) => keys.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key)); addEventListener("blur", () => keys.clear());
+    const m = $("main");
+    m.addEventListener("pointerdown", (e) => { if (!playing()) return; drag.on = true; drag.x = e.clientX; drag.y = e.clientY; drag.dx = drag.dy = 0; m.setPointerCapture(e.pointerId); });
+    m.addEventListener("pointermove", (e) => { if (drag.on) { drag.dx = e.clientX - drag.x; drag.dy = e.clientY - drag.y; } });
+    for (const ev of ["pointerup", "pointercancel"]) m.addEventListener(ev, () => { drag.on = false; });
+  }
+  show(); requestAnimationFrame(tick);
+})();
+function tick(ms) {
+  const t = ms / 1000;
+  if ($("auto").checked && !playing()) { state.walk = 50 + 42 * Math.sin(t * .22); $("walk").value = state.walk; $("walk").parentNode.querySelector("b").textContent = Math.round(state.walk) + "%"; }
+  if (playing()) walkYou(t - (tick.last || t), t); tick.last = t;
+  views.forEach((v) => v.draw(t));
+  requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>

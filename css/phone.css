@@ -1,0 +1,144 @@
+/* A phone (body.touch, a screen narrow or low): what the other sheets draw, at a thumb's size. A thing to tap is 44 CSS
+   px at least; the text is the font at a whole number of screen px a font px; nothing lies under the notch or the home
+   bar (the safe-area insets); a window fills the width held upright and the height on its side.
+   --p2: two CSS px on the screen's own grid (ui.js hudFit); --u3: three. body.upright: held upright (ui.js). */
+
+/* ---- the buttons at the top, the ones that come and go over A: a face, a bevel, an edge that leaves the corners out ---- */
+body.touch { --tq:var(--p2, 2px); }
+#tctx div, #ttop div { min-width:calc(36 * var(--tq)); height:calc(22 * var(--tq)); padding:0 calc(5 * var(--tq)) var(--tq); align-items:center; justify-content:center; border:0; border-radius:0; white-space:nowrap;
+  background:#f3e5c2; box-shadow:inset var(--tq) var(--tq) 0 #fff8e6, inset calc(-1 * var(--tq)) calc(-2 * var(--tq)) 0 #d9bd8f, calc(-1 * var(--tq)) 0 #6b4a3a, var(--tq) 0 #6b4a3a, 0 calc(-1 * var(--tq)) #6b4a3a, 0 var(--tq) #6b4a3a, 0 calc(3 * var(--tq)) 0 rgba(60,40,30,.3); }
+#ttop div { display:flex; }
+#tctx div.down, #ttop div.down { transform:translateY(var(--tq)); box-shadow:inset var(--tq) var(--tq) 0 #d9bd8f, inset calc(-1 * var(--tq)) calc(-1 * var(--tq)) 0 #fff8e6, calc(-1 * var(--tq)) 0 #6b4a3a, var(--tq) 0 #6b4a3a, 0 calc(-1 * var(--tq)) #6b4a3a, 0 var(--tq) #6b4a3a; }
+#ttop { gap:calc(4 * var(--tq)); } #tctx { gap:calc(4 * var(--tq)); }
+/* the thumbs' own: discs cut in art px (touch.js: disc), three screen px each; nothing round is drawn by the page */
+#tA, #tB, #stickbase, #stickknob { border:0; border-radius:0; background:none center / 100% 100% no-repeat; image-rendering:pixelated; filter:none; }
+#tA { width:calc(28 * var(--u3)); height:calc(28 * var(--u3)); } #tB { width:calc(22 * var(--u3)); height:calc(22 * var(--u3)); right:calc(31 * var(--u3)); background-color:transparent; }
+#tA.down, #tB.down { border:0; transform:translateY(var(--u3)); } #tA.bad { background-color:transparent; filter:sepia(1) hue-rotate(-40deg) saturate(1.6); }
+#tA .lbl, #tB .lbl { margin-top:calc(-1 * var(--u3)); }
+#stickbase { width:calc(50 * var(--u3)); height:calc(50 * var(--u3)); } #stickknob { width:calc(20 * var(--u3)); height:calc(20 * var(--u3)); opacity:.95; }
+#tbtns { bottom:calc(var(--tbot, 12px) + env(safe-area-inset-bottom)); width:calc(56 * var(--u3)); }
+#tctx { bottom:calc(var(--tbot, 12px) + 190px + env(safe-area-inset-bottom)); }
+#pad { left:0; padding-left:env(safe-area-inset-left); }
+/* on its side the four at the top were one row from the middle to the right edge, over the room you stand in (its north wall, the way's dots): Talk and Menu go
+   beside the goals, Items and Craft stay at the right, and the middle of the screen is the land's */
+@media (max-height:520px) and (orientation:landscape) {
+  body.touch.playing #ttop { left:calc(var(--goalsr, 140px) + 4 * var(--tq)); pointer-events:none; } #ttop div { pointer-events:auto; }
+  #tTalk { order:-2; } #tMenu { order:-1; margin-right:auto; }
+}
+body.touch :is(#goals, #goalhint) { left:calc(10px + var(--q) + env(safe-area-inset-left)); top:calc(10px + var(--q) + env(safe-area-inset-top)); }
+body.touch #goalhint { height:44px; padding:0 12px; font-size:15px; }
+body.touch #goals .gf { height:calc(22 * var(--tq)); margin:calc(-7 * var(--tq)) 0; padding:0 calc(3 * var(--tq)); }
+body.touch #goalhelp { display:none; }                           /* (the help is a list of keys) */
+
+/* ---- the bar's numbers: the font at the item's own pixel (they were 18 px over a 15 px picture) ---- */
+@media (max-width:600px), (max-height:520px) {
+  body.touch { --rim:var(--i) 0 0 #5b3f36, calc(-1 * var(--i)) 0 0 #5b3f36, 0 var(--i) 0 #5b3f36, 0 calc(-1 * var(--i)) 0 #5b3f36, var(--i) var(--i) 0 #5b3f36, calc(-1 * var(--i)) var(--i) 0 #5b3f36, var(--i) calc(-1 * var(--i)) 0 #5b3f36, calc(-1 * var(--i)) calc(-1 * var(--i)) 0 #5b3f36; }
+  body.touch .slot .c { right:calc(-2 * var(--u)); bottom:calc(-4 * var(--u)); font-size:calc(9 * var(--i)); line-height:calc(9 * var(--i)); }
+  body.touch .slot .tip { display:none !important; }
+  body.touch #xplevel { font-size:calc(9 * var(--i)); line-height:calc(9 * var(--i)); bottom:calc(3 * var(--i)); text-shadow:var(--i) 0 0 #2b4417, calc(-1 * var(--i)) 0 0 #2b4417, 0 var(--i) 0 #2b4417, 0 calc(-1 * var(--i)) 0 #2b4417; }
+  /* ---- the chat: two short lines top left that go after a few seconds; a tap opens what was said, a tap elsewhere shuts it (main.js) ---- */
+  body.touch #chatbox { top:calc(62px + env(safe-area-inset-top)); }
+  body.touch #chatlog div { flex:none; max-width:100%; font-size:15px; line-height:18px; }
+  body.touch #chatlog .note:has(br), body.touch #chatlog .note:has(kbd) { padding:0 8px 0 26px; line-height:18px; }
+  body.touch #chatlog .note::before, body.touch #chatlog .note:has(br)::before { top:6px; }
+  body.touch #chatbox:not(.open, .peek) #chatlog { max-height:36px; }
+  body.touch #chatbox:not(.open, .peek) #chatlog div { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events:auto; }
+  body.touch #chatbox:not(.open, .peek) #chatlog div.old { pointer-events:none; }
+  body.touch #chatbox:is(.open, .peek) { z-index:5; pointer-events:auto; }
+  body.touch #chatbox:is(.open, .peek) #chatlog { max-height:30vh; overflow-y:auto; touch-action:pan-y; overscroll-behavior:contain; background:rgba(40,28,24,.45); scrollbar-width:none; }
+  body.touch #chatbox.peek #chatlog div.old { opacity:1; }
+  body.touch #say { height:44px; font-size:18px; border-radius:0; }
+  body.touch #sayhelp { max-width:calc(100vw - 16px); max-height:132px; } body.touch #sayhelp div { padding:8px 8px; }
+}
+@media (max-height:520px) and (orientation:landscape) { body.touch #chatbox:is(.open, .peek) #chatlog { max-height:22vh; } }
+
+/* ---- the menu and its settings: the font at two CSS px a font px, a row a finger high, the list scrolled by a finger ---- */
+@media (max-width:600px), (max-height:520px) {
+  body.touch #menu { --q:var(--p2, 2px); }
+  body.touch #menu .win { display:flex; flex-direction:column; width:min(calc(340 * var(--q)), calc(100vw - 12px - env(safe-area-inset-left) - env(safe-area-inset-right))); max-height:calc(100dvh - 12px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); margin-bottom:0; }
+  body.touch #menu .win.small { width:min(calc(170 * var(--q)), calc(100vw - 12px)); }
+  body.touch #menu .hh { flex:none; height:calc(24 * var(--q)); padding-bottom:calc(2 * var(--q)); }
+  body.touch #menu [data-go] { height:calc(22 * var(--q)); min-width:calc(40 * var(--q)); margin:0; padding:0 calc(6 * var(--q)) var(--q); justify-content:center; color:var(--ink); background:#f3e5c2;
+    box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-2 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  body.touch #menu .hf { flex:none; height:calc(27 * var(--q)); padding-top:calc(5 * var(--q)); }
+  body.touch #menu .tabs { flex:none; gap:calc(2 * var(--q)); padding-left:var(--q); padding-right:var(--q); } body.touch #menu .tab { height:calc(22 * var(--q)); } body.touch #menu .tab.on { height:calc(24 * var(--q)); }
+  body.touch #menu .well { flex:0 1 auto; height:auto; min-height:0; max-height:none; gap:calc(2 * var(--q)); touch-action:pan-y; overscroll-behavior:contain; }
+  body.touch #menu .row { height:auto; min-height:calc(22 * var(--q)); } body.touch #menu .row.big { min-height:calc(24 * var(--q)); }
+  body.touch #menu .name { white-space:normal; line-height:calc(10 * var(--q)); }
+  body.touch #menu .sw { width:calc(34 * var(--q)); height:calc(16 * var(--q)); } body.touch #menu .bar { height:calc(12 * var(--q)); }
+  body.touch #menu .pick { height:calc(22 * var(--q)); padding-bottom:0; } body.touch #menu .row:has(.pick) { padding-top:var(--q); padding-bottom:var(--q); } body.touch #menu .pick b { display:flex; align-items:center; justify-content:center; align-self:stretch; min-width:calc(22 * var(--q)); padding:0; }
+  body.touch #menu .ctl { width:calc(150 * var(--q)); }
+}
+/* held upright: a row's name over what it is set to (a switch stays beside its name) */
+@media (max-width:600px) and (orientation:portrait) {
+  body.touch #menu .well { max-height:calc(100dvh - 220px); }
+  body.touch #menu .row:has(.bar, .pick) { flex-direction:column; align-items:stretch; gap:0; padding-bottom:calc(3 * var(--q)); }
+  body.touch #menu .row:has(.bar, .pick) .name { line-height:calc(14 * var(--q)); } body.touch #menu .row:has(.bar, .pick) .ctl { width:auto; height:calc(22 * var(--q)); }
+  body.touch #menu .row:has(.sw) .ctl { width:auto; } body.touch #menu .pick { height:calc(22 * var(--q)); }
+}
+/* on its side: the pages down the left, their foot under them, the rows the whole height */
+@media (max-height:520px) and (orientation:landscape) {
+  body.touch #menu .win:not(.small) { display:grid; grid-template:auto auto 1fr / calc(64 * var(--q)) 1fr; grid-template-areas:"hh hh" "tabs well" "hf well"; column-gap:calc(4 * var(--q)); }
+  body.touch #menu .hh { grid-area:hh; } body.touch #menu .well { grid-area:well; } body.touch #menu .hf { grid-area:hf; align-items:flex-end; padding:0; height:auto; }
+  body.touch #menu .hf span { margin:0; flex:1; }
+  body.touch #menu .tabs { grid-area:tabs; flex-direction:column; padding:0; gap:calc(3 * var(--q)); }
+  body.touch #menu .tab, body.touch #menu .tab.on { flex:none; height:calc(22 * var(--q)); margin:0;
+    box-shadow:inset var(--q) var(--q) 0 #e2c79c, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #b08a62, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+  body.touch #menu .tab.on { background:#fbf0d6; box-shadow:inset var(--q) var(--q) 0 #fffaf0, inset calc(-1 * var(--q)) calc(-1 * var(--q)) 0 #cfad84, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+}
+
+/* ---- the inventory. Upright: five cells across, each a finger wide, what you wear in a row of its own, the words
+   under the cells as four buttons. On its side: the ten across, the buttons down its right. ---- */
+body.touch #bagkeys { font-size:calc(6 * var(--q)); gap:calc(2 * var(--q)); }
+body.touch #bag .bkey { flex:1; justify-content:center; height:calc(16 * var(--q)); padding:0 0 var(--q); box-shadow:inset var(--q) var(--q) 0 #fff8e6, inset calc(-1 * var(--q)) calc(-2 * var(--q)) 0 #d9bd8f, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; background:#f3e5c2; }
+body.upright #bag { width:calc(114 * var(--q)); height:calc(295 * var(--q)); bottom:0; } body.upright #bag .bkey { height:calc(17 * var(--q)); }
+#bagnote { display:none; } body.upright #bagnote { display:block; height:calc(26 * var(--q)); margin:calc(3 * var(--q)) calc(3 * var(--q)) 0; overflow:hidden; font-size:calc(9 * var(--q)); line-height:calc(10 * var(--q)); }   /* (the cursor's thing, its name and its line: under the cells, on none of them) */
+#bagnote i { display:block; font-style:normal; font-size:calc(6 * var(--q)); line-height:calc(8 * var(--q)); color:var(--ink2); }
+body.upright #bag .btip { white-space:normal; width:max-content; max-width:calc(100 * var(--q)); }
+body.upright #bag .bgrid { grid-template-columns:repeat(5, calc(18 * var(--q))); }
+body.upright #bag .bhead { flex-wrap:wrap; height:auto; margin-right:calc(2 * var(--q)); row-gap:var(--q); }
+body.upright #bag .bhead b { flex:0 0 100%; line-height:calc(16 * var(--q)); } body.upright #bag .bhead span { flex:0 0 100%; margin-left:var(--q); }
+body.upright #bagwear { margin-left:var(--q); }
+body.upright #bagkeys { height:auto; margin:calc(5 * var(--q)) var(--q) var(--q); }
+@media (max-height:520px) and (orientation:landscape) {
+  body.touch #bag { width:calc(264 * var(--q)); height:calc(143 * var(--q)); padding-right:calc(55 * var(--q)); }
+  body.touch #bagkeys { position:absolute; right:calc(5 * var(--q)); top:calc(27 * var(--q)); width:calc(46 * var(--q)); height:auto; margin:0; flex-direction:column; align-items:stretch; gap:calc(4 * var(--q)); }
+  body.touch #bag .bkey { flex:none; height:calc(19 * var(--q)); }
+}
+
+/* ---- the recipe book, upright: its bookmarks along the top, the list, and under it the page of the one you are on
+   (side by side, at a pixel that fits the width, a name was 28 px high and 12 px text) ---- */
+body.upright #craft { --q:var(--cq); width:calc(160 * var(--q)); height:calc(324 * var(--q)); }
+body.upright #crafttabs { position:static; flex-direction:row; margin:0 0 calc(3 * var(--q)); }
+body.upright .ctab, body.upright .ctab.on { width:calc(20 * var(--q)); box-shadow:inset var(--q) var(--q) 0 #ecd9b4, calc(-1 * var(--q)) 0 #6b4a3a, var(--q) 0 #6b4a3a, 0 calc(-1 * var(--q)) #6b4a3a, 0 var(--q) #6b4a3a; }
+body.upright .ctab.on { background:#fbf0d6; }
+body.upright #craft .cbook { flex-direction:column; height:auto; }
+body.upright #craft .cleft { width:auto; }
+body.upright #craftdetail { flex:none; height:calc(140 * var(--q)); }
+body.upright #craft .chead { margin-right:var(--q); }
+body.touch #craftfind { font-size:max(16px, calc(6 * var(--q))); height:calc(10 * var(--q)); } body.touch #craft .cfoot { height:calc(10 * var(--q)); }
+
+/* ---- a word asked of you, the mailbox, the death's panel: over the thumbs' buttons (they lay across it), a cross to shut it, square keys a finger high ---- */
+body.touch:has(:is(#ask, #mail)[style*="display: block"]) :is(#ttop, #tbtns, #tctx) { visibility:hidden; }
+body.touch :is(#ask, #mail) { z-index:6; top:calc(40% + env(safe-area-inset-top)); width:min(520px, calc(100vw - 28px)); }
+body.touch :is(#ask, #mail) h3 { min-height:44px; padding-right:52px; display:flex; align-items:center; }
+body.touch :is(#ask, #mail) .close { right:-4px; top:-12px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; font-size:0; color:var(--ink); background:#f3e5c2;
+  box-shadow:inset var(--tq) var(--tq) 0 #fff8e6, inset calc(-1 * var(--tq)) calc(-2 * var(--tq)) 0 #d9bd8f, calc(-1 * var(--tq)) 0 #6b4a3a, var(--tq) 0 #6b4a3a, 0 calc(-1 * var(--tq)) #6b4a3a, 0 var(--tq) #6b4a3a; }
+body.touch :is(#ask, #mail) .close::after { content:"x"; font-size:18px; }
+body.touch :is(#ask, #mail) input { min-width:0; height:44px; border-radius:0; }
+body.touch :is(#ask, #mail) button { flex:none; height:44px; border:0; border-radius:0; white-space:nowrap; color:var(--ink); background:#f3e5c2;
+  box-shadow:inset var(--tq) var(--tq) 0 #fff8e6, inset calc(-1 * var(--tq)) calc(-2 * var(--tq)) 0 #d9bd8f, calc(-1 * var(--tq)) 0 #6b4a3a, var(--tq) 0 #6b4a3a, 0 calc(-1 * var(--tq)) #6b4a3a, 0 var(--tq) #6b4a3a; }
+body.touch :is(#askok, #postbtn) { color:#fff8e8; background:#5aa563; box-shadow:inset var(--tq) var(--tq) 0 #8fcc97, inset calc(-1 * var(--tq)) calc(-2 * var(--tq)) 0 #3f7a4f, calc(-1 * var(--tq)) 0 #2f5a3b, var(--tq) 0 #2f5a3b, 0 calc(-1 * var(--tq)) #2f5a3b, 0 var(--tq) #2f5a3b; }
+body.touch #deathloot .dslot { width:calc(11 * var(--u3) + 12px); height:calc(11 * var(--u3) + 12px); border-radius:0; } body.touch #deathloot .dicon { width:calc(11 * var(--u3)); height:calc(11 * var(--u3)); margin:4px; }
+body.touch #deathloot span { right:0; bottom:-2px; font-size:12px; line-height:12px; text-shadow:1px 0 0 var(--ink), -1px 0 0 var(--ink), 0 1px 0 var(--ink), 0 -1px 0 var(--ink), 1px 1px 0 var(--ink), -1px 1px 0 var(--ink), 1px -1px 0 var(--ink), -1px -1px 0 var(--ink); }
+body.touch #death { z-index:8; } body.touch #death .dbar { border-radius:0; }
+body.touch :is(#bagclose, #craftclose) { width:calc(19 * var(--q)); height:calc(19 * var(--q)); top:calc(4 * var(--q)); right:calc(4 * var(--q)); }
+
+/* ---- a phone on its side, wide enough (body.hudside, ui.js hudFit): the hearts over the food over the experience at the bar's left, in the bar's own height; the whole of it between the screen's left and the thumbs' buttons ---- */
+body.hudside #hud { display:grid !important; grid-template:auto auto auto / auto auto; grid-template-areas:"st st" "vit bar" "xp bar"; column-gap:8px; row-gap:1px; align-items:center; align-content:end;
+  left:env(safe-area-inset-left); right:calc(56 * var(--u3) + 12px + env(safe-area-inset-right)); transform:none !important; }
+body.hudside:not(.playing) #hud { display:none !important; }
+body.hudside #status { grid-area:st; } body.hudside #hud .hudrow { grid-area:bar; }
+body.hudside #vitals { grid-area:vit; flex-direction:column; align-items:flex-start; align-self:end; gap:1px; padding:0; min-width:0; }
+body.hudside #xpwrap { grid-area:xp; margin:0; align-self:start; }
+body.hudside #xplevel { left:auto; right:calc(-1 * var(--i)); bottom:calc(8 * var(--i)); }

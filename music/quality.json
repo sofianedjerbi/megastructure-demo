@@ -1,0 +1,1530 @@
+{
+ "tracks": [
+  {
+   "id": "road",
+   "title": "Meadow Road",
+   "lead": "nylon guitar",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "7 chords, all from D major"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "8 of 16 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 7 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "9 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "A7sus to D6"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "D4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "1 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 66% of the time, 4 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 5 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "B4, 4 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "D6 to Dmaj7: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "84 BPM"
+    ],
+    [
+     "a light swing",
+     true,
+     "off-beats at 58% of the beat"
+    ],
+    [
+     "seventh and sixth chords",
+     true,
+     "100% of the chords"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "5 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "nylon guitar"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     null,
+     "250 s (Animal Crossing's are one to two minutes: this one is longer, eleven settings of one tune)"
+    ]
+   ],
+   "mix": {
+    "id": "road",
+    "lufs": -17.0,
+    "target": -17,
+    "peak_db": -1.0,
+    "crest_db": 18.2,
+    "block_range_db": 6.1,
+    "blocks_lufs": [
+     -16.1,
+     -16.0,
+     -19.6,
+     -16.1,
+     -14.9,
+     -21.0,
+     -16.1,
+     -19.5,
+     -14.9,
+     -17.6,
+     -21.0
+    ],
+    "front_db": [
+     1.6,
+     1.7,
+     1.6,
+     3.5,
+     1.6,
+     3.6,
+     -1.2
+    ],
+    "tune_over_band_db": [
+     -1.2,
+     3.6
+    ],
+    "voices": 5,
+    "bands_db": {
+     "under 60 Hz": -21.8,
+     "60-250": -4.2,
+     "250-1k": -2.9,
+     "1-4k": -10.2,
+     "over 4k": -25.6
+    },
+    "stereo": 0.97,
+    "low_mono": 0.99,
+    "seam": 0.0059,
+    "dc_db": -165.0,
+    "stems_lufs": {
+     "piano": -20.8,
+     "lead": -25.7,
+     "comp": -25.0,
+     "pad": -30.7,
+     "bass": -23.3,
+     "drums": -39.7,
+     "texture": -51.6
+    },
+    "seconds": 250.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "night",
+   "title": "Lantern Road",
+   "lead": "vibraphone",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "3 chords, all from B minor"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "8 of 16 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 7 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "9 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "A to Bm (modal: no leading note, by design)"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "D4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "1 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 66% of the time, 4 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 3 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "B4, 4 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "Bm to Bm: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "60 BPM"
+    ],
+    [
+     "a light swing",
+     null,
+     "off-beats at 50% of the beat (straight: night and fight)"
+    ],
+    [
+     "seventh and sixth chords",
+     null,
+     "0% of the chords (plain minor triads, on purpose: darker)"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "5 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "vibraphone"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     null,
+     "192 s (Animal Crossing's are one to two minutes: this one is longer, eleven settings of one tune)"
+    ]
+   ],
+   "mix": {
+    "id": "night",
+    "lufs": -19.0,
+    "target": -19,
+    "peak_db": -1.1,
+    "crest_db": 20.0,
+    "block_range_db": 3.4,
+    "blocks_lufs": [
+     -20.2,
+     -18.8,
+     -18.2,
+     -19.9,
+     -17.2,
+     -20.6
+    ],
+    "front_db": [
+     4.1,
+     2.2,
+     -0.8,
+     3.2
+    ],
+    "tune_over_band_db": [
+     -0.8,
+     4.1
+    ],
+    "voices": 5,
+    "bands_db": {
+     "under 60 Hz": -26.6,
+     "60-250": -6.8,
+     "250-1k": -1.2,
+     "1-4k": -14.3,
+     "over 4k": -35.2
+    },
+    "stereo": 0.97,
+    "low_mono": 0.98,
+    "seam": 0.0013,
+    "dc_db": -149.0,
+    "stems_lufs": {
+     "piano": -21.1,
+     "chords": -26.2,
+     "whistle": -28.2,
+     "pad": -31.0,
+     "bass": -34.0,
+     "air": -44.7
+    },
+    "seconds": 192.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "boss",
+   "title": "Old Mossback",
+   "lead": "oboe",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "3 chords, all from B minor"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "8 of 16 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 7 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "9 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "A to Bm (modal: no leading note, by design)"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "D4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "1 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 66% of the time, 4 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 3 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "B4, 4 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "Bm to Bm: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "96 BPM"
+    ],
+    [
+     "a light swing",
+     null,
+     "off-beats at 50% of the beat (straight: night and fight)"
+    ],
+    [
+     "seventh and sixth chords",
+     null,
+     "0% of the chords (plain minor triads, on purpose: darker)"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "6 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "oboe"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     true,
+     "90 s"
+    ]
+   ],
+   "mix": {
+    "id": "boss",
+    "lufs": -15.6,
+    "target": -15.5,
+    "peak_db": -0.9,
+    "crest_db": 16.6,
+    "block_range_db": 3.9,
+    "blocks_lufs": [
+     -18.5,
+     -15.8,
+     -14.6,
+     -16.8,
+     -14.6
+    ],
+    "front_db": [],
+    "tune_over_band_db": null,
+    "voices": 6,
+    "bands_db": {
+     "under 60 Hz": -16.9,
+     "60-250": -1.4,
+     "250-1k": -7.7,
+     "1-4k": -10.8,
+     "over 4k": -29.1
+    },
+    "stereo": 0.98,
+    "low_mono": 1.0,
+    "seam": 0.0028,
+    "dc_db": -111.0,
+    "stems_lufs": {
+     "drums": -20.7,
+     "bass": -20.3,
+     "strings": -24.7,
+     "horn": -25.6,
+     "piano": -25.0,
+     "lead": -31.1,
+     "pad": -37.5
+    },
+    "seconds": 90.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "market",
+   "title": "Market Morning",
+   "lead": "marimba",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "6 chords, all from G major"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "12 of 20 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 8 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "10 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "over the dominant it always resolves"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "D7 to G6"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "G4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "3 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 66% of the time, 4 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 2 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "E5, 5 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "G6 to Gmaj7: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "96 BPM"
+    ],
+    [
+     "a light swing",
+     true,
+     "off-beats at 60% of the beat"
+    ],
+    [
+     "seventh and sixth chords",
+     true,
+     "100% of the chords"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "6 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "marimba"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     true,
+     "120 s"
+    ]
+   ],
+   "mix": {
+    "id": "market",
+    "lufs": -17.0,
+    "target": -17,
+    "peak_db": -1.0,
+    "crest_db": 18.2,
+    "block_range_db": 4.5,
+    "blocks_lufs": [
+     -16.2,
+     -16.2,
+     -20.3,
+     -15.9,
+     -16.1,
+     -19.3
+    ],
+    "front_db": [
+     2.7,
+     2.6,
+     2.9,
+     2.5
+    ],
+    "tune_over_band_db": [
+     2.5,
+     2.9
+    ],
+    "voices": 6,
+    "bands_db": {
+     "under 60 Hz": -24.7,
+     "60-250": -4.6,
+     "250-1k": -2.2,
+     "1-4k": -14.0,
+     "over 4k": -20.7
+    },
+    "stereo": 0.98,
+    "low_mono": 0.99,
+    "seam": 0.0015,
+    "dc_db": -146.0,
+    "stems_lufs": {
+     "lead": -21.9,
+     "second": -23.7,
+     "chords": -26.3,
+     "pad": -26.4,
+     "bass": -23.7,
+     "perc": -33.7
+    },
+    "seconds": 120.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "afternoon",
+   "title": "Slow Afternoon",
+   "lead": "concert harp",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "8 chords, all from F major"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "12 of 16 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 5 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "8 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "C7 to F6"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "A4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "4 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 69% of the time, 3 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 2 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "F5, 2 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "F6 to Fmaj7: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "72 BPM"
+    ],
+    [
+     "a light swing",
+     true,
+     "off-beats at 60% of the beat"
+    ],
+    [
+     "seventh and sixth chords",
+     true,
+     "100% of the chords"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "5 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "concert harp"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     true,
+     "160 s"
+    ]
+   ],
+   "mix": {
+    "id": "afternoon",
+    "lufs": -17.3,
+    "target": -17,
+    "peak_db": -1.0,
+    "crest_db": 18.6,
+    "block_range_db": 4.8,
+    "blocks_lufs": [
+     -16.9,
+     -16.9,
+     -21.0,
+     -16.1,
+     -16.3,
+     -17.9
+    ],
+    "front_db": [
+     1.8,
+     2.0,
+     3.1,
+     2.9
+    ],
+    "tune_over_band_db": [
+     1.8,
+     3.1
+    ],
+    "voices": 5,
+    "bands_db": {
+     "under 60 Hz": -22.1,
+     "60-250": -5.0,
+     "250-1k": -2.7,
+     "1-4k": -8.5,
+     "over 4k": -29.8
+    },
+    "stereo": 0.98,
+    "low_mono": 1.0,
+    "seam": 0.0084,
+    "dc_db": -136.0,
+    "stems_lufs": {
+     "lead": -22.8,
+     "second": -23.8,
+     "chords": -24.9,
+     "pad": -26.9,
+     "bass": -23.8,
+     "perc": -121.2
+    },
+    "seconds": 160.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "overcast",
+   "title": "Overcast",
+   "lead": "clarinet",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "7 chords, all from A minor, closing in C major"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "13 of 20 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 7 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "8 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "G7 to C6 (modal: no leading note, by design)"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "C5"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "4 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 72% of the time, 4 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 5 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "F5, 2 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "C6 to Am7: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "80 BPM"
+    ],
+    [
+     "a light swing",
+     true,
+     "off-beats at 56% of the beat"
+    ],
+    [
+     "seventh and sixth chords",
+     true,
+     "89% of the chords"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "6 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "clarinet"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     true,
+     "144 s"
+    ]
+   ],
+   "mix": {
+    "id": "overcast",
+    "lufs": -17.0,
+    "target": -17,
+    "peak_db": -2.2,
+    "crest_db": 17.0,
+    "block_range_db": 4.5,
+    "blocks_lufs": [
+     -16.1,
+     -16.1,
+     -20.3,
+     -15.8,
+     -16.1,
+     -19.8
+    ],
+    "front_db": [
+     2.8,
+     2.5,
+     2.8,
+     2.4
+    ],
+    "tune_over_band_db": [
+     2.4,
+     2.8
+    ],
+    "voices": 6,
+    "bands_db": {
+     "under 60 Hz": -21.9,
+     "60-250": -5.0,
+     "250-1k": -2.3,
+     "1-4k": -11.1,
+     "over 4k": -20.6
+    },
+    "stereo": 0.98,
+    "low_mono": 0.99,
+    "seam": 0.0101,
+    "dc_db": -180.0,
+    "stems_lufs": {
+     "lead": -21.9,
+     "second": -23.6,
+     "chords": -26.2,
+     "pad": -27.0,
+     "bass": -23.7,
+     "perc": -33.6
+    },
+    "seconds": 144.0,
+    "fail": []
+   }
+  },
+  {
+   "id": "picnic",
+   "title": "Picnic",
+   "lead": "harmonica",
+   "theory": [
+    [
+     "every chord is in the key",
+     true,
+     "6 chords, all from A major"
+    ],
+    [
+     "melody notes on a beat are chord notes",
+     true,
+     "17 of 27 notes fall on a beat"
+    ],
+    [
+     "nothing a minor ninth under the melody",
+     true,
+     ""
+    ],
+    [
+     "no two steps in a row the same way",
+     true,
+     ""
+    ],
+    [
+     "no chord spelled out by three leaps the same way",
+     true,
+     ""
+    ],
+    [
+     "no augmented leap, no seventh, none over an octave",
+     true,
+     "largest leap inside a phrase 12 semitones"
+    ],
+    [
+     "a leap larger than a fourth turns back",
+     true,
+     ""
+    ],
+    [
+     "range between a fourth and a tenth",
+     true,
+     "12 semitones"
+    ],
+    [
+     "the leading note goes up to the tonic",
+     true,
+     "not used over the dominant"
+    ],
+    [
+     "closes on the tonic, from the dominant",
+     true,
+     "E7 to A6"
+    ],
+    [
+     "the tune ends on the tonic or its third",
+     true,
+     "A4"
+    ],
+    [
+     "the idea returns (bars 1-2 again at 5-6)",
+     true,
+     "4 bar rhythms in all"
+    ],
+    [
+     "the melody leaves space",
+     true,
+     "sounds 78% of the time, 5 notes in the busiest bar"
+    ],
+    [
+     "no close interval in the muddy register",
+     true,
+     "thirds from C2 up, seconds from C3 up"
+    ],
+    [
+     "chord to chord, no voice moves more than a fourth",
+     true,
+     "largest move 5 semitones"
+    ],
+    [
+     "no parallel fifths or octaves between tune and bass",
+     true,
+     ""
+    ],
+    [
+     "one high point",
+     null,
+     "E5, 5 times (a repeated idea: the top note returns with it)"
+    ],
+    [
+     "the last bar leads back to the first",
+     null,
+     "A6 to Amaj7: the loop restarts from rest, no turnaround"
+    ]
+   ],
+   "practice": [
+    [
+     "60 to 100 BPM",
+     true,
+     "100 BPM"
+    ],
+    [
+     "a light swing",
+     true,
+     "off-beats at 62% of the beat"
+    ],
+    [
+     "seventh and sixth chords",
+     true,
+     "100% of the chords"
+    ],
+    [
+     "five or six instruments at most at once",
+     true,
+     "6 at the fullest"
+    ],
+    [
+     "its own lead instrument",
+     true,
+     "harmonica"
+    ],
+    [
+     "the tune passes between two instruments",
+     true,
+     "the lead, then a second voice"
+    ],
+    [
+     "a short seamless loop",
+     true,
+     "115 s"
+    ]
+   ],
+   "mix": {
+    "id": "picnic",
+    "lufs": -17.0,
+    "target": -17,
+    "peak_db": -1.0,
+    "crest_db": 18.4,
+    "block_range_db": 4.3,
+    "blocks_lufs": [
+     -16.0,
+     -16.1,
+     -20.3,
+     -15.9,
+     -16.3,
+     -19.6
+    ],
+    "front_db": [
+     3.0,
+     2.5,
+     2.8,
+     2.3
+    ],
+    "tune_over_band_db": [
+     2.3,
+     3.0
+    ],
+    "voices": 6,
+    "bands_db": {
+     "under 60 Hz": -20.0,
+     "60-250": -4.6,
+     "250-1k": -3.0,
+     "1-4k": -8.6,
+     "over 4k": -22.5
+    },
+    "stereo": 0.98,
+    "low_mono": 0.99,
+    "seam": 0.0058,
+    "dc_db": -128.0,
+    "stems_lufs": {
+     "lead": -21.9,
+     "second": -23.7,
+     "chords": -26.2,
+     "pad": -26.8,
+     "bass": -23.7,
+     "perc": -33.7
+    },
+    "seconds": 115.2,
+    "fail": []
+   }
+  }
+ ],
+ "instruments": [
+  {
+   "name": "nylon guitar",
+   "role": "lead",
+   "note": "A4",
+   "loudness": -19.0,
+   "peak": -10.5,
+   "attack_ms": 15.2,
+   "centroid_hz": 442,
+   "above_4k_db": -60.2,
+   "below_40_db": -93.8,
+   "cents": 0.1,
+   "cut_db": -140.0,
+   "dc": -127.0,
+   "fail": []
+  },
+  {
+   "name": "marimba",
+   "role": "lead",
+   "note": "D5",
+   "loudness": -17.8,
+   "peak": -5.1,
+   "attack_ms": 8.0,
+   "centroid_hz": 586,
+   "above_4k_db": -68.1,
+   "below_40_db": -34.3,
+   "cents": 0.0,
+   "cut_db": -180.0,
+   "dc": -96.0,
+   "fail": []
+  },
+  {
+   "name": "concert harp",
+   "role": "lead",
+   "note": "C5",
+   "loudness": -17.8,
+   "peak": 1.3,
+   "attack_ms": 8.2,
+   "centroid_hz": 535,
+   "above_4k_db": -51.9,
+   "below_40_db": -63.1,
+   "cents": 0.1,
+   "cut_db": -137.0,
+   "dc": -141.0,
+   "fail": []
+  },
+  {
+   "name": "clarinet",
+   "role": "lead",
+   "note": "E5",
+   "loudness": -15.8,
+   "peak": -8.7,
+   "attack_ms": 291.0,
+   "centroid_hz": 1028,
+   "above_4k_db": -34.3,
+   "below_40_db": -69.2,
+   "cents": -0.1,
+   "cut_db": -85.0,
+   "dc": -100.0,
+   "fail": []
+  },
+  {
+   "name": "harmonica",
+   "role": "lead",
+   "note": "E5",
+   "loudness": -19.0,
+   "peak": -13.4,
+   "attack_ms": 27.5,
+   "centroid_hz": 1184,
+   "above_4k_db": -19.7,
+   "below_40_db": -86.1,
+   "cents": -0.4,
+   "cut_db": -85.0,
+   "dc": -102.0,
+   "fail": []
+  },
+  {
+   "name": "vibraphone",
+   "role": "lead",
+   "note": "A4",
+   "loudness": -14.7,
+   "peak": -10.7,
+   "attack_ms": 6.8,
+   "centroid_hz": 440,
+   "above_4k_db": -76.9,
+   "below_40_db": -77.3,
+   "cents": 0.0,
+   "cut_db": -102.0,
+   "dc": -132.0,
+   "fail": []
+  },
+  {
+   "name": "flute",
+   "role": "second",
+   "note": "D5",
+   "loudness": -15.4,
+   "peak": -11.6,
+   "attack_ms": 74.4,
+   "centroid_hz": 671,
+   "above_4k_db": -42.3,
+   "below_40_db": -96.6,
+   "cents": -0.0,
+   "cut_db": -82.0,
+   "dc": -137.0,
+   "fail": []
+  },
+  {
+   "name": "oboe",
+   "role": "lead",
+   "note": "A4",
+   "loudness": -17.0,
+   "peak": -13.4,
+   "attack_ms": 29.1,
+   "centroid_hz": 1248,
+   "above_4k_db": -42.6,
+   "below_40_db": -29.5,
+   "cents": -0.1,
+   "cut_db": -84.0,
+   "dc": -74.0,
+   "fail": []
+  },
+  {
+   "name": "harp, chords",
+   "role": "chords",
+   "note": "A3",
+   "loudness": -25.6,
+   "peak": -12.4,
+   "attack_ms": 12.8,
+   "centroid_hz": 239,
+   "above_4k_db": -64.2,
+   "below_40_db": -73.9,
+   "cents": 1.5,
+   "cut_db": -114.0,
+   "dc": -134.0,
+   "fail": []
+  },
+  {
+   "name": "violas and cellos",
+   "role": "pad",
+   "note": "F#3",
+   "loudness": -36.2,
+   "peak": -23.6,
+   "attack_ms": 760.3,
+   "centroid_hz": 659,
+   "above_4k_db": -29.2,
+   "below_40_db": -81.3,
+   "cents": 15.2,
+   "cut_db": -95.0,
+   "dc": -161.0,
+   "fail": []
+  },
+  {
+   "name": "double bass",
+   "role": "bass",
+   "note": "D2",
+   "loudness": -15.9,
+   "peak": -10.4,
+   "attack_ms": 43.8,
+   "centroid_hz": 77,
+   "above_4k_db": -62.9,
+   "below_40_db": -26.1,
+   "cents": 0.1,
+   "cut_db": -92.0,
+   "dc": -98.0,
+   "fail": []
+  },
+  {
+   "name": "double bass (2)",
+   "role": "bass",
+   "note": "G2",
+   "loudness": -17.4,
+   "peak": -6.2,
+   "attack_ms": 44.8,
+   "centroid_hz": 116,
+   "above_4k_db": -52.9,
+   "below_40_db": -45.6,
+   "cents": -0.1,
+   "cut_db": -101.0,
+   "dc": -97.0,
+   "fail": []
+  },
+  {
+   "name": "shaker",
+   "role": "percussion",
+   "note": "C4",
+   "loudness": -28.9,
+   "peak": -18.9,
+   "attack_ms": 37.0,
+   "centroid_hz": 8201,
+   "above_4k_db": -0.6,
+   "below_40_db": -28.7,
+   "cents": null,
+   "cut_db": -159.0,
+   "dc": -61.0,
+   "fail": []
+  },
+  {
+   "name": "woodblock",
+   "role": "percussion",
+   "note": "C4",
+   "loudness": -34.2,
+   "peak": -11.4,
+   "attack_ms": 12.2,
+   "centroid_hz": 1638,
+   "above_4k_db": -15.0,
+   "below_40_db": -20.2,
+   "cents": null,
+   "cut_db": -175.0,
+   "dc": -84.0,
+   "fail": []
+  }
+ ],
+ "room": {
+  "day": {
+   "rt60_s": 1.0,
+   "predelay_ms": 21,
+   "return": "250 Hz to 8 kHz",
+   "level_db": {
+    "lead": -24,
+    "chords": -24,
+    "pad": -21,
+    "percussion": -32,
+    "bass": "dry"
+   }
+  },
+  "night": {
+   "rt60_s": 1.4,
+   "predelay_ms": 21,
+   "return": "250 Hz to 8 kHz",
+   "level_db": {
+    "lead": -24,
+    "chords": -24,
+    "pad": -21,
+    "percussion": -32,
+    "bass": "dry"
+   }
+  },
+  "boss": {
+   "rt60_s": 0.9,
+   "predelay_ms": 21,
+   "return": "250 Hz to 8 kHz",
+   "level_db": {
+    "lead": -24,
+    "chords": -24,
+    "pad": -21,
+    "percussion": -32,
+    "bass": "dry"
+   }
+  }
+ },
+ "fails": 0
+}

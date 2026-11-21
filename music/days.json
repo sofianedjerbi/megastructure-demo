@@ -1,0 +1,174 @@
+[
+ {
+  "id": "market",
+  "title": "Market Morning",
+  "key": "G major",
+  "bpm": 96,
+  "mood": "bouncy, on its toes",
+  "bars": 48,
+  "seconds": 120.0,
+  "chords": "Gmaj7 | Em7 | Cmaj7 | D7 | Gmaj7 | Em7 | Am7 D7 | G6",
+  "band": "marimba, flute, nylon guitar, double bass, shaker",
+  "sections": [
+   {
+    "name": "the tune",
+    "t": 0.0,
+    "bars": 8
+   },
+   {
+    "name": "with the band",
+    "t": 20.0,
+    "bars": 8
+   },
+   {
+    "name": "the band alone",
+    "t": 40.0,
+    "bars": 8
+   },
+   {
+    "name": "handed over",
+    "t": 60.0,
+    "bars": 8
+   },
+   {
+    "name": "call and answer",
+    "t": 80.0,
+    "bars": 8
+   },
+   {
+    "name": "open air",
+    "t": 100.0,
+    "bars": 8
+   }
+  ]
+ },
+ {
+  "id": "afternoon",
+  "title": "Slow Afternoon",
+  "key": "F major",
+  "bpm": 72,
+  "mood": "lazy, long notes, waits for beat two",
+  "bars": 48,
+  "seconds": 160.0,
+  "chords": "Fmaj7 | Dm7 | Bbmaj7 | C7sus | Fmaj7 | Am7 | Gm7 C7 | F6",
+  "band": "concert harp, clarinet, vibraphone, double bass",
+  "sections": [
+   {
+    "name": "the tune",
+    "t": 0.0,
+    "bars": 8
+   },
+   {
+    "name": "with the band",
+    "t": 26.666666666666668,
+    "bars": 8
+   },
+   {
+    "name": "the band alone",
+    "t": 53.333333333333336,
+    "bars": 8
+   },
+   {
+    "name": "handed over",
+    "t": 80.0,
+    "bars": 8
+   },
+   {
+    "name": "call and answer",
+    "t": 106.66666666666667,
+    "bars": 8
+   },
+   {
+    "name": "open air",
+    "t": 133.33333333333334,
+    "bars": 8
+   }
+  ]
+ },
+ {
+  "id": "overcast",
+  "title": "Overcast",
+  "key": "A minor, closing in C major",
+  "bpm": 80,
+  "mood": "bittersweet, a repeated note",
+  "bars": 48,
+  "seconds": 144.0,
+  "chords": "Am7 | Fmaj7 | Cmaj7 | G | Am7 | Fmaj7 | Dm7 G7 | C6",
+  "band": "clarinet, vibraphone, harp, double bass, shaker",
+  "sections": [
+   {
+    "name": "the tune",
+    "t": 0.0,
+    "bars": 8
+   },
+   {
+    "name": "with the band",
+    "t": 24.0,
+    "bars": 8
+   },
+   {
+    "name": "the band alone",
+    "t": 48.0,
+    "bars": 8
+   },
+   {
+    "name": "handed over",
+    "t": 72.0,
+    "bars": 8
+   },
+   {
+    "name": "call and answer",
+    "t": 96.0,
+    "bars": 8
+   },
+   {
+    "name": "open air",
+    "t": 120.0,
+    "bars": 8
+   }
+  ]
+ },
+ {
+  "id": "picnic",
+  "title": "Picnic",
+  "key": "A major",
+  "bpm": 100,
+  "mood": "brisk and playful, call and answer",
+  "bars": 48,
+  "seconds": 115.2,
+  "chords": "Amaj7 | F#m7 | Dmaj7 | E7 | Amaj7 | F#m7 | Bm7 E7 | A6",
+  "band": "harmonica, nylon guitar, marimba, double bass, shaker, woodblock",
+  "sections": [
+   {
+    "name": "the tune",
+    "t": 0.0,
+    "bars": 8
+   },
+   {
+    "name": "with the band",
+    "t": 19.2,
+    "bars": 8
+   },
+   {
+    "name": "the band alone",
+    "t": 38.4,
+    "bars": 8
+   },
+   {
+    "name": "handed over",
+    "t": 57.599999999999994,
+    "bars": 8
+   },
+   {
+    "name": "call and answer",
+    "t": 76.8,
+    "bars": 8
+   },
+   {
+    "name": "open air",
+    "t": 96.0,
+    "bars": 8
+   }
+  ]
+ }
+]
